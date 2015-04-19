@@ -47,6 +47,7 @@ end
 group :test do
   gem 'rspec-rails'
   gem 'capybara'
+  gem 'machinist'
 end
 
 gem 'devise'
