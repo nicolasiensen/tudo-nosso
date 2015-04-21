@@ -11,10 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150421213540) do
+ActiveRecord::Schema.define(version: 20150421225810) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "contributions", force: :cascade do |t|
+    t.text     "body"
+    t.text     "justification"
+    t.integer  "user_id"
+    t.integer  "document_id"
+    t.string   "paragraph_hash"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
 
   create_table "documents", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -44,6 +54,7 @@ ActiveRecord::Schema.define(version: 20150421213540) do
     t.datetime "updated_at"
     t.string   "first_name"
     t.string   "last_name"
+    t.string   "api_token"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
