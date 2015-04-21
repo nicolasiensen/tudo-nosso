@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature "ContributeToAParagraph", type: :feature do
+RSpec.feature "ContributeToAParagraph", type: :feature, js: true do
   scenario "when I'm logged in" do
     email = "contributor@trashmail.com"
     password = "12345678"
@@ -15,7 +15,7 @@ RSpec.feature "ContributeToAParagraph", type: :feature do
     document = Document.make! body: body
 
     visit document_path(document)
-    expect(page).to have_css(:p, text: "Lorem ipsum")
+    expect(page).to have_css(".paragraph", text: "Lorem ipsum")
 
     # page.find(:xpath, "p@text=\"Lorem ipsum\"").hover
 
