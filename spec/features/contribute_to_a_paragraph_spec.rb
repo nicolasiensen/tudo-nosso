@@ -17,7 +17,7 @@ RSpec.feature "ContributeToAParagraph", type: :feature do
     visit document_path(document)
     expect(page).to have_css(:p, text: "Lorem ipsum")
 
-    page.find(:xpath, "p@text=\"Lorem ipsum\"").hover
+    # page.find(:xpath, "p@text=\"Lorem ipsum\"").hover
 
     pending
     fail

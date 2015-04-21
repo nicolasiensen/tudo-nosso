@@ -6,4 +6,5 @@ User.blueprint do
 end
 
 Document.blueprint do
+  body { "<p>Lorem ipsum</p>" }
 end
