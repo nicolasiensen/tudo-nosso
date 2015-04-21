@@ -20,6 +20,9 @@ RSpec.feature "ContributeToAParagraph", type: :feature, js: true do
     page.find(".paragraph", text: "Lorem ipsum").hover
     expect(page).to have_css(".newContributionButton", visible: true)
 
+    click_link("Nova contribuição")
+    expect(page).to have_css(".newContributionForm", visible: true)
+
     pending
     fail
   end
