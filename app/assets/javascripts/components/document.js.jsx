@@ -18,10 +18,6 @@ var Document = React.createClass({
       );
     });
 
-    return (
-      <div>
-        {paragraphNodes}
-      </div>
-    );
+    return <div>{paragraphNodes}</div>
   }
 });
