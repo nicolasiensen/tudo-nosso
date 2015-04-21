@@ -47,9 +47,12 @@ end
 
 group :test do
   gem 'capybara'
+  gem 'selenium-webdriver'
   gem 'machinist'
   gem 'shoulda-matchers'
+  gem 'database_cleaner'
 end
 
 gem 'devise'
 gem 'slim-rails'
+gem 'react-rails', '~> 1.0'
