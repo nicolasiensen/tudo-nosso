@@ -23,6 +23,16 @@ RSpec.feature "ContributeToAParagraph", type: :feature, js: true do
     click_link("Nova contribuição")
     expect(page).to have_css(".newContributionForm", visible: true)
 
+    fill_in("contribution[body]", with: "Lorem ipsum dolor sit amet")
+    fill_in("contribution[justification]", with: "It is very important to mention: dolor sit amet")
+    click_button("Enviar")
+
+    expect(page).to have_css("#contribution_body", text: nil)
+    expect(page).to have_css("#contribution_justification", text: nil)
+    expect(page).to have_css(".contribution .contributionBody", text: "Lorem ipsum dolor sit amet")
+    expect(page).to have_css(".contribution .contributionJustification", text: "It is very important to mention: dolor sit amet")
+    expect(page).to have_css(".contribution .userName", text: user.first_name)
+
     pending
     fail
   end

@@ -1,1 +1,1 @@
-= react_component('Document', body: @document.body)
+= react_component('Document', body: @document.body, documentId: @document.id, userApiToken: current_user.present? ? current_user.api_token : nil)

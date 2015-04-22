@@ -14,9 +14,12 @@ var Document = React.createClass({
   render: function() {
     paragraphNodes = this.state.paragraphs.map(function (paragraph){
       return (
-        <Paragraph paragraphBody={paragraph} />
+        <Paragraph
+          paragraphBody={paragraph}
+          userApiToken={this.props.userApiToken}
+          documentId={this.props.documentId}/>
       );
-    });
+    }.bind(this));
 
     return <div>{paragraphNodes}</div>
   }
