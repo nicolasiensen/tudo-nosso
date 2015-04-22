@@ -6,10 +6,10 @@ class ApiController < ActionController::Base
   end
 
   def current_user
-    User.where(api_token: current_api_token).first
+    User.find_by(api_token: current_api_token)
   end
 
   def current_api_token
-    /(.*)=\"(.*)\"/.match(request.headers["Authorization"])[2]
+    /Token\ token=\"(.*)\"/.match(request.headers["Authorization"])[1]
   end
 end
