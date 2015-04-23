@@ -76,8 +76,6 @@ var Paragraph = React.createClass({
       );
     });
 
-    console.log("Render init");
-
     return (
       <div
         className="paragraph"
@@ -89,7 +87,7 @@ var Paragraph = React.createClass({
           href="#"
           style={{display: (this.state.mouseOver || this.props.formOpen) ? 'block' : 'none'}}
           onClick={this.openForm}>
-          Nova contribuição
+          <i className="fa fa-comment"></i>
         </a>
         <form
           className="newContributionForm"
@@ -114,7 +112,5 @@ var Paragraph = React.createClass({
         </div>
       </div>
     );
-
-    console.log("Render finished");
   }
 });
