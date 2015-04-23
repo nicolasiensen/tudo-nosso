@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
-  before_create :generate_api_token
+  before_validation :generate_api_token
 
   validates :first_name, :last_name, presence: true
   validates :api_token, presence: true, uniqueness: true
