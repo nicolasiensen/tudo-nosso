@@ -26,6 +26,7 @@ var Document = React.createClass({
         <Paragraph
           formOpen={this.state.selectedParagraphIndex == paragraph.index}
           selectParagraph={this.selectParagraph}
+          selectedParagraphIndex={this.state.selectedParagraphIndex}
           paragraph={paragraph}
           userApiToken={this.props.userApiToken}
           documentId={this.props.documentId}/>

@@ -17,7 +17,11 @@ var Paragraph = React.createClass({
   },
 
   openForm: function() {
-    this.props.selectParagraph(this.props.paragraph.index);
+    if(!this.props.formOpen) {
+      this.props.selectParagraph(this.props.paragraph.index);
+    } else {
+      this.props.selectParagraph(null);
+    }
   },
 
   paragraphHash: function() {
@@ -78,38 +82,50 @@ var Paragraph = React.createClass({
 
     if(this.props.userApiToken != null) {
       contributionForm = <form
-        className="newContributionForm"
+        className="newContributionForm clearfix"
         onSubmit={this.newContributionSubmit}>
         <textarea
+          className="block full-width field-light"
           name="contribution[body]"
           id="contribution_body"
           value={this.state.contributionBody}
           onChange={this.contributionBodyChange}>
         </textarea>
         <textarea
+          className="block full-width field-light"
           name="contribution[justification]"
           id="contribution_justification"
+          placeholder="Justificativa (opcional)"
           value={this.state.contributionJustification}
           onChange={this.contributionJustificationChange}>
         </textarea>
-        <input type="submit" value="Enviar" />
+        <input type="submit" value="Enviar" className="button right" />
       </form>
     } else {
       contributionForm = <a href="/users/sign_in">Contribua para este parágrafo</a>
     }
 
-
     return (
       <div
         className="paragraph clearfix"
+        style={{ marginBottom: "1em" }}
         onMouseOver={this.onMouseOver}
         onMouseOut={this.onMouseOut}>
-        <p>{this.props.paragraph.body}</p>
+        <p
+          className="paragraphBody"
+          style={{
+            opacity: ((this.props.selectedParagraphIndex != null && !this.props.formOpen) && !this.state.mouseOver) ? .3 : 1,
+            transform: this.props.formOpen ? "scale(1.05)" : "scale(1)",
+            transition: ".5s",
+            margin: 0
+          }}>
+          {this.props.paragraph.body}
+        </p>
         <a
-          className="newContributionButton"
+          className="newContributionButton mb1 block"
           title="Contribuições"
           href="#"
-          style={{display: (this.state.mouseOver || this.props.formOpen) ? 'block' : 'none'}}
+          style={{visibility: (this.state.mouseOver || this.props.formOpen) ? 'visible' : 'hidden'}}
           onClick={this.openForm}>
           <i className="fa fa-comment"></i>
         </a>
