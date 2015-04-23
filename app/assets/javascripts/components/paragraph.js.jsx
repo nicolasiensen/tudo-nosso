@@ -2,7 +2,6 @@ var Paragraph = React.createClass({
   getInitialState: function() {
     return {
       mouseOver: false,
-      formOpen: false,
       contributionBody: "",
       contributionJustification: "",
       contributions: []
@@ -13,9 +12,12 @@ var Paragraph = React.createClass({
     this.setState({mouseOver: true});
   },
 
+  onMouseOut: function() {
+    this.setState({mouseOver: false});
+  },
+
   openForm: function() {
-    this.setState({formOpen: true});
-    return false;
+    this.props.selectParagraph(this.props.paragraph.index);
   },
 
   paragraphHash: function() {
@@ -79,18 +81,19 @@ var Paragraph = React.createClass({
     return (
       <div
         className="paragraph"
-        onMouseOver={this.onMouseOver}>
-        <p>{this.props.paragraphBody}</p>
+        onMouseOver={this.onMouseOver}
+        onMouseOut={this.onMouseOut}>
+        <p>{this.props.paragraph.body}</p>
         <a
           className="newContributionButton"
           href="#"
-          style={{display: this.state.mouseOver ? 'block' : 'none'}}
+          style={{display: (this.state.mouseOver || this.props.formOpen) ? 'block' : 'none'}}
           onClick={this.openForm}>
           Nova contribuição
         </a>
         <form
           className="newContributionForm"
-          style={{display: this.state.formOpen ? 'block' : 'none'}}
+          style={{display: this.props.formOpen ? 'block' : 'none'}}
           onSubmit={this.newContributionSubmit}>
           <textarea
             name="contribution[body]"
