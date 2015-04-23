@@ -1,3 +1,4 @@
+ruby '2.2.0'
 source 'https://rubygems.org'
 
 
@@ -56,6 +57,8 @@ end
 gem 'devise'
 gem 'slim-rails'
 gem 'react-rails', '~> 1.0'
+gem 'rails_12factor'
+gem 'puma'
 
 # Rails assets
 source 'https://rails-assets.org' do
