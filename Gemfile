@@ -54,10 +54,13 @@ group :test do
   gem 'database_cleaner'
 end
 
+group :production do
+  gem 'rails_12factor'
+end
+
 gem 'devise'
 gem 'slim-rails'
 gem 'react-rails', '~> 1.0'
-gem 'rails_12factor'
 gem 'puma'
 
 # Rails assets
