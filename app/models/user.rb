@@ -9,6 +9,12 @@ class User < ActiveRecord::Base
   validates :first_name, :last_name, presence: true
   validates :api_token, presence: true, uniqueness: true
 
+  protected
+
+  def confirmation_required?
+    false
+  end
+
   private
 
   def generate_api_token
