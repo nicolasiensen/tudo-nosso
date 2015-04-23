@@ -78,7 +78,7 @@ var Paragraph = React.createClass({
 
     return (
       <div
-        className="paragraph"
+        className="paragraph clearfix"
         onMouseOver={this.onMouseOver}
         onMouseOut={this.onMouseOut}>
         <p>{this.props.paragraph.body}</p>
