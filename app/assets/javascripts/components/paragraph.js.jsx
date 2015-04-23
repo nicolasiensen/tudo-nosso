@@ -76,6 +76,29 @@ var Paragraph = React.createClass({
       );
     });
 
+    if(this.props.userApiToken != null) {
+      contributionForm = <form
+        className="newContributionForm"
+        onSubmit={this.newContributionSubmit}>
+        <textarea
+          name="contribution[body]"
+          id="contribution_body"
+          value={this.state.contributionBody}
+          onChange={this.contributionBodyChange}>
+        </textarea>
+        <textarea
+          name="contribution[justification]"
+          id="contribution_justification"
+          value={this.state.contributionJustification}
+          onChange={this.contributionJustificationChange}>
+        </textarea>
+        <input type="submit" value="Enviar" />
+      </form>
+    } else {
+      contributionForm = <a href="/users/sign_in">Contribua para este parágrafo</a>
+    }
+
+
     return (
       <div
         className="paragraph clearfix"
@@ -84,31 +107,19 @@ var Paragraph = React.createClass({
         <p>{this.props.paragraph.body}</p>
         <a
           className="newContributionButton"
+          title="Contribuições"
           href="#"
           style={{display: (this.state.mouseOver || this.props.formOpen) ? 'block' : 'none'}}
           onClick={this.openForm}>
           <i className="fa fa-comment"></i>
         </a>
-        <form
-          className="newContributionForm"
-          style={{display: this.props.formOpen ? 'block' : 'none'}}
-          onSubmit={this.newContributionSubmit}>
-          <textarea
-            name="contribution[body]"
-            id="contribution_body"
-            value={this.state.contributionBody}
-            onChange={this.contributionBodyChange}>
-          </textarea>
-          <textarea
-            name="contribution[justification]"
-            id="contribution_justification"
-            value={this.state.contributionJustification}
-            onChange={this.contributionJustificationChange}>
-          </textarea>
-          <input type="submit" value="Enviar" />
-        </form>
-        <div className="contributionList">
-          {contributionList}
+        <div
+          className="contributionPanel"
+          style={{display: this.props.formOpen ? 'block' : 'none'}}>
+          {contributionForm}
+          <div className="contributionList">
+            {contributionList}
+          </div>
         </div>
       </div>
     );

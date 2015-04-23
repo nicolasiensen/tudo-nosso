@@ -1,18 +1,18 @@
 require 'rails_helper'
 
 RSpec.feature "ContributeToAParagraph", type: :feature, js: true do
-  scenario "when I'm logged in" do
-    email = "contributor@trashmail.com"
-    password = "12345678"
-    user = User.make! email: email, password: password
+  let(:document) { Document.make! body: "<p>Lorem ipsum</p>" }
+  let(:password) { "12345678" }
 
+  before do
+    @user = User.make! email: "contributor@trashmail.com", password: password
+  end
+
+  scenario "when I'm logged in" do
     visit new_user_session_path
-    fill_in :user_email, with: email
+    fill_in :user_email, with: @user.email
     fill_in :user_password, with: password
     click_button "Log in"
-
-    body = "<p>Lorem ipsum</p>"
-    document = Document.make! body: body
 
     visit document_path(document)
     expect(page).to have_css(".paragraph", text: "Lorem ipsum")
@@ -20,7 +20,7 @@ RSpec.feature "ContributeToAParagraph", type: :feature, js: true do
     page.find(".paragraph", text: "Lorem ipsum").hover
     expect(page).to have_css(".newContributionButton", visible: true)
 
-    click_link("Nova contribuição")
+    click_link("Contribuições")
     expect(page).to have_css(".newContributionForm", visible: true)
 
     fill_in("contribution[body]", with: "Lorem ipsum dolor sit amet")
@@ -31,14 +31,21 @@ RSpec.feature "ContributeToAParagraph", type: :feature, js: true do
     expect(page).to have_css("#contribution_justification", text: nil)
     expect(page).to have_css(".contribution .contributionBody", text: "Lorem ipsum dolor sit amet")
     expect(page).to have_css(".contribution .contributionJustification", text: "It is very important to mention: dolor sit amet")
-    expect(page).to have_css(".contribution .userName", text: user.first_name)
-
-    pending
-    fail
+    expect(page).to have_css(".contribution .userName", text: @user.first_name)
   end
 
   scenario "when I'm not logged in" do
-    pending
-    fail
+    visit document_path(document)
+    page.find(".paragraph", text: "Lorem ipsum").hover
+    click_link("Contribuições")
+    click_link("Contribua para este parágrafo")
+
+    expect(current_path).to be_eql(new_user_session_path)
+
+    fill_in :user_email, with: @user.email
+    fill_in :user_password, with: password
+    click_button "Log in"
+
+    expect(current_path).to be_eql(document_path(document))
   end
 end
