@@ -12,6 +12,6 @@ class User < ActiveRecord::Base
   private
 
   def generate_api_token
-    self.api_token = SecureRandom.hex
+    self.api_token = SecureRandom.hex if self.api_token.blank?
   end
 end
