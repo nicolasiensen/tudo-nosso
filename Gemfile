@@ -60,4 +60,5 @@ gem 'react-rails', '~> 1.0'
 # Rails assets
 source 'https://rails-assets.org' do
   gem 'rails-assets-basscss'
+  gem 'rails-assets-fontawesome'
 end

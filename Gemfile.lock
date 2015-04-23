@@ -117,6 +117,7 @@ GEM
       railties (= 4.2.0)
       sprockets-rails
     rails-assets-basscss (5.2.1)
+    rails-assets-fontawesome (4.3.0)
     rails-deprecated_sanitizer (1.0.3)
       activesupport (>= 4.2.0.alpha)
     rails-dom-testing (1.0.6)
@@ -233,6 +234,7 @@ DEPENDENCIES
   pg
   rails (= 4.2.0)
   rails-assets-basscss!
+  rails-assets-fontawesome!
   react-rails (~> 1.0)
   rspec-rails (~> 3.0)
   sass-rails (~> 5.0)
