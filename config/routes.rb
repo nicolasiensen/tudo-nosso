@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
+  root 'documents#index'
+
   devise_for :users
 
-  resources :documents, only: :show
+  resources :documents, only: [:show, :index]
 
   namespace :api do
     namespace :v1 do
