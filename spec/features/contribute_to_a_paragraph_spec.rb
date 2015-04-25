@@ -8,30 +8,33 @@ RSpec.feature "ContributeToAParagraph", type: :feature, js: true do
     @user = User.make! email: "contributor@trashmail.com", password: password
   end
 
-  scenario "when I'm logged in" do
-    visit new_user_session_path
-    fill_in :user_email, with: @user.email
-    fill_in :user_password, with: password
-    click_button "Log in"
+  context "when I'm logged in" do
+    before do
+      visit new_user_session_path
+      fill_in :user_email, with: @user.email
+      fill_in :user_password, with: password
+      click_button "Log in"
+      visit document_path(document)
+      page.find(".paragraph", text: "Lorem ipsum").hover
+      click_link("Contribuições")
+    end
 
-    visit document_path(document)
-    expect(page).to have_css(".paragraph", text: "Lorem ipsum")
+    scenario "when the form is valid" do
+      fill_in("contribution[body]", with: "Lorem ipsum dolor sit amet")
+      fill_in("contribution[justification]", with: "It is very important to mention: dolor sit amet")
+      click_button("Enviar")
 
-    page.find(".paragraph", text: "Lorem ipsum").hover
-    expect(page).to have_css(".newContributionButton", visible: true)
+      expect(page).to have_css("#contribution_body", text: nil)
+      expect(page).to have_css("#contribution_justification", text: nil)
+      expect(page).to have_css(".contribution .contributionBody", text: "Lorem ipsum dolor sit amet")
+      expect(page).to have_css(".contribution .contributionJustification", text: "It is very important to mention: dolor sit amet")
+      expect(page).to have_css(".contribution .userName", text: @user.first_name)
+    end
 
-    click_link("Contribuições")
-    expect(page).to have_css(".newContributionForm", visible: true)
-
-    fill_in("contribution[body]", with: "Lorem ipsum dolor sit amet")
-    fill_in("contribution[justification]", with: "It is very important to mention: dolor sit amet")
-    click_button("Enviar")
-
-    expect(page).to have_css("#contribution_body", text: nil)
-    expect(page).to have_css("#contribution_justification", text: nil)
-    expect(page).to have_css(".contribution .contributionBody", text: "Lorem ipsum dolor sit amet")
-    expect(page).to have_css(".contribution .contributionJustification", text: "It is very important to mention: dolor sit amet")
-    expect(page).to have_css(".contribution .userName", text: @user.first_name)
+    scenario "when the form is not valid" do
+      click_button("Enviar")
+      expect(page).to have_css("#contribution_body.is-error")
+    end
   end
 
   scenario "when I'm not logged in" do
@@ -39,9 +42,6 @@ RSpec.feature "ContributeToAParagraph", type: :feature, js: true do
     page.find(".paragraph", text: "Lorem ipsum").hover
     click_link("Contribuições")
     click_link("Sugira uma alteração para este parágrafo")
-
-    expect(current_path).to be_eql(new_user_session_path)
-
     fill_in :user_email, with: @user.email
     fill_in :user_password, with: password
     click_button "Log in"

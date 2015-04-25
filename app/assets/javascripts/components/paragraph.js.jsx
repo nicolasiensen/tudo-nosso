@@ -4,7 +4,8 @@ var Paragraph = React.createClass({
       mouseOver: false,
       contributionBody: "",
       contributionJustification: "",
-      contributions: []
+      contributions: [],
+      isFormValid: true
     };
   },
 
@@ -28,35 +29,50 @@ var Paragraph = React.createClass({
     return "123"
   },
 
-  newContributionSubmit: function() {
-    url = "/api/v1/contributions"
+  validateForm: function() {
+    if(this.state.contributionBody == "") {
+      return false;
+    } else {
+      return true;
+    }
+  },
 
-    $.ajax({
-      url: url,
-      headers: { 'Authorization': 'Token token="' + this.props.userApiToken + '"' },
-      data: {
-        contribution: {
-          body: this.state.contributionBody,
-          justification: this.state.contributionJustification,
-          document_id: this.props.documentId,
-          paragraph_hash: this.paragraphHash
-        }
-      },
-      method: 'post',
-      dataType: 'json',
-      success: function(data) {
-        contributions = this.state.contributions;
-        contributions.unshift(data);
-        this.setState({
-          contributions: contributions,
-          contributionBody: "",
-          contributionJustification: ""
-        });
-      }.bind(this),
-      error: function(xhr, status, err) {
-        console.error(url, status, err.toString());
-      }.bind(this)
-    });
+  newContributionSubmit: function() {
+    if(this.validateForm()) {
+      this.setState({isFormValid: true});
+
+      url = "/api/v1/contributions"
+
+      $.ajax({
+        url: url,
+        headers: { 'Authorization': 'Token token="' + this.props.userApiToken + '"' },
+        data: {
+          contribution: {
+            body: this.state.contributionBody,
+            justification: this.state.contributionJustification,
+            document_id: this.props.documentId,
+            paragraph_hash: this.paragraphHash
+          }
+        },
+        method: 'post',
+        dataType: 'json',
+        success: function(data) {
+          contributions = this.state.contributions;
+          contributions.unshift(data);
+          this.setState({
+            contributions: contributions,
+            contributionBody: "",
+            contributionJustification: ""
+          });
+        }.bind(this),
+        error: function(xhr, status, err) {
+          console.error(url, status, err.toString());
+        }.bind(this)
+      });
+    } else {
+      this.setState({isFormValid: false});
+      React.findDOMNode(this.refs.contributionBody).focus();
+    }
 
     return false;
   },
@@ -80,14 +96,20 @@ var Paragraph = React.createClass({
       );
     });
 
+    textAreaClass = "block full-width field-light";
+    if(!this.state.isFormValid){
+      textAreaClass = textAreaClass + " is-error";
+    }
+
     if(this.props.userApiToken != null) {
       contributionForm = <form
         className="newContributionForm clearfix"
         onSubmit={this.newContributionSubmit}>
         <textarea
-          className="block full-width field-light"
+          className={textAreaClass}
           name="contribution[body]"
           id="contribution_body"
+          ref="contributionBody"
           value={this.state.contributionBody}
           onChange={this.contributionBodyChange}>
         </textarea>
