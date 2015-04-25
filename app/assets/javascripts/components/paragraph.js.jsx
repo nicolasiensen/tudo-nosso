@@ -102,7 +102,7 @@ var Paragraph = React.createClass({
         <input type="submit" value="Enviar" className="button right" />
       </form>
     } else {
-      contributionForm = <a href="/users/sign_in">Contribua para este parágrafo</a>
+      contributionForm = <a href="/users/sign_in">Sugira uma alteração para este parágrafo</a>
     }
 
     return (

@@ -38,7 +38,7 @@ RSpec.feature "ContributeToAParagraph", type: :feature, js: true do
     visit document_path(document)
     page.find(".paragraph", text: "Lorem ipsum").hover
     click_link("Contribuições")
-    click_link("Contribua para este parágrafo")
+    click_link("Sugira uma alteração para este parágrafo")
 
     expect(current_path).to be_eql(new_user_session_path)
 
