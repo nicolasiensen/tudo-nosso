@@ -1,3 +1,7 @@
+{<img src="https://codeclimate.com/github/nicolasiensen/tudo-nosso/badges/gpa.svg" />}[https://codeclimate.com/github/nicolasiensen/tudo-nosso]
+{<img src="https://codeclimate.com/github/nicolasiensen/tudo-nosso/badges/coverage.svg" />}[https://codeclimate.com/github/nicolasiensen/tudo-nosso]
+{<img src="https://travis-ci.org/nicolasiensen/tudo-nosso.svg?branch=master" alt="Build Status" />}[https://travis-ci.org/nicolasiensen/tudo-nosso]
+
 == README
 
 This README would normally document whatever steps are necessary to get the
