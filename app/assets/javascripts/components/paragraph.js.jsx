@@ -96,7 +96,7 @@ var Paragraph = React.createClass({
       );
     });
 
-    textAreaClass = "block full-width field-light";
+    textAreaClass = "block full-width field-light mb1";
     if(!this.state.isFormValid){
       textAreaClass = textAreaClass + " is-error";
     }
@@ -114,7 +114,7 @@ var Paragraph = React.createClass({
           onChange={this.contributionBodyChange}>
         </textarea>
         <textarea
-          className="block full-width field-light"
+          className="block full-width field-light mb1"
           name="contribution[justification]"
           id="contribution_justification"
           placeholder="Justificativa (opcional)"
@@ -138,7 +138,7 @@ var Paragraph = React.createClass({
           style={{
             opacity: ((this.props.selectedParagraphIndex != null && !this.props.formOpen) && !this.state.mouseOver) ? .3 : 1,
             transform: this.props.formOpen ? "scale(1.05)" : "scale(1)",
-            transition: ".5s",
+            transition: ".25s",
             margin: 0
           }}>
           {this.props.paragraph.body}

@@ -2,3 +2,8 @@
 @import "fontawesome/font-awesome.scss";
 @import "components/*";
 @import "documents";
+
+body {
+  -webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
