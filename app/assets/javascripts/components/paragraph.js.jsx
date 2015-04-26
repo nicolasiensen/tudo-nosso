@@ -5,7 +5,8 @@ var Paragraph = React.createClass({
       contributionBody: "",
       contributionJustification: "",
       contributions: [],
-      isFormValid: true
+      isFormValid: true,
+      isJustificationFieldVisible: false
     };
   },
 
@@ -85,6 +86,10 @@ var Paragraph = React.createClass({
     this.setState({contributionJustification: e.target.value});
   },
 
+  toggleJustificationField: function(e) {
+    this.setState({isJustificationFieldVisible: !this.state.isJustificationFieldVisible});
+  },
+
   render: function() {
     contributionList = this.state.contributions.map(function (contribution){
       return (
@@ -113,11 +118,18 @@ var Paragraph = React.createClass({
           value={this.state.contributionBody}
           onChange={this.contributionBodyChange}>
         </textarea>
+        <a
+          href="#"
+          style={{display: this.state.isJustificationFieldVisible ? "none" : "inline"}}
+          onClick={this.toggleJustificationField}>
+          <i className="fa fa-plus-square-o mr1"></i>Adicionar justificativa
+        </a>
         <textarea
           className="block full-width field-light mb1"
           name="contribution[justification]"
           id="contribution_justification"
           placeholder="Justificativa (opcional)"
+          style={{display: this.state.isJustificationFieldVisible ? "block" : "none"}}
           value={this.state.contributionJustification}
           onChange={this.contributionJustificationChange}>
         </textarea>
