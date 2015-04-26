@@ -99,6 +99,7 @@ var Paragraph = React.createClass({
   toggleJustificationField: function(e) {
     this.setState({isJustificationFieldVisible: !this.state.isJustificationFieldVisible});
     this.setState({focusOn: "contributionJustification"});
+    return false;
   },
 
   componentDidMount: function() {
