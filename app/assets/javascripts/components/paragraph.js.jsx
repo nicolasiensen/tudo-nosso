@@ -140,7 +140,8 @@ var Paragraph = React.createClass({
           id="contribution_body"
           ref="contributionBody"
           value={this.state.contributionBody}
-          onChange={this.contributionBodyChange}>
+          onChange={this.contributionBodyChange}
+          style={{resize: "none"}}>
         </textarea>
         <a
           href="#"
@@ -154,9 +155,12 @@ var Paragraph = React.createClass({
           id="contribution_justification"
           ref="contributionJustification"
           placeholder="Justificativa (opcional)"
-          style={{display: this.state.isJustificationFieldVisible ? "block" : "none"}}
           value={this.state.contributionJustification}
-          onChange={this.contributionJustificationChange}>
+          onChange={this.contributionJustificationChange}
+          style={{
+            display: this.state.isJustificationFieldVisible ? "block" : "none",
+            resize: "none"
+          }}>
         </textarea>
         <button className="button right" disabled={this.state.isWaitingFormResponse}>
           <i
