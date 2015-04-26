@@ -6,7 +6,8 @@ var Paragraph = React.createClass({
       contributionJustification: "",
       contributions: [],
       isFormValid: true,
-      isJustificationFieldVisible: false
+      isJustificationFieldVisible: false,
+      focusOn: null
     };
   },
 
@@ -21,6 +22,7 @@ var Paragraph = React.createClass({
   openForm: function() {
     if(!this.props.formOpen) {
       this.props.selectParagraph(this.props.paragraph.index);
+      this.setState({focusOn: "contributionBody"});
     } else {
       this.props.selectParagraph(null);
     }
@@ -71,8 +73,10 @@ var Paragraph = React.createClass({
         }.bind(this)
       });
     } else {
-      this.setState({isFormValid: false});
-      React.findDOMNode(this.refs.contributionBody).focus();
+      this.setState({
+        isFormValid: false,
+        focusOn: "contributionBody"
+      });
     }
 
     return false;
@@ -88,6 +92,19 @@ var Paragraph = React.createClass({
 
   toggleJustificationField: function(e) {
     this.setState({isJustificationFieldVisible: !this.state.isJustificationFieldVisible});
+    this.setState({focusOn: "contributionJustification"});
+  },
+
+  componentDidUpdate: function() {
+    if(this.props.formOpen) {
+      if(this.state.focusOn == "contributionBody") {
+        React.findDOMNode(this.refs.contributionBody).focus();
+        this.setState({focusOn: null});
+      } else if (this.state.focusOn == "contributionJustification") {
+        React.findDOMNode(this.refs.contributionJustification).focus();
+        this.setState({focusOn: null});
+      }
+    }
   },
 
   render: function() {
@@ -128,6 +145,7 @@ var Paragraph = React.createClass({
           className="block full-width field-light mb1"
           name="contribution[justification]"
           id="contribution_justification"
+          ref="contributionJustification"
           placeholder="Justificativa (opcional)"
           style={{display: this.state.isJustificationFieldVisible ? "block" : "none"}}
           value={this.state.contributionJustification}
