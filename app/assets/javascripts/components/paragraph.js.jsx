@@ -8,7 +8,8 @@ var Paragraph = React.createClass({
       isFormValid: true,
       isJustificationFieldVisible: false,
       focusOn: null,
-      isWaitingFormResponse: false
+      isWaitingFormResponse: false,
+      paragraphHash: null
     };
   },
 
@@ -27,10 +28,6 @@ var Paragraph = React.createClass({
     } else {
       this.props.selectParagraph(null);
     }
-  },
-
-  paragraphHash: function() {
-    return "123"
   },
 
   validateForm: function() {
@@ -55,7 +52,7 @@ var Paragraph = React.createClass({
             body: this.state.contributionBody,
             justification: this.state.contributionJustification,
             document_id: this.props.documentId,
-            paragraph_hash: this.paragraphHash
+            paragraph_hash: this.state.paragraphHash
           }
         },
         method: 'post',
@@ -100,6 +97,14 @@ var Paragraph = React.createClass({
   toggleJustificationField: function(e) {
     this.setState({isJustificationFieldVisible: !this.state.isJustificationFieldVisible});
     this.setState({focusOn: "contributionJustification"});
+  },
+
+  componentDidMount: function() {
+    shaObj = new jsSHA(this.props.paragraph.body, "TEXT");
+
+    this.setState({
+      paragraphHash: shaObj.getHash("SHA-256", "HEX")
+    });
   },
 
   componentDidUpdate: function() {
