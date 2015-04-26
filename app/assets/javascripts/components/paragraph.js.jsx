@@ -7,7 +7,8 @@ var Paragraph = React.createClass({
       contributions: [],
       isFormValid: true,
       isJustificationFieldVisible: false,
-      focusOn: null
+      focusOn: null,
+      isWaitingFormResponse: false
     };
   },
 
@@ -59,6 +60,9 @@ var Paragraph = React.createClass({
         },
         method: 'post',
         dataType: 'json',
+        beforeSend: function() {
+          this.setState({isWaitingFormResponse: true});
+        }.bind(this),
         success: function(data) {
           contributions = this.state.contributions;
           contributions.unshift(data);
@@ -70,6 +74,9 @@ var Paragraph = React.createClass({
         }.bind(this),
         error: function(xhr, status, err) {
           console.error(url, status, err.toString());
+        }.bind(this),
+        complete: function() {
+          this.setState({isWaitingFormResponse: false});
         }.bind(this)
       });
     } else {
@@ -151,7 +158,14 @@ var Paragraph = React.createClass({
           value={this.state.contributionJustification}
           onChange={this.contributionJustificationChange}>
         </textarea>
-        <input type="submit" value="Enviar" className="button right" />
+        <button className="button right" disabled={this.state.isWaitingFormResponse}>
+          <i
+            className="fa fa-refresh fa-spin mr1"
+            style={{
+              opacity: ".5",
+              display: this.state.isWaitingFormResponse ? "inline" : "none"}}/>
+          Enviar
+        </button>
       </form>
     } else {
       contributionForm = <a href="/users/sign_in">Sugira uma alteração para este parágrafo</a>
