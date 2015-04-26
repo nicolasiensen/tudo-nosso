@@ -14,6 +14,13 @@ var Document = React.createClass({
       i+=1;
     });
     this.setState({paragraphs: paragraphs});
+
+    window.addEventListener("keydown", function(e){
+      // ESC is pressed
+      if(e.which == 27) {
+        this.selectParagraph(null);
+      }
+    }.bind(this));
   },
 
   selectParagraph: function(index) {
