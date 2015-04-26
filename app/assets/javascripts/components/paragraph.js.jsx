@@ -28,6 +28,8 @@ var Paragraph = React.createClass({
     } else {
       this.props.selectParagraph(null);
     }
+
+    return false;
   },
 
   validateForm: function() {
@@ -193,8 +195,8 @@ var Paragraph = React.createClass({
             transform: this.props.formOpen ? "scale(1.05)" : "scale(1)",
             transition: ".25s",
             margin: 0
-          }}>
-          {this.props.paragraph.body}
+          }}
+          dangerouslySetInnerHTML={{__html: this.props.paragraph.body}}>
         </p>
         <a
           className="newContributionButton mb1 block"
