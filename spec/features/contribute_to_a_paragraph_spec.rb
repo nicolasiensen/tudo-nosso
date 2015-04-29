@@ -21,29 +21,19 @@ RSpec.feature "ContributeToAParagraph", type: :feature, js: true do
 
     scenario "when the form is valid" do
       fill_in("contribution[body]", with: "Lorem ipsum dolor sit amet")
+      fill_in("contribution[justification]", with: "My justification")
       click_button("Enviar")
 
-      expect(page).to have_css("#contribution_body", text: nil)
+      expect(page).to have_css("#contribution_body")
       expect(page).to have_css(".contribution .contributionBody", text: "Lorem ipsum dolor sit amet")
-      expect(page).to have_css(".contribution .userName", text: @user.first_name)
-    end
-
-    scenario "when I fill in the justification" do
-      fill_in("contribution[body]", with: "Lorem ipsum dolor sit amet")
-      click_link("Adicionar justificativa")
-      fill_in("contribution[justification]", with: "It is very important to mention: dolor sit amet")
-      click_button("Enviar")
-
-      expect(page).to have_css("#contribution_body", text: nil)
-      expect(page).to have_css("#contribution_justification", text: nil)
-      expect(page).to have_css(".contribution .contributionBody", text: "Lorem ipsum dolor sit amet")
-      expect(page).to have_css(".contribution .contributionJustification", text: "It is very important to mention: dolor sit amet")
+      expect(page).to have_css(".contribution .contributionJustification", text: "My justification")
       expect(page).to have_css(".contribution .userName", text: @user.first_name)
     end
 
     scenario "when the form is not valid" do
       click_button("Enviar")
       expect(page).to have_css("#contribution_body.is-error")
+      expect(page).to have_css("#contribution_justification.is-error")
     end
   end
 

@@ -5,8 +5,8 @@ var Paragraph = React.createClass({
       contributionBody: "",
       contributionJustification: "",
       contributions: [],
-      isFormValid: true,
-      isJustificationFieldVisible: false,
+      isBodyValid: true,
+      isJustificationValid: true,
       focusOn: null,
       isWaitingFormResponse: false,
       paragraphHash: null
@@ -32,18 +32,22 @@ var Paragraph = React.createClass({
     return false;
   },
 
-  validateForm: function() {
-    if(this.state.contributionBody == "") {
-      return false;
-    } else {
-      return true;
-    }
-  },
-
   newContributionSubmit: function() {
-    if(this.validateForm()) {
-      this.setState({isFormValid: true});
+    isBodyValid = true;
+    isJustificationValid = true;
+    focusOn = null;
 
+    if(this.state.contributionJustification == "") {
+      isJustificationValid = false;
+      focusOn = "contributionJustification";
+    }
+
+    if(this.state.contributionBody == "") {
+      isBodyValid = false;
+      focusOn = "contributionBody";
+    }
+
+    if(isBodyValid && isJustificationValid) {
       url = "/api/v1/contributions"
 
       $.ajax({
@@ -78,12 +82,13 @@ var Paragraph = React.createClass({
           this.setState({isWaitingFormResponse: false});
         }.bind(this)
       });
-    } else {
-      this.setState({
-        isFormValid: false,
-        focusOn: "contributionBody"
-      });
     }
+
+    this.setState({
+      isBodyValid: isBodyValid,
+      isJustificationValid: isJustificationValid,
+      focusOn: focusOn
+    });
 
     return false;
   },
@@ -94,12 +99,6 @@ var Paragraph = React.createClass({
 
   contributionJustificationChange: function(e) {
     this.setState({contributionJustification: e.target.value});
-  },
-
-  toggleJustificationField: function(e) {
-    this.setState({isJustificationFieldVisible: !this.state.isJustificationFieldVisible});
-    this.setState({focusOn: "contributionJustification"});
-    return false;
   },
 
   componentDidMount: function() {
@@ -133,9 +132,14 @@ var Paragraph = React.createClass({
       );
     });
 
-    textAreaClass = "block full-width field-light mb1";
-    if(!this.state.isFormValid){
-      textAreaClass = textAreaClass + " is-error";
+    bodyClass = "block full-width field-light mb1";
+    if(!this.state.isBodyValid){
+      bodyClass = bodyClass + " is-error";
+    }
+
+    justificationClass = "block full-width field-light mb1";
+    if(!this.state.isJustificationValid){
+      justificationClass = justificationClass + " is-error";
     }
 
     if(this.props.userApiToken != null) {
@@ -143,32 +147,24 @@ var Paragraph = React.createClass({
         className="newContributionForm clearfix"
         onSubmit={this.newContributionSubmit}>
         <textarea
-          className={textAreaClass}
+          className={bodyClass}
           name="contribution[body]"
           id="contribution_body"
           ref="contributionBody"
+          placeholder="Contribuição"
           value={this.state.contributionBody}
           onChange={this.contributionBodyChange}
           style={{resize: "none"}}>
         </textarea>
-        <a
-          href="#"
-          style={{display: this.state.isJustificationFieldVisible ? "none" : "inline"}}
-          onClick={this.toggleJustificationField}>
-          <i className="fa fa-plus-square-o mr1"></i>Adicionar justificativa
-        </a>
         <textarea
-          className="block full-width field-light mb1"
+          className={justificationClass}
           name="contribution[justification]"
           id="contribution_justification"
           ref="contributionJustification"
-          placeholder="Justificativa (opcional)"
+          placeholder="Justificativa"
           value={this.state.contributionJustification}
           onChange={this.contributionJustificationChange}
-          style={{
-            display: this.state.isJustificationFieldVisible ? "block" : "none",
-            resize: "none"
-          }}>
+          style={{resize: "none"}}>
         </textarea>
         <button className="button right" disabled={this.state.isWaitingFormResponse}>
           <i
