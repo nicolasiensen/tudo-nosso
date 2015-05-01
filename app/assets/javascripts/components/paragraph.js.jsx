@@ -1,15 +1,15 @@
 var Paragraph = React.createClass({
   getInitialState: function() {
     return {
-      isMouseOver: false,
       contributionBody: this.props.paragraph.body.replace(/<(?:.|\n)*?>/gm, ''),
       contributionJustification: "",
       contributions: [],
+      focusOn: null,
+      paragraphHash: null,
       isBodyValid: true,
       isJustificationValid: true,
-      focusOn: null,
-      isWaitingFormResponse: false,
-      paragraphHash: null
+      isMouseOver: false,
+      isWaitingFormResponse: false
     };
   },
 
@@ -94,8 +94,9 @@ var Paragraph = React.createClass({
   },
 
   resizeTextarea: function(textarea) {
-    jqueryElem = $(React.findDOMNode(textarea))
-    jqueryElem.height(0).height(jqueryElem[0].scrollHeight);
+    e = React.findDOMNode(textarea);
+    e.style.height = 0;
+    e.style.height = e.scrollHeight + 2 + "px";
   },
 
   contributionBodyChange: function(e) {
