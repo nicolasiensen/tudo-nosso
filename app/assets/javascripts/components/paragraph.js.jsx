@@ -41,7 +41,7 @@ var Paragraph = React.createClass({
     this.setState({isMouseOver: false});
   },
 
-  toggleContributionPanel: function() {
+  toggleContributionPanel: function(e) {
     if(!this.props.formOpen) {
       this.props.selectParagraph(this.props.paragraph.index);
       this.setState({focusOn: "contributionBody"});
@@ -49,10 +49,10 @@ var Paragraph = React.createClass({
       this.props.selectParagraph(null);
     }
 
-    return false;
+    e.preventDefault();
   },
 
-  newContributionSubmit: function() {
+  newContributionSubmit: function(e) {
     isBodyValid = true;
     isJustificationValid = true;
     focusOn = null;
@@ -110,7 +110,7 @@ var Paragraph = React.createClass({
       focusOn: focusOn
     });
 
-    return false;
+    e.preventDefault();
   },
 
   resizeTextarea: function(textarea) {
