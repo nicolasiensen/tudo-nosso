@@ -13,6 +13,26 @@ var Paragraph = React.createClass({
     };
   },
 
+  componentDidMount: function() {
+    shaObj = new jsSHA(this.props.paragraph.body, "TEXT");
+    this.setState({ paragraphHash: shaObj.getHash("SHA-256", "HEX") });
+  },
+
+  componentDidUpdate: function() {
+    if(this.props.formOpen) {
+      this.resizeTextarea(this.refs.contributionBody);
+      this.resizeTextarea(this.refs.contributionJustification);
+
+      if(this.state.focusOn == "contributionBody") {
+        React.findDOMNode(this.refs.contributionBody).focus();
+        this.setState({focusOn: null});
+      } else if (this.state.focusOn == "contributionJustification") {
+        React.findDOMNode(this.refs.contributionJustification).focus();
+        this.setState({focusOn: null});
+      }
+    }
+  },
+
   onMouseOver: function() {
     this.setState({isMouseOver: true});
   },
@@ -107,29 +127,6 @@ var Paragraph = React.createClass({
   contributionJustificationChange: function(e) {
     this.setState({contributionJustification: e.target.value});
     this.resizeTextarea(this.refs.contributionJustification);
-  },
-
-  componentDidMount: function() {
-    shaObj = new jsSHA(this.props.paragraph.body, "TEXT");
-
-    this.setState({
-      paragraphHash: shaObj.getHash("SHA-256", "HEX")
-    });
-  },
-
-  componentDidUpdate: function() {
-    if(this.props.formOpen) {
-      this.resizeTextarea(this.refs.contributionBody);
-      this.resizeTextarea(this.refs.contributionJustification);
-
-      if(this.state.focusOn == "contributionBody") {
-        React.findDOMNode(this.refs.contributionBody).focus();
-        this.setState({focusOn: null});
-      } else if (this.state.focusOn == "contributionJustification") {
-        React.findDOMNode(this.refs.contributionJustification).focus();
-        this.setState({focusOn: null});
-      }
-    }
   },
 
   render: function() {
