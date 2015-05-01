@@ -1,7 +1,7 @@
 var Paragraph = React.createClass({
   getInitialState: function() {
     return {
-      mouseOver: false,
+      isMouseOver: false,
       contributionBody: this.props.paragraph.body.replace(/<(?:.|\n)*?>/gm, ''),
       contributionJustification: "",
       contributions: [],
@@ -14,14 +14,14 @@ var Paragraph = React.createClass({
   },
 
   onMouseOver: function() {
-    this.setState({mouseOver: true});
+    this.setState({isMouseOver: true});
   },
 
   onMouseOut: function() {
-    this.setState({mouseOver: false});
+    this.setState({isMouseOver: false});
   },
 
-  openForm: function() {
+  toggleContributionPanel: function() {
     if(!this.props.formOpen) {
       this.props.selectParagraph(this.props.paragraph.index);
       this.setState({focusOn: "contributionBody"});
@@ -201,7 +201,7 @@ var Paragraph = React.createClass({
         <p
           className="paragraphBody"
           style={{
-            opacity: ((this.props.selectedParagraphIndex != null && !this.props.formOpen) && !this.state.mouseOver) ? .3 : 1,
+            opacity: ((this.props.selectedParagraphIndex != null && !this.props.formOpen) && !this.state.isMouseOver) ? .3 : 1,
             transform: this.props.formOpen ? "scale(1.05)" : "scale(1)",
             transition: ".25s",
             margin: 0
@@ -212,8 +212,8 @@ var Paragraph = React.createClass({
           className="newContributionButton mb1"
           title="Contribuições"
           href="#"
-          style={{visibility: (this.state.mouseOver || this.props.formOpen) ? 'visible' : 'hidden'}}
-          onClick={this.openForm}>
+          style={{visibility: (this.state.isMouseOver || this.props.formOpen) ? 'visible' : 'hidden'}}
+          onClick={this.toggleContributionPanel}>
           <i className="fa fa-comment"></i>
         </a>
         <a
@@ -221,7 +221,7 @@ var Paragraph = React.createClass({
           title="Fechar"
           href="#"
           style={{visibility: this.props.formOpen ? 'visible' : 'hidden'}}
-          onClick={this.openForm}>
+          onClick={this.toggleContributionPanel}>
           <i className="fa fa-close"></i>
         </a>
         <div

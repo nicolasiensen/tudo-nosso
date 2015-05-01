@@ -31,7 +31,7 @@ RSpec.feature "ContributeToAParagraph", type: :feature, js: true do
 
     scenario "when the form is not valid" do
       click_button("Enviar")
-      expect(page).to have_css("#contribution_justification.is-error")
+      expect(page).to have_css("textarea[name=\"contribution[justification]\"].is-error")
     end
   end
 
@@ -39,7 +39,7 @@ RSpec.feature "ContributeToAParagraph", type: :feature, js: true do
     visit document_path(document)
     page.find(".paragraph", text: "Lorem ipsum").hover
     click_link("Contribuições")
-    click_link("Sugira uma alteração para este parágrafo")
+    click_link("Registre-se ou faça login para colaborar com esse edital")
     fill_in :user_email, with: @user.email
     fill_in :user_password, with: password
     click_button "Log in"
