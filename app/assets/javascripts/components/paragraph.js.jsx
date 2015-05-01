@@ -2,7 +2,7 @@ var Paragraph = React.createClass({
   getInitialState: function() {
     return {
       mouseOver: false,
-      contributionBody: "",
+      contributionBody: this.props.paragraph.body.replace(/<(?:.|\n)*?>/gm, ''),
       contributionJustification: "",
       contributions: [],
       isBodyValid: true,
@@ -93,12 +93,19 @@ var Paragraph = React.createClass({
     return false;
   },
 
+  resizeTextarea: function(textarea) {
+    jqueryElem = $(React.findDOMNode(textarea))
+    jqueryElem.height(0).height(jqueryElem[0].scrollHeight);
+  },
+
   contributionBodyChange: function(e) {
     this.setState({contributionBody: e.target.value});
+    this.resizeTextarea(this.refs.contributionBody);
   },
 
   contributionJustificationChange: function(e) {
     this.setState({contributionJustification: e.target.value});
+    this.resizeTextarea(this.refs.contributionJustification);
   },
 
   componentDidMount: function() {
@@ -111,6 +118,9 @@ var Paragraph = React.createClass({
 
   componentDidUpdate: function() {
     if(this.props.formOpen) {
+      this.resizeTextarea(this.refs.contributionBody);
+      this.resizeTextarea(this.refs.contributionJustification);
+
       if(this.state.focusOn == "contributionBody") {
         React.findDOMNode(this.refs.contributionBody).focus();
         this.setState({focusOn: null});
@@ -142,16 +152,18 @@ var Paragraph = React.createClass({
       justificationClass = justificationClass + " is-error";
     }
 
+    bodyId = "contribution_body_" + this.state.paragraphHash;
+
     if(this.props.userApiToken != null) {
       contributionForm = <form
         className="newContributionForm clearfix"
         onSubmit={this.newContributionSubmit}>
+        <label htmlFor={bodyId}>Contribuição</label>
         <textarea
           className={bodyClass}
           name="contribution[body]"
-          id="contribution_body"
+          id={bodyId}
           ref="contributionBody"
-          placeholder="Contribuição"
           value={this.state.contributionBody}
           onChange={this.contributionBodyChange}
           style={{resize: "none"}}>
