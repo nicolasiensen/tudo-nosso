@@ -153,12 +153,13 @@ var Paragraph = React.createClass({
     }
 
     bodyId = "contribution_body_" + this.state.paragraphHash;
+    justificationId = "justification_body_" + this.state.paragraphHash;
 
     if(this.props.userApiToken != null) {
       contributionForm = <form
         className="newContributionForm clearfix"
         onSubmit={this.newContributionSubmit}>
-        <label htmlFor={bodyId}>Contribuição</label>
+        <label htmlFor={bodyId}>Contribua com a sua versão para este parágrafo</label>
         <textarea
           className={bodyClass}
           name="contribution[body]"
@@ -168,12 +169,12 @@ var Paragraph = React.createClass({
           onChange={this.contributionBodyChange}
           style={{resize: "none"}}>
         </textarea>
+        <label htmlFor={justificationId}>Justifique a sua contribuição</label>
         <textarea
           className={justificationClass}
           name="contribution[justification]"
-          id="contribution_justification"
+          id={justificationId}
           ref="contributionJustification"
-          placeholder="Justificativa"
           value={this.state.contributionJustification}
           onChange={this.contributionJustificationChange}
           style={{resize: "none"}}>
@@ -188,7 +189,7 @@ var Paragraph = React.createClass({
         </button>
       </form>
     } else {
-      contributionForm = <a href="/users/sign_in">Sugira uma alteração para este parágrafo</a>
+      contributionForm = <a href="/users/sign_in">Registre-se ou faça login para colaborar com esse edital</a>
     }
 
     return (
@@ -208,16 +209,29 @@ var Paragraph = React.createClass({
           dangerouslySetInnerHTML={{__html: this.props.paragraph.body}}>
         </p>
         <a
-          className="newContributionButton mb1 block"
+          className="newContributionButton mb1"
           title="Contribuições"
           href="#"
           style={{visibility: (this.state.mouseOver || this.props.formOpen) ? 'visible' : 'hidden'}}
           onClick={this.openForm}>
           <i className="fa fa-comment"></i>
         </a>
+        <a
+          className="mb1 right gray"
+          title="Fechar"
+          href="#"
+          style={{visibility: this.props.formOpen ? 'visible' : 'hidden'}}
+          onClick={this.openForm}>
+          <i className="fa fa-close"></i>
+        </a>
         <div
           className="contributionPanel"
-          style={{display: this.props.formOpen ? 'block' : 'none'}}>
+          style={{
+            display: this.props.formOpen ? 'block' : 'none',
+            padding: "1em",
+            background: "#f5f5f5",
+            borderRadius: "3px"
+          }}>
           {contributionForm}
           <div className="contributionList">
             {contributionList}
