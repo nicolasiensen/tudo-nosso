@@ -228,7 +228,8 @@ var Paragraph = React.createClass({
             display: this.props.formOpen ? 'block' : 'none',
             padding: "1em",
             background: "#f5f5f5",
-            borderRadius: "3px"
+            borderRadius: "3px",
+            border: "1px solid #eee"
           }}>
           {contributionForm}
           <div className="contributionList">
