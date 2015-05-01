@@ -69,4 +69,5 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-basscss'
   gem 'rails-assets-fontawesome'
   gem 'rails-assets-jsSHA'
+  gem 'rails-assets-fluxxor'
 end
