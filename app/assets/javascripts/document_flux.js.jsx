@@ -63,10 +63,12 @@ documentFlux.actions = {
   }
 };
 
-documentFlux.init = function(options) {
-  var stores = { DocumentStore: new documentFlux.store() }
-  documentFlux.flux = new Fluxxor.Flux(stores, documentFlux.actions);
+documentFlux.flux = new Fluxxor.Flux(
+  { DocumentStore: new documentFlux.store() },
+  documentFlux.actions
+);
 
+documentFlux.init = function(options) {
   React.render(
     <Document
       document={options.document}
