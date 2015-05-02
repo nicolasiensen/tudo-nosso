@@ -1,4 +1,9 @@
+var FluxMixin = Fluxxor.FluxMixin(React),
+    StoreWatchMixin = Fluxxor.StoreWatchMixin;
+
 var Document = React.createClass({
+  mixins: [FluxMixin, StoreWatchMixin("DocumentStore")],
+
   getInitialState: function() {
     return {
       paragraphs: [],
@@ -6,10 +11,15 @@ var Document = React.createClass({
     };
   },
 
+  getStateFromFlux: function() {
+    var flux = this.getFlux();
+    return flux.store("DocumentStore").getState();
+  },
+
   componentDidMount: function() {
     paragraphs = [];
     i = 0;
-    this.props.body.replace(/<p>(.*?)<\/p>/g, function () {
+    this.props.document.body.replace(/<p>(.*?)<\/p>/g, function () {
       paragraphs.push({body: arguments[1], index: i});
       i+=1;
     });
@@ -35,8 +45,8 @@ var Document = React.createClass({
           selectParagraph={this.selectParagraph}
           selectedParagraphIndex={this.state.selectedParagraphIndex}
           paragraph={paragraph}
-          userApiToken={this.props.userApiToken}
-          documentId={this.props.documentId}/>
+          currentUser={this.props.currentUser}
+          documentId={this.props.document.id}/>
       );
     }.bind(this));
 

@@ -14,7 +14,9 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require jsSHA
+//= require fluxxor
 //= require react
 //= require react_ujs
 //= require components
+//= require document_flux
 //= require_tree .

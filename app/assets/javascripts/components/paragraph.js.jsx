@@ -1,16 +1,24 @@
+var FluxMixin = Fluxxor.FluxMixin(React),
+    StoreWatchMixin = Fluxxor.StoreWatchMixin;
+
 var Paragraph = React.createClass({
+  mixins: [FluxMixin, StoreWatchMixin("DocumentStore")],
+
   getInitialState: function() {
     return {
       contributionBody: this.props.paragraph.body.replace(/<(?:.|\n)*?>/gm, ''),
       contributionJustification: "",
-      contributions: [],
       focusOn: null,
       paragraphHash: null,
       isBodyValid: true,
       isJustificationValid: true,
-      isMouseOver: false,
-      isWaitingFormResponse: false
+      isMouseOver: false
     };
+  },
+
+  getStateFromFlux: function() {
+    var flux = this.getFlux();
+    return flux.store("DocumentStore").getState();
   },
 
   componentDidMount: function() {
@@ -44,7 +52,10 @@ var Paragraph = React.createClass({
   toggleContributionPanel: function(e) {
     if(!this.props.formOpen) {
       this.props.selectParagraph(this.props.paragraph.index);
-      this.setState({focusOn: "contributionBody"});
+      this.setState({
+        contributionBody: this.getInitialState().contributionBody,
+        focusOn: "contributionBody"
+      });
     } else {
       this.props.selectParagraph(null);
     }
@@ -53,6 +64,8 @@ var Paragraph = React.createClass({
   },
 
   newContributionSubmit: function(e) {
+    e.preventDefault();
+
     isBodyValid = true;
     isJustificationValid = true;
     focusOn = null;
@@ -68,40 +81,12 @@ var Paragraph = React.createClass({
     }
 
     if(isBodyValid && isJustificationValid) {
-      url = "/api/v1/contributions"
-
-      $.ajax({
-        url: url,
-        headers: { 'Authorization': 'Token token="' + this.props.userApiToken + '"' },
-        data: {
-          contribution: {
-            body: this.state.contributionBody,
-            justification: this.state.contributionJustification,
-            document_id: this.props.documentId,
-            paragraph_hash: this.state.paragraphHash
-          }
-        },
-        method: 'post',
-        dataType: 'json',
-        beforeSend: function() {
-          this.setState({isWaitingFormResponse: true});
-        }.bind(this),
-        success: function(data) {
-          contributions = this.state.contributions;
-          contributions.unshift(data);
-          this.setState({
-            contributions: contributions,
-            contributionBody: "",
-            contributionJustification: ""
-          });
-        }.bind(this),
-        error: function(xhr, status, err) {
-          console.error(url, status, err.toString());
-        }.bind(this),
-        complete: function() {
-          this.setState({isWaitingFormResponse: false});
-        }.bind(this)
-      });
+      this.getFlux().actions.createContribution({
+        body: this.state.contributionBody,
+        justification: this.state.contributionJustification,
+        document_id: this.props.documentId,
+        paragraph_hash: this.state.paragraphHash
+      }, this.props.currentUser.api_token);
     }
 
     this.setState({
@@ -109,8 +94,15 @@ var Paragraph = React.createClass({
       isJustificationValid: isJustificationValid,
       focusOn: focusOn
     });
+  },
 
-    e.preventDefault();
+  componentWillUpdate: function(nextProps, nextState) {
+    if(this.state.loading && !nextState.loading) {
+      this.setState({
+        contributionBody: "",
+        contributionJustification: ""
+      });
+    }
   },
 
   resizeTextarea: function(textarea) {
@@ -153,7 +145,7 @@ var Paragraph = React.createClass({
     bodyId = "contribution_body_" + this.state.paragraphHash;
     justificationId = "justification_body_" + this.state.paragraphHash;
 
-    if(this.props.userApiToken != null) {
+    if(this.props.currentUser != null) {
       contributionForm = <form
         className="newContributionForm clearfix"
         onSubmit={this.newContributionSubmit}>
@@ -177,12 +169,12 @@ var Paragraph = React.createClass({
           onChange={this.contributionJustificationChange}
           style={{resize: "none"}}>
         </textarea>
-        <button className="button right" disabled={this.state.isWaitingFormResponse}>
+        <button className="button right" disabled={this.state.loading}>
           <i
             className="fa fa-refresh fa-spin mr1"
             style={{
               opacity: ".5",
-              display: this.state.isWaitingFormResponse ? "inline" : "none"}}/>
+              display: this.state.loading ? "inline" : "none"}}/>
           Enviar
         </button>
       </form>
