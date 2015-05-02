@@ -3,7 +3,8 @@ var documentFlux = {};
 documentFlux.constants = {
   CREATE_CONTRIBUTION_SUCCESS: "CREATE_CONTRIBUTION_SUCCESS",
   CREATE_CONTRIBUTION_BEFORE: "CREATE_CONTRIBUTION_BEFORE",
-  CREATE_CONTRIBUTION_ERROR: "CREATE_CONTRIBUTION_ERROR"
+  CREATE_CONTRIBUTION_ERROR: "CREATE_CONTRIBUTION_ERROR",
+  LOAD_CONTRIBUTIONS_SUCCESS: "LOAD_CONTRIBUTIONS_SUCCESS"
 };
 
 documentFlux.store = Fluxxor.createStore({
@@ -13,7 +14,8 @@ documentFlux.store = Fluxxor.createStore({
     this.bindActions(
       documentFlux.constants.CREATE_CONTRIBUTION_SUCCESS, this.onCreateContributionSuccess,
       documentFlux.constants.CREATE_CONTRIBUTION_BEFORE, this.onCreateContributionBefore,
-      documentFlux.constants.CREATE_CONTRIBUTION_ERROR, this.onCreateContributionError
+      documentFlux.constants.CREATE_CONTRIBUTION_ERROR, this.onCreateContributionError,
+      documentFlux.constants.LOAD_CONTRIBUTIONS_SUCCESS, this.onLoadContributionsSuccess
     );
   },
 
@@ -34,6 +36,11 @@ documentFlux.store = Fluxxor.createStore({
     this.emit("change");
   },
 
+  onLoadContributionsSuccess: function(payload) {
+    this.contributions = payload;
+    this.emit("change");
+  },
+
   getState: function() {
     return { contributions: this.contributions, loading: this.loading };
   }
@@ -41,10 +48,8 @@ documentFlux.store = Fluxxor.createStore({
 
 documentFlux.actions = {
   createContribution: function(contribution, userApiToken) {
-    url = "/api/v1/contributions";
-
     $.ajax({
-      url: url,
+      url: "/api/v1/contributions",
       headers: { 'Authorization': 'Token token="' + userApiToken + '"' },
       data: { contribution: contribution },
       method: 'post',
@@ -58,6 +63,18 @@ documentFlux.actions = {
       error: function(jqXHR, textStatus, errorThrown) {
         this.dispatch(documentFlux.constants.CREATE_CONTRIBUTION_ERROR,
           {jqXHR: jqXHR, textStatus: textStatus, errorThrown: errorThrown});
+      }.bind(this)
+    });
+  },
+
+  loadContributions: function(document_id) {
+    $.ajax({
+      url: "/api/v1/contributions",
+      data: { document_id: document_id },
+      method: 'get',
+      dataType: 'json',
+      success: function(data) {
+        this.dispatch(documentFlux.constants.LOAD_CONTRIBUTIONS_SUCCESS, data);
       }.bind(this)
     });
   }

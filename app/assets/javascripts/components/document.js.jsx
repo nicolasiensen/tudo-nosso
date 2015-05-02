@@ -31,6 +31,8 @@ var Document = React.createClass({
         this.selectParagraph(null);
       }
     }.bind(this));
+
+    this.getFlux().actions.loadContributions(this.props.document.id);
   },
 
   selectParagraph: function(index) {
