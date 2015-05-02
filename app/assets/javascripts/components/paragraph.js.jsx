@@ -122,14 +122,12 @@ var Paragraph = React.createClass({
   },
 
   render: function() {
-    contributionList = this.state.contributions.map(function (contribution){
-      return (
-        <div className="contribution">
-          <div className="userName">{contribution.user.first_name} {contribution.user.last_name}</div>
-          <div className="contributionBody">{contribution.body}</div>
-          <div className="contributionJustification">{contribution.justification}</div>
-        </div>
-      );
+    paragraphContributions = this.state.contributions.filter(function(c){
+      return c.paragraph_hash == this.state.paragraphHash;
+    }.bind(this));
+
+    contributionList = paragraphContributions.map(function (c){
+      return <Contribution contribution={c} />;
     });
 
     bodyClass = "block full-width field-light mb1";
@@ -184,27 +182,26 @@ var Paragraph = React.createClass({
 
     return (
       <div
-        className="paragraph clearfix"
-        style={{ marginBottom: "1em" }}
+        className="paragraph clearfix mb1"
         onMouseOver={this.onMouseOver}
         onMouseOut={this.onMouseOut}>
         <p
-          className="paragraphBody"
+          className="paragraphBody mb0"
           style={{
             opacity: ((this.props.selectedParagraphIndex != null && !this.props.formOpen) && !this.state.isMouseOver) ? .3 : 1,
             transform: this.props.formOpen ? "scale(1.05)" : "scale(1)",
-            transition: ".25s",
-            margin: 0
+            transition: ".25s"
           }}
           dangerouslySetInnerHTML={{__html: this.props.paragraph.body}}>
         </p>
         <a
-          className="newContributionButton mb1"
+          className="newContributionButton mb1 button button-transparent blue button-small"
           title="Contribuições"
           href="#"
-          style={{visibility: (this.state.isMouseOver || this.props.formOpen) ? 'visible' : 'hidden'}}
+          style={{visibility: (this.state.isMouseOver || this.props.formOpen || paragraphContributions.length > 0) ? 'visible' : 'hidden'}}
           onClick={this.toggleContributionPanel}>
-          <i className="fa fa-comment"></i>
+          <i className="fa fa-comment mr1"></i>
+          <span>{paragraphContributions.length}</span>
         </a>
         <a
           className="mb1 right gray"
@@ -223,10 +220,10 @@ var Paragraph = React.createClass({
             borderRadius: "3px",
             border: "1px solid #eee"
           }}>
-          {contributionForm}
           <div className="contributionList">
             {contributionList}
           </div>
+          {contributionForm}
         </div>
       </div>
     );
