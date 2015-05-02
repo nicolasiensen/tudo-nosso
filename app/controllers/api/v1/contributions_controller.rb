@@ -1,5 +1,5 @@
 class Api::V1::ContributionsController < ApiController
-  before_filter :authenticate
+  before_filter :authenticate, except: :index
 
   def create
     contribution = Contribution.new(contribution_params)
@@ -10,6 +10,11 @@ class Api::V1::ContributionsController < ApiController
     else
       render json: contribution.errors, status: 422
     end
+  end
+
+  def index
+    render json: Contribution.where(document_id: params[:document_id]).
+      to_json(include: { user: {except: [:api_token, :email]}})
   end
 
   def contribution_params

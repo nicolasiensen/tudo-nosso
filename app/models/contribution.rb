@@ -1,5 +1,6 @@
 class Contribution < ActiveRecord::Base
   belongs_to :user
+  belongs_to :document
   validates :body, :justification, :user_id, :document_id, :paragraph_hash, presence: true
 
   def to_json options={}

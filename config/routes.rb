@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :contributions, only: :create
+      resources :contributions, only: [:create, :index]
     end
   end
 

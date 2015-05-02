@@ -33,6 +33,25 @@ RSpec.describe Api::V1::ContributionsController, type: :controller do
     end
   end
 
+  describe "GET index" do
+    let(:contribution) { Contribution.make! }
+
+    it "should return contribution for the given document id" do
+      get :index, document_id: contribution.document.id
+      contribution_ids = JSON.parse(response.body).map {|c| c["id"]}
+
+      expect(contribution_ids).to include(contribution.id)
+    end
+
+    it "should not return contributions for other documents" do
+      other_contribution = Contribution.make!
+      get :index, document_id: contribution.document.id
+      contribution_ids = JSON.parse(response.body).map {|c| c["id"]}
+      
+      expect(contribution_ids).to_not include(other_contribution.id)
+    end
+  end
+
   let(:valid_contribution_params) {
     {
       contribution: {
