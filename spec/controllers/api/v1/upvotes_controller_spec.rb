@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Api::V1::UpvotesController, type: :controller do
   describe "POST create" do
     it "should return a 401 status when there is no authentication token" do
-      post :create, valid_upvote_params
+      post :create, upvote_params
       expect(response.status).to be_eql(401)
     end
 
@@ -16,7 +16,7 @@ RSpec.describe Api::V1::UpvotesController, type: :controller do
       end
 
       it "should return the new upvote when params are valid" do
-        post :create, valid_upvote_params
+        post :create, upvote_params
         json = JSON.parse(response.body)
 
         expect(json["user_id"]).to be_eql(1)
@@ -24,12 +24,12 @@ RSpec.describe Api::V1::UpvotesController, type: :controller do
       end
 
       it "should return 422 status when params are invalid" do
-        post :create, invalid_upvote_params
+        Upvote.create contribution_id: 1, user_id: user.id
+        post :create, upvote_params
         expect(response.status).to be_eql(422)
       end
     end
   end
 
-  let(:valid_upvote_params) { {upvote: { contribution_id: 1, user_id: 1 }} }
-  let(:invalid_upvote_params) { {upvote: { contribution_id: 1 }} }
+  let(:upvote_params) { {upvote: { contribution_id: 1 }} }
 end

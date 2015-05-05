@@ -3,6 +3,7 @@ class Api::V1::UpvotesController < ApiController
 
   def create
     upvote = Upvote.new upvote_params
+    upvote.user = current_user
 
     if upvote.save
       render json: upvote
@@ -12,6 +13,6 @@ class Api::V1::UpvotesController < ApiController
   end
 
   def upvote_params
-    params.require(:upvote).permit(:user_id, :contribution_id)
+    params.require(:upvote).permit(:contribution_id)
   end
 end
