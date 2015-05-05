@@ -21,6 +21,6 @@ Contribution.blueprint do
 end
 
 Upvote.blueprint do
-  user
-  contribution
+  user { User.make! }
+  contribution { Contribution.make! }
 end

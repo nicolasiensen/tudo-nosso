@@ -12,6 +12,11 @@ class Api::V1::UpvotesController < ApiController
     end
   end
 
+  def destroy
+    Upvote.destroy(params[:id])
+    render nothing: true, status: 200
+  end
+
   def upvote_params
     params.require(:upvote).permit(:contribution_id)
   end
