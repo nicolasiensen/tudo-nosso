@@ -19,3 +19,8 @@ Contribution.blueprint do
   justification { "My justification" }
   paragraph_hash { "abc#{sn}" }
 end
+
+Upvote.blueprint do
+  user
+  contribution
+end

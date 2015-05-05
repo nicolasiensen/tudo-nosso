@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :contributions, only: [:create, :index]
+      resources :upvotes, only: [:create]
     end
   end
 
