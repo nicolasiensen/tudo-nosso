@@ -127,8 +127,8 @@ var Paragraph = React.createClass({
     }.bind(this));
 
     contributionList = paragraphContributions.map(function (c){
-      return <Contribution contribution={c} />;
-    });
+      return <Contribution contribution={c} currentUser={this.props.currentUser} />;
+    }.bind(this));
 
     bodyClass = "block full-width field-light mb1";
     if(!this.state.isBodyValid){

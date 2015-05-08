@@ -1,5 +1,52 @@
+var FluxMixin = Fluxxor.FluxMixin(React),
+    StoreWatchMixin = Fluxxor.StoreWatchMixin;
+
 var Contribution = React.createClass({
+  mixins: [FluxMixin, StoreWatchMixin("DocumentStore")],
+
+  getStateFromFlux: function() {
+    var flux = this.getFlux();
+    return flux.store("DocumentStore").getState();
+  },
+
+  getInitialState: function() {
+    return {currentUserUpvote: null}
+  },
+
+  toggleUpvote: function(e){
+    e.preventDefault();
+
+    // TODO: wrap it in a method
+    currentUserUpvote = null
+    if(this.props.currentUser) {
+      currentUserUpvote = this.props.contribution.upvotes.filter(function(u){
+        return u.user_id == this.props.currentUser.id;
+      }.bind(this))[0];
+    }
+
+    if(this.props.currentUser && currentUserUpvote == null) {
+      this.getFlux().actions.createUpvote(this.props.contribution.id, this.props.currentUser.api_token);
+    } else if(this.props.currentUser && currentUserUpvote != null) {
+      this.getFlux().actions.deleteUpvote(currentUserUpvote, this.props.currentUser.api_token);
+    } else {
+      window.location = "/users/sign_in";
+    }
+  },
+
   render: function(){
+    currentUserUpvote = null
+    if(this.props.currentUser) {
+      currentUserUpvote = this.props.contribution.upvotes.filter(function(u){
+        return u.user_id == this.props.currentUser.id;
+      }.bind(this))[0];
+    }
+
+    upvoteButtonText = currentUserUpvote == null ? "Concordar" : "Você concorda";
+    upvoteButtonClass = currentUserUpvote == null ?
+      "blue button button-outline button-small mb1" : "gray button button-outline button-small mb1";
+    upvoteBorderClass = currentUserUpvote == null ?
+      "border-blue border-right px1" : "border-gray border-right px1";
+
     return(
       <div className="mb2 border-bottom">
         <div className="userName">
@@ -7,11 +54,15 @@ var Contribution = React.createClass({
         </div>
         <div className="contributionBody">{this.props.contribution.body}</div>
         <div className="contributionJustification">{this.props.contribution.justification}</div>
-        <a className="blue button button-outline button-small mb1" href="/users/sign_in" title="Concordar">
-          <span className="border-blue border-right px1">Concordar</span>
+        <a
+          className={upvoteButtonClass}
+          href="#"
+          onClick={this.toggleUpvote}
+          title={upvoteButtonText}>
+          <span className={upvoteBorderClass}>{upvoteButtonText}</span>
           <span className="px1">
             <i className="fa fa-thumbs-o-up mr1" />
-            0
+            <span title="Pessoas que concordaram">{this.props.contribution.upvotes.length}</span>
           </span>
         </a>
       </div>
