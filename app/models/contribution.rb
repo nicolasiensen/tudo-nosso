@@ -1,9 +1,15 @@
 class Contribution < ActiveRecord::Base
   belongs_to :user
   belongs_to :document
+  has_many :upvotes
   validates :body, :justification, :user_id, :document_id, :paragraph_hash, presence: true
 
   def to_json options={}
-    super(include: { user: {except: [:api_token, :email]}})
+    super(include: {
+      user: {
+        except: [:api_token, :email]
+      },
+      upvotes: {}
+    })
   end
 end

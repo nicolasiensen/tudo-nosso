@@ -4,7 +4,9 @@ documentFlux.constants = {
   CREATE_CONTRIBUTION_SUCCESS: "CREATE_CONTRIBUTION_SUCCESS",
   CREATE_CONTRIBUTION_BEFORE: "CREATE_CONTRIBUTION_BEFORE",
   CREATE_CONTRIBUTION_ERROR: "CREATE_CONTRIBUTION_ERROR",
-  LOAD_CONTRIBUTIONS_SUCCESS: "LOAD_CONTRIBUTIONS_SUCCESS"
+  LOAD_CONTRIBUTIONS_SUCCESS: "LOAD_CONTRIBUTIONS_SUCCESS",
+  CREATE_UPVOTE_SUCCESS: "CREATE_UPVOTE_SUCCESS",
+  DELETE_UPVOTE_SUCCESS: "DELETE_UPVOTE_SUCCESS"
 };
 
 documentFlux.store = Fluxxor.createStore({
@@ -15,7 +17,9 @@ documentFlux.store = Fluxxor.createStore({
       documentFlux.constants.CREATE_CONTRIBUTION_SUCCESS, this.onCreateContributionSuccess,
       documentFlux.constants.CREATE_CONTRIBUTION_BEFORE, this.onCreateContributionBefore,
       documentFlux.constants.CREATE_CONTRIBUTION_ERROR, this.onCreateContributionError,
-      documentFlux.constants.LOAD_CONTRIBUTIONS_SUCCESS, this.onLoadContributionsSuccess
+      documentFlux.constants.LOAD_CONTRIBUTIONS_SUCCESS, this.onLoadContributionsSuccess,
+      documentFlux.constants.CREATE_UPVOTE_SUCCESS, this.onCreateUpvoteSuccess,
+      documentFlux.constants.DELETE_UPVOTE_SUCCESS, this.onDeleteUpvoteSuccess
     );
   },
 
@@ -38,6 +42,24 @@ documentFlux.store = Fluxxor.createStore({
 
   onLoadContributionsSuccess: function(payload) {
     this.contributions = payload;
+    this.emit("change");
+  },
+
+  onCreateUpvoteSuccess: function(payload) {
+    contribution = this.contributions.filter(function(c){
+      return c.id == payload.contribution_id;
+    })[0];
+
+    contribution.upvotes.push(payload);
+    this.emit("change");
+  },
+
+  onDeleteUpvoteSuccess: function(payload) {
+    contribution = this.contributions.filter(function(c){
+      return c.id == payload.contribution_id;
+    })[0];
+    
+    contribution.upvotes.splice(payload, 1);
     this.emit("change");
   },
 
@@ -75,6 +97,45 @@ documentFlux.actions = {
       dataType: 'json',
       success: function(data) {
         this.dispatch(documentFlux.constants.LOAD_CONTRIBUTIONS_SUCCESS, data);
+      }.bind(this)
+    });
+  },
+
+  createUpvote: function(contributionId, userApiToken) {
+    $.ajax({
+      url: "/api/v1/upvotes",
+      headers: { 'Authorization': 'Token token="' + userApiToken + '"' },
+      data: { upvote: {contribution_id: contributionId} },
+      method: 'post',
+      dataType: 'json',
+      beforeSend: function() {
+        // this.dispatch(documentFlux.constants.CREATE_UPVOTE_BEFORE);
+      }.bind(this),
+      success: function(data) {
+        this.dispatch(documentFlux.constants.CREATE_UPVOTE_SUCCESS, data);
+      }.bind(this),
+      error: function(jqXHR, textStatus, errorThrown) {
+        // this.dispatch(documentFlux.constants.CREATE_UPVOTE_ERROR,
+        //   {jqXHR: jqXHR, textStatus: textStatus, errorThrown: errorThrown});
+      }.bind(this)
+    });
+  },
+
+  deleteUpvote: function(upvote, userApiToken) {
+    $.ajax({
+      url: "/api/v1/upvotes/" + upvote.id,
+      headers: { 'Authorization': 'Token token="' + userApiToken + '"' },
+      method: 'delete',
+      dataType: 'html',
+      beforeSend: function() {
+        // this.dispatch(documentFlux.constants.CREATE_UPVOTE_BEFORE);
+      }.bind(this),
+      success: function(data) {
+        this.dispatch(documentFlux.constants.DELETE_UPVOTE_SUCCESS, upvote);
+      }.bind(this),
+      error: function(jqXHR, textStatus, errorThrown) {
+        // this.dispatch(documentFlux.constants.CREATE_UPVOTE_ERROR,
+        //   {jqXHR: jqXHR, textStatus: textStatus, errorThrown: errorThrown});
       }.bind(this)
     });
   }

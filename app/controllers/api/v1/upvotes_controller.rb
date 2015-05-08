@@ -14,7 +14,7 @@ class Api::V1::UpvotesController < ApiController
 
   def destroy
     Upvote.destroy(params[:id])
-    render nothing: true, status: 200
+    render status: 200, nothing: true
   end
 
   def upvote_params
