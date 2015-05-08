@@ -43,9 +43,7 @@ var Contribution = React.createClass({
 
     upvoteButtonText = currentUserUpvote == null ? "Concordar" : "Você concorda";
     upvoteButtonClass = currentUserUpvote == null ?
-      "blue button button-outline button-small mb1" : "gray button button-outline button-small mb1";
-    upvoteBorderClass = currentUserUpvote == null ?
-      "border-blue border-right px1" : "border-gray border-right px1";
+      "button button-small mb1" : "bg-darken-4 button button-small mb1";
 
     return(
       <div className="mb2 border-bottom">
@@ -59,7 +57,7 @@ var Contribution = React.createClass({
           href="#"
           onClick={this.toggleUpvote}
           title={upvoteButtonText}>
-          <span className={upvoteBorderClass}>{upvoteButtonText}</span>
+          <span>{upvoteButtonText}</span>
           <span className="px1">
             <i className="fa fa-thumbs-o-up mr1" />
             <span title="Pessoas que concordaram">{this.props.contribution.upvotes.length}</span>
