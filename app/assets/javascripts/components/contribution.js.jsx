@@ -58,8 +58,9 @@ var Contribution = React.createClass({
           onClick={this.toggleUpvote}
           title={upvoteButtonText}>
           <span>{upvoteButtonText}</span>
-          <span className="px1">
-            <i className="fa fa-thumbs-o-up mr1" />
+          <span>
+            <i className="fa fa-thumbs-o-up ml2" />
+            &nbsp;
             <span title="Pessoas que concordaram">{this.props.contribution.upvotes.length}</span>
           </span>
         </a>
