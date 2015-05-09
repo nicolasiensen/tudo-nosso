@@ -16,6 +16,12 @@ var Paragraph = React.createClass({
       nextState.newContribution == null) {
       this.showList();
     }
+
+    if(this.props.selectedParagraphIndex == this.props.paragraph.index &&
+      nextProps.selectedParagraphIndex != this.props.paragraph.index) {
+      this.hideForm();
+      this.hideList();
+    }
   },
 
   showForm: function() {
@@ -69,16 +75,28 @@ var Paragraph = React.createClass({
       return <Contribution contribution={c} currentUser={this.props.currentUser} />;
     }.bind(this));
 
+    addContributionButtonClass = "mb1 button button-transparent blue button-small";
+    listContributionsButtonClass = addContributionButtonClass;
+
+    if(this.state.isFormOpen) {
+      addContributionButtonClass += " is-active";
+    } else if (this.state.isListOpen) {
+      listContributionsButtonClass += " is-active";
+    }
+
     return (
       <div
         className="paragraph clearfix mb1"
         onMouseOver={this.onMouseOver}
-        onMouseOut={this.onMouseOut}>
+        onMouseOut={this.onMouseOut}
+        style={{
+          opacity: ((this.props.selectedParagraphIndex != null && !this.props.formOpen) && !this.state.isMouseOver) ? .3 : 1,
+          transition: ".25s"
+        }}>
         <p
           className="paragraphBody mb0"
           style={{
-            opacity: ((this.props.selectedParagraphIndex != null && !this.props.formOpen) && !this.state.isMouseOver) ? .3 : 1,
-            transform: this.props.formOpen ? "scale(1.05)" : "scale(1)",
+            transform: this.props.formOpen ? "scale(1.02)" : "scale(1)",
             transition: ".25s"
           }}
           dangerouslySetInnerHTML={{__html: this.props.paragraph.body}}>
@@ -87,14 +105,14 @@ var Paragraph = React.createClass({
           className="inline"
           style={{visibility: (this.state.isMouseOver || this.props.formOpen || paragraphContributions.length > 0) ? 'visible' : 'hidden'}}>
           <a
-            className="mb1 button button-transparent blue button-small"
+            className={addContributionButtonClass}
             title="Adicionar contribuição"
             href="#"
             onClick={this.onToggleFormClick}>
             <i className="fa fa-plus"></i>
           </a>
           <a
-            className="newContributionButton mb1 button button-transparent blue button-small"
+            className={listContributionsButtonClass}
             title="Contribuições"
             href="#"
             onClick={this.onToggleListClick}>
