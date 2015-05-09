@@ -26,7 +26,6 @@ RSpec.feature "Upvote a contribution", type: :feature, js: true do
       click_link("Contribuições")
       click_link("Concordar")
 
-      sleep(1)
       expect(current_path).to be_eql(document_path(@document))
       expect(page).to have_css("span[title='Pessoas que concordaram']", text: 1)
       expect(page).to have_css("span", text: "Você concorda")
