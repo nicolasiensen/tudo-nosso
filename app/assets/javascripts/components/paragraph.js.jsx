@@ -212,14 +212,8 @@ var Paragraph = React.createClass({
           <i className="fa fa-close"></i>
         </a>
         <div
-          className="contributionPanel"
-          style={{
-            display: this.props.formOpen ? 'block' : 'none',
-            padding: "1em",
-            background: "#f5f5f5",
-            borderRadius: "3px",
-            border: "1px solid #eee"
-          }}>
+          className="contributionPanel p2 bg-darken-1 rounded border border-darken-2"
+          style={{display: this.props.formOpen ? 'block' : 'none'}}>
           <div className="contributionList">
             {contributionList}
           </div>
