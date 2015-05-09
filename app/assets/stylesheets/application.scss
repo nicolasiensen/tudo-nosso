@@ -1,4 +1,4 @@
-@import "basscss/basscss.scss";
+@import "basscss_and_override";
 @import "fontawesome/font-awesome.scss";
 @import "components/*";
 @import "documents";
@@ -8,6 +8,7 @@ body {
 	-moz-osx-font-smoothing: grayscale;
 }
 
+// TODO: workaround while this is not solved https://github.com/basscss/color-forms/issues/1
 .field-light.is-error:focus {
   box-shadow: 0 0 0 1px rgba(#ff4136, 0.5);
 }

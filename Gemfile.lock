@@ -121,7 +121,7 @@ GEM
       bundler (>= 1.3.0, < 2.0)
       railties (= 4.2.0)
       sprockets-rails
-    rails-assets-basscss (6.0.2)
+    rails-assets-basscss-sass (1.0.2)
     rails-assets-fluxxor (1.5.3)
     rails-assets-fontawesome (4.3.0)
     rails-assets-jsSHA (1.6.0)
@@ -252,7 +252,7 @@ DEPENDENCIES
   pg
   puma
   rails (= 4.2.0)
-  rails-assets-basscss!
+  rails-assets-basscss-sass!
   rails-assets-fluxxor!
   rails-assets-fontawesome!
   rails-assets-jsSHA!

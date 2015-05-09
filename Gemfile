@@ -66,7 +66,7 @@ gem 'puma'
 
 # Rails assets
 source 'https://rails-assets.org' do
-  gem 'rails-assets-basscss'
+  gem 'rails-assets-basscss-sass'
   gem 'rails-assets-fontawesome'
   gem 'rails-assets-jsSHA'
   gem 'rails-assets-fluxxor'
