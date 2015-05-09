@@ -11,8 +11,9 @@ documentFlux.constants = {
   CREATE_UPVOTE_BEFORE: "CREATE_UPVOTE_BEFORE",
   CREATE_UPVOTE_ERROR: "CREATE_UPVOTE_ERROR",
 
-
-  DELETE_UPVOTE_SUCCESS: "DELETE_UPVOTE_SUCCESS"
+  DELETE_UPVOTE_SUCCESS: "DELETE_UPVOTE_SUCCESS",
+  DELETE_UPVOTE_BEFORE: "DELETE_UPVOTE_BEFORE",
+  DELETE_UPVOTE_ERROR: "DELETE_UPVOTE_ERROR"
 };
 
 documentFlux.store = Fluxxor.createStore({
@@ -32,7 +33,9 @@ documentFlux.store = Fluxxor.createStore({
       documentFlux.constants.CREATE_UPVOTE_BEFORE, this.onCreateUpvoteBefore,
       documentFlux.constants.CREATE_UPVOTE_ERROR, this.onCreateUpvoteError,
 
-      documentFlux.constants.DELETE_UPVOTE_SUCCESS, this.onDeleteUpvoteSuccess
+      documentFlux.constants.DELETE_UPVOTE_SUCCESS, this.onDeleteUpvoteSuccess,
+      documentFlux.constants.DELETE_UPVOTE_BEFORE, this.onDeleteUpvoteBefore,
+      documentFlux.constants.DELETE_UPVOTE_ERROR, this.onDeleteUpvoteError
     );
   },
 
@@ -86,6 +89,19 @@ documentFlux.store = Fluxxor.createStore({
     })[0];
 
     contribution.upvotes.splice(payload, 1);
+    this.contributionIdUpvoting = null;
+
+    this.emit("change");
+  },
+
+  onDeleteUpvoteBefore: function(payload) {
+    this.contributionIdUpvoting = payload.contribution_id;
+    this.emit("change");
+  },
+
+  onDeleteUpvoteError: function(payload) {
+    console.log(payload);
+    this.contributionIdUpvoting = null;
     this.emit("change");
   },
 
@@ -158,14 +174,14 @@ documentFlux.actions = {
       method: 'delete',
       dataType: 'html',
       beforeSend: function() {
-        // this.dispatch(documentFlux.constants.CREATE_UPVOTE_BEFORE);
+        this.dispatch(documentFlux.constants.DELETE_UPVOTE_BEFORE, upvote);
       }.bind(this),
       success: function(data) {
         this.dispatch(documentFlux.constants.DELETE_UPVOTE_SUCCESS, upvote);
       }.bind(this),
       error: function(jqXHR, textStatus, errorThrown) {
-        // this.dispatch(documentFlux.constants.CREATE_UPVOTE_ERROR,
-        //   {jqXHR: jqXHR, textStatus: textStatus, errorThrown: errorThrown});
+        this.dispatch(documentFlux.constants.DELETE_UPVOTE_ERROR,
+          {jqXHR: jqXHR, textStatus: textStatus, errorThrown: errorThrown});
       }.bind(this)
     });
   }
