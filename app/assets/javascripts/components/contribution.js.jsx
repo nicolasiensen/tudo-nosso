@@ -1,14 +1,4 @@
-var FluxMixin = Fluxxor.FluxMixin(React),
-    StoreWatchMixin = Fluxxor.StoreWatchMixin;
-
 var Contribution = React.createClass({
-  mixins: [FluxMixin, StoreWatchMixin("DocumentStore")],
-
-  getStateFromFlux: function() {
-    var flux = this.getFlux();
-    return flux.store("DocumentStore").getState();
-  },
-
   getInitialState: function() {
     return {currentUserUpvote: null}
   },
@@ -69,5 +59,13 @@ var Contribution = React.createClass({
         </a>
       </div>
     );
+  },
+
+  // Fluxxor stuff
+  mixins: [Fluxxor.FluxMixin(React), Fluxxor.StoreWatchMixin("DocumentStore")],
+
+  getStateFromFlux: function() {
+    var flux = this.getFlux();
+    return flux.store("DocumentStore").getState();
   }
 });
