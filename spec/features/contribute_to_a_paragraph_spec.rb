@@ -16,7 +16,7 @@ RSpec.feature "ContributeToAParagraph", type: :feature, js: true do
       click_button "Log in"
       visit document_path(document)
       page.find(".paragraph", text: "Lorem ipsum").hover
-      click_link("Contribuições")
+      click_link("Adicionar contribuição")
     end
 
     scenario "when the form is valid" do
@@ -38,7 +38,7 @@ RSpec.feature "ContributeToAParagraph", type: :feature, js: true do
   scenario "when I'm not logged in" do
     visit document_path(document)
     page.find(".paragraph", text: "Lorem ipsum").hover
-    click_link("Contribuições")
+    click_link("Adicionar contribuição")
     click_link("Registre-se ou faça login para colaborar com esse edital")
     fill_in :user_email, with: @user.email
     fill_in :user_password, with: password

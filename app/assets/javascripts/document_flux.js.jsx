@@ -19,7 +19,7 @@ documentFlux.constants = {
 documentFlux.store = Fluxxor.createStore({
   initialize: function() {
     this.contributions = [];
-    this.loading = false;
+    this.newContribution = null;
     this.contributionIdUpvoting = null;
 
     this.bindActions(
@@ -40,19 +40,18 @@ documentFlux.store = Fluxxor.createStore({
   },
 
   onCreateContributionSuccess: function(payload) {
-    this.contributions.push(payload);
-    this.loading = false;
+    this.contributions.unshift(payload);
+    this.newContribution = null;
     this.emit("change");
   },
 
-  onCreateContributionBefore: function() {
-    this.loading = true;
+  onCreateContributionBefore: function(payload) {
+    this.newContribution = payload;
     this.emit("change");
   },
 
   onCreateContributionError: function(payload) {
-    console.log(payload);
-    this.loading = false;
+    this.newContribution = null;
     this.emit("change");
   },
 
@@ -78,7 +77,6 @@ documentFlux.store = Fluxxor.createStore({
   },
 
   onCreateUpvoteError: function(payload) {
-    console.log(payload);
     this.contributionIdUpvoting = null;
     this.emit("change");
   },
@@ -100,7 +98,6 @@ documentFlux.store = Fluxxor.createStore({
   },
 
   onDeleteUpvoteError: function(payload) {
-    console.log(payload);
     this.contributionIdUpvoting = null;
     this.emit("change");
   },
@@ -108,7 +105,7 @@ documentFlux.store = Fluxxor.createStore({
   getState: function() {
     return {
       contributions: this.contributions,
-      loading: this.loading,
+      newContribution: this.newContribution,
       contributionIdUpvoting: this.contributionIdUpvoting
     };
   }
@@ -123,7 +120,7 @@ documentFlux.actions = {
       method: 'post',
       dataType: 'json',
       beforeSend: function() {
-        this.dispatch(documentFlux.constants.CREATE_CONTRIBUTION_BEFORE);
+        this.dispatch(documentFlux.constants.CREATE_CONTRIBUTION_BEFORE, contribution);
       }.bind(this),
       success: function(data) {
         this.dispatch(documentFlux.constants.CREATE_CONTRIBUTION_SUCCESS, data);

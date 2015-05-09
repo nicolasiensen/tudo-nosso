@@ -1,9 +1,4 @@
-var FluxMixin = Fluxxor.FluxMixin(React),
-    StoreWatchMixin = Fluxxor.StoreWatchMixin;
-
 var ContributionForm = React.createClass({
-  mixins: [FluxMixin, StoreWatchMixin("DocumentStore")],
-
   getInitialState: function() {
     return {
       contributionBody: this.props.paragraph.body.replace(/<(?:.|\n)*?>/gm, ''),
@@ -14,29 +9,18 @@ var ContributionForm = React.createClass({
     };
   },
 
-  getStateFromFlux: function() {
-    var flux = this.getFlux();
-    return flux.store("DocumentStore").getState();
-  },
-
   componentWillUpdate: function(nextProps, nextState) {
-    if(this.state.loading && !nextState.loading) {
-      this.setState({
-        contributionBody: "",
-        contributionJustification: ""
-      });
-    }
-
-    if(!this.props.formOpen && nextProps.formOpen) {
+    if(!this.props.isFormOpen && nextProps.isFormOpen) {
       this.setState({
         contributionBody: this.getInitialState().contributionBody,
+        contributionJustification: "",
         focusOn: "contributionBody"
       });
     }
   },
 
   componentDidUpdate: function() {
-    if(this.props.formOpen) {
+    if(this.props.isFormOpen) {
       this.resizeTextarea(this.refs.contributionBody);
       this.resizeTextarea(this.refs.contributionJustification);
 
@@ -56,19 +40,7 @@ var ContributionForm = React.createClass({
     e.style.height = e.scrollHeight + 2 + "px";
   },
 
-  contributionBodyChange: function(e) {
-    this.setState({contributionBody: e.target.value});
-    this.resizeTextarea(this.refs.contributionBody);
-  },
-
-  contributionJustificationChange: function(e) {
-    this.setState({contributionJustification: e.target.value});
-    this.resizeTextarea(this.refs.contributionJustification);
-  },
-
-  newContributionSubmit: function(e) {
-    e.preventDefault();
-
+  submitForm: function(){
     isBodyValid = true;
     isJustificationValid = true;
     focusOn = null;
@@ -116,7 +88,7 @@ var ContributionForm = React.createClass({
     if(this.props.currentUser != null) {
       return <form
         className="newContributionForm clearfix"
-        onSubmit={this.newContributionSubmit}>
+        onSubmit={this.onSubmit}>
         <label htmlFor={bodyId}>Contribua com a sua versão para este parágrafo</label>
         <textarea
           className={bodyClass}
@@ -124,7 +96,7 @@ var ContributionForm = React.createClass({
           id={bodyId}
           ref="contributionBody"
           value={this.state.contributionBody}
-          onChange={this.contributionBodyChange}
+          onChange={this.onContributionBodyChange}
           style={{resize: "none"}}>
         </textarea>
         <label htmlFor={justificationId}>Justifique a sua contribuição</label>
@@ -134,7 +106,7 @@ var ContributionForm = React.createClass({
           id={justificationId}
           ref="contributionJustification"
           value={this.state.contributionJustification}
-          onChange={this.contributionJustificationChange}
+          onChange={this.onContributionJustificationChange}
           style={{resize: "none"}}>
         </textarea>
         <button className="button right" disabled={this.state.loading}>
@@ -149,5 +121,29 @@ var ContributionForm = React.createClass({
     } else {
       return <a href="/users/sign_in">Registre-se ou faça login para colaborar com esse edital</a>
     }
+  },
+
+  // Callbacks
+  onContributionBodyChange: function(e) {
+    this.setState({contributionBody: e.target.value});
+    this.resizeTextarea(this.refs.contributionBody);
+  },
+
+  onContributionJustificationChange: function(e) {
+    this.setState({contributionJustification: e.target.value});
+    this.resizeTextarea(this.refs.contributionJustification);
+  },
+
+  onSubmit: function(e) {
+    e.preventDefault();
+    this.submitForm();
+  },
+
+  // Fluxxor stuff
+  mixins: [Fluxxor.FluxMixin(React), Fluxxor.StoreWatchMixin("DocumentStore")],
+
+  getStateFromFlux: function() {
+    var flux = this.getFlux();
+    return flux.store("DocumentStore").getState();
   }
 });

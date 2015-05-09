@@ -1,42 +1,63 @@
-var FluxMixin = Fluxxor.FluxMixin(React),
-    StoreWatchMixin = Fluxxor.StoreWatchMixin;
-
 var Paragraph = React.createClass({
-  mixins: [FluxMixin, StoreWatchMixin("DocumentStore")],
-
   getInitialState: function() {
+    shaObj = new jsSHA(this.props.paragraph.body, "TEXT");
+
     return {
-      paragraphHash: null,
-      isMouseOver: false
+      paragraphHash: shaObj.getHash("SHA-256", "HEX"),
+      isMouseOver: false,
+      isFormOpen: false,
+      isListOpen: false
     };
   },
 
-  getStateFromFlux: function() {
-    var flux = this.getFlux();
-    return flux.store("DocumentStore").getState();
-  },
-
-  componentDidMount: function() {
-    shaObj = new jsSHA(this.props.paragraph.body, "TEXT");
-    this.setState({ paragraphHash: shaObj.getHash("SHA-256", "HEX") });
-  },
-
-  onMouseOver: function() {
-    this.setState({isMouseOver: true});
-  },
-
-  onMouseOut: function() {
-    this.setState({isMouseOver: false});
-  },
-
-  toggleContributionPanel: function(e) {
-    if(!this.props.formOpen) {
-      this.props.selectParagraph(this.props.paragraph.index);
-    } else {
-      this.props.selectParagraph(null);
+  componentWillUpdate: function(nextProps, nextState) {
+    if(this.state.newContribution != null &&
+      this.state.newContribution.paragraph_hash == this.state.paragraphHash &&
+      nextState.newContribution == null) {
+      this.showList();
     }
+  },
 
-    e.preventDefault();
+  showForm: function() {
+    this.setState({
+      isFormOpen: true,
+      isListOpen: false
+    });
+    this.props.selectParagraph(this.props.paragraph.index);
+  },
+
+  hideForm: function() {
+    this.setState({isFormOpen: false});
+    this.props.selectParagraph(null);
+  },
+
+  toggleForm: function() {
+    if(this.state.isFormOpen){
+      this.hideForm();
+    } else {
+      this.showForm();
+    }
+  },
+
+  showList: function() {
+    this.setState({
+      isListOpen: true,
+      isFormOpen: false
+    });
+    this.props.selectParagraph(this.props.paragraph.index);
+  },
+
+  hideList: function() {
+    this.setState({isListOpen: false});
+    this.props.selectParagraph(null);
+  },
+
+  toggleList: function() {
+    if(this.state.isListOpen) {
+      this.hideList();
+    } else {
+      this.showList();
+    }
   },
 
   render: function() {
@@ -62,37 +83,82 @@ var Paragraph = React.createClass({
           }}
           dangerouslySetInnerHTML={{__html: this.props.paragraph.body}}>
         </p>
-        <a
-          className="newContributionButton mb1 button button-transparent blue button-small"
-          title="Contribuições"
-          href="#"
-          style={{visibility: (this.state.isMouseOver || this.props.formOpen || paragraphContributions.length > 0) ? 'visible' : 'hidden'}}
-          onClick={this.toggleContributionPanel}>
-          <i className="fa fa-comment mr1"></i>
-          <span>{paragraphContributions.length}</span>
-        </a>
-        <a
-          className="mb1 right gray"
-          title="Fechar"
-          href="#"
-          style={{visibility: this.props.formOpen ? 'visible' : 'hidden'}}
-          onClick={this.toggleContributionPanel}>
-          <i className="fa fa-close"></i>
-        </a>
+        <nav
+          className="inline"
+          style={{visibility: (this.state.isMouseOver || this.props.formOpen || paragraphContributions.length > 0) ? 'visible' : 'hidden'}}>
+          <a
+            className="mb1 button button-transparent blue button-small"
+            title="Adicionar contribuição"
+            href="#"
+            onClick={this.onToggleFormClick}>
+            <i className="fa fa-plus"></i>
+          </a>
+          <a
+            className="newContributionButton mb1 button button-transparent blue button-small"
+            title="Contribuições"
+            href="#"
+            onClick={this.onToggleListClick}>
+            <i className="fa fa-comment" />
+            &nbsp;
+            <span>{paragraphContributions.length}</span>
+          </a>
+          <a
+            className="mb1 right gray"
+            title="Fechar"
+            href="#"
+            style={{visibility: this.props.formOpen ? 'visible' : 'hidden'}}
+            onClick={this.onCloseClick}>
+            <i className="fa fa-close"></i>
+          </a>
+        </nav>
         <div
           className="contributionPanel p2 bg-darken-1 rounded border border-darken-2"
           style={{display: this.props.formOpen ? 'block' : 'none'}}>
-          <div className="contributionList">
+          <div style={{display: this.state.isFormOpen ? "none" : "block"}}>
             {contributionList}
           </div>
-          <ContributionForm
-            currentUser={this.props.currentUser}
-            paragraph={this.props.paragraph}
-            formOpen={this.props.formOpen}
-            documentId={this.props.documentId}
-            paragraphHash={this.state.paragraphHash}/>
-        </div>
+          <div style={{display: this.state.isFormOpen ? "block" : "none"}}>
+            <ContributionForm
+              currentUser={this.props.currentUser}
+              paragraph={this.props.paragraph}
+              isFormOpen={this.state.isFormOpen}
+              documentId={this.props.documentId}
+              paragraphHash={this.state.paragraphHash}/>
+          </div>
+          </div>
       </div>
     );
+  },
+
+  // Callbacks
+  onToggleFormClick: function(e) {
+    this.toggleForm();
+    e.preventDefault();
+  },
+
+  onToggleListClick: function(e) {
+    this.toggleList();
+    e.preventDefault();
+  },
+
+  onCloseClick: function() {
+    this.hideForm();
+    this.hideList();
+  },
+
+  onMouseOver: function() {
+    this.setState({isMouseOver: true});
+  },
+
+  onMouseOut: function() {
+    this.setState({isMouseOver: false});
+  },
+
+  // Fluxxor stuff
+  mixins: [Fluxxor.FluxMixin(React), Fluxxor.StoreWatchMixin("DocumentStore")],
+
+  getStateFromFlux: function() {
+    var flux = this.getFlux();
+    return flux.store("DocumentStore").getState();
   }
 });
