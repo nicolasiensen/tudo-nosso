@@ -19,8 +19,10 @@ var Paragraph = React.createClass({
 
     if(this.props.selectedParagraphIndex == this.props.paragraph.index &&
       nextProps.selectedParagraphIndex != this.props.paragraph.index) {
-      this.hideForm();
-      this.hideList();
+      this.setState({
+        isFormOpen: false,
+        isListOpen: false
+      });
     }
   },
 
