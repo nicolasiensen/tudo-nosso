@@ -159,9 +159,10 @@ var Paragraph = React.createClass({
     e.preventDefault();
   },
 
-  onCloseClick: function() {
+  onCloseClick: function(e) {
     this.hideForm();
     this.hideList();
+    e.preventDefault();
   },
 
   onMouseOver: function() {
