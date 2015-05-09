@@ -44,6 +44,8 @@ var Contribution = React.createClass({
     upvoteButtonText = currentUserUpvote == null ? "Concordar" : "Você concorda";
     upvoteButtonClass = currentUserUpvote == null ?
       "button button-small mb1" : "bg-darken-4 button button-small mb1";
+    upvoteButtonLoader = this.props.contribution.id == this.state.contributionIdUpvoting ?
+      "fa fa-refresh fa-spin mr1" : "fa fa-refresh fa-spin mr1 hide";
 
     return(
       <div className="mb2 border-bottom">
@@ -57,6 +59,7 @@ var Contribution = React.createClass({
           href="#"
           onClick={this.toggleUpvote}
           title={upvoteButtonText}>
+          <i className={upvoteButtonLoader}></i>
           <span>{upvoteButtonText}</span>
           <span>
             <i className="fa fa-thumbs-o-up ml2" />
