@@ -119,7 +119,18 @@ var ContributionForm = React.createClass({
         </button>
       </form>;
     } else {
-      return <a href="/users/sign_in">Registre-se ou faça login para colaborar com esse edital</a>
+      return <div className="center">
+        <div className= "h1 mb1 blue muted">
+          <i
+            className="fa fa-lock"
+            style={{fontSize: "5em"}}/>
+        </div>
+        <a
+          className="button"
+          href="/users/sign_in">
+          Registre-se ou faça login para colaborar com esse edital
+        </a>
+      </div>
     }
   },
 
