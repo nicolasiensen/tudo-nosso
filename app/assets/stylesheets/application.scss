@@ -7,3 +7,7 @@ body {
   -webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
+
+.field-light.is-error:focus {
+  box-shadow: 0 0 0 1px rgba(#ff4136, 0.5);
+}

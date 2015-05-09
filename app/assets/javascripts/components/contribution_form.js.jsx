@@ -72,12 +72,12 @@ var ContributionForm = React.createClass({
   },
 
   render: function() {
-    bodyClass = "block full-width field-light mb1";
+    bodyClass = "block full-width field-light mb2";
     if(!this.state.isBodyValid){
       bodyClass = bodyClass + " is-error";
     }
 
-    justificationClass = "block full-width field-light mb1";
+    justificationClass = "block full-width field-light";
     if(!this.state.isJustificationValid){
       justificationClass = justificationClass + " is-error";
     }
@@ -89,7 +89,9 @@ var ContributionForm = React.createClass({
       return <form
         className="newContributionForm clearfix"
         onSubmit={this.onSubmit}>
-        <label htmlFor={bodyId}>Contribua com a sua versão para este parágrafo</label>
+        <label
+          className="bold"
+          htmlFor={bodyId}>Contribua com a sua versão para este parágrafo</label>
         <textarea
           className={bodyClass}
           name="contribution[body]"
@@ -99,16 +101,25 @@ var ContributionForm = React.createClass({
           onChange={this.onContributionBodyChange}
           style={{resize: "none"}}>
         </textarea>
-        <label htmlFor={justificationId}>Justifique a sua contribuição</label>
-        <textarea
-          className={justificationClass}
-          name="contribution[justification]"
-          id={justificationId}
-          ref="contributionJustification"
-          value={this.state.contributionJustification}
-          onChange={this.onContributionJustificationChange}
-          style={{resize: "none"}}>
-        </textarea>
+        <label
+          className="bold"
+          htmlFor={justificationId}>Justifique a sua contribuição</label>
+        <div className="mb2">
+          <textarea
+            className={justificationClass}
+            name="contribution[justification]"
+            id={justificationId}
+            ref="contributionJustification"
+            value={this.state.contributionJustification}
+            onChange={this.onContributionJustificationChange}
+            style={{resize: "none"}}>
+          </textarea>
+          <small
+            className="red"
+            style={{display: this.state.isJustificationValid ? 'none' : 'inline'}}>
+            Para validar sua contribuição é preciso justificá-la
+          </small>
+        </div>
         <button className="button right" disabled={this.state.loading}>
           <i
             className="fa fa-refresh fa-spin mr1"
