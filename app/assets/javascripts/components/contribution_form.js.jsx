@@ -133,7 +133,7 @@ var ContributionForm = React.createClass({
       return <div className="center">
         <div className= "h1 mb1 blue muted">
           <i
-            className="fa fa-lock"
+            className="fa fa-user"
             style={{fontSize: "5em"}}/>
         </div>
         <a
