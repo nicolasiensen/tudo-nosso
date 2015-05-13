@@ -130,7 +130,7 @@ var ContributionForm = React.createClass({
         </button>
       </form>;
     } else {
-      return <div className="center">
+      return <div className="center p2 rounded bg-darken-1">
         <div className= "h1 mb1 blue muted">
           <i
             className="fa fa-user"
