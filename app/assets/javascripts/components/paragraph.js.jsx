@@ -132,7 +132,7 @@ var Paragraph = React.createClass({
           </a>
         </nav>
         <div
-          className="contributionPanel p2 bg-darken-1 rounded border border-darken-2"
+          className="contributionPanel"
           style={{display: this.props.formOpen ? 'block' : 'none'}}>
           <div style={{display: this.state.isFormOpen ? "none" : "block"}}>
             {contributionList}

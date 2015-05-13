@@ -87,10 +87,10 @@ var ContributionForm = React.createClass({
 
     if(this.props.currentUser != null) {
       return <form
-        className="newContributionForm clearfix"
+        className="newContributionForm clearfix p2 rounded bg-darken-1"
         onSubmit={this.onSubmit}>
         <label
-          className="bold"
+          className="h5"
           htmlFor={bodyId}>Contribua com a sua versão para este parágrafo</label>
         <textarea
           className={bodyClass}
@@ -102,7 +102,7 @@ var ContributionForm = React.createClass({
           style={{resize: "none"}}>
         </textarea>
         <label
-          className="bold"
+          className="h5"
           htmlFor={justificationId}>Justifique a sua contribuição</label>
         <div className="mb2">
           <textarea

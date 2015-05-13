@@ -25,8 +25,11 @@ RSpec.feature "ContributeToAParagraph", type: :feature, js: true do
       click_button("Enviar")
 
       expect(page).to have_css(".contributionBody", text: "Lorem ipsum dolor sit amet")
-      expect(page).to have_css(".contributionJustification", text: "My justification")
       expect(page).to have_css(".userName", text: @user.first_name)
+
+      click_link("Mostrar justificativa")
+      
+      expect(page).to have_css(".contributionJustification", text: "My justification")
     end
 
     scenario "when the form is not valid" do

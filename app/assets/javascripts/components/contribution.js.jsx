@@ -1,6 +1,9 @@
 var Contribution = React.createClass({
   getInitialState: function() {
-    return {currentUserUpvote: null}
+    return {
+      currentUserUpvote: null,
+      isJustificationVisible: false
+    }
   },
 
   toggleUpvote: function(e){
@@ -31,19 +34,39 @@ var Contribution = React.createClass({
       }.bind(this))[0];
     }
 
-    upvoteButtonText = currentUserUpvote == null ? "Concordar" : "Você concorda";
+    upvoteButtonText = currentUserUpvote == null ?
+      "Concordar" : "Você concorda";
     upvoteButtonClass = currentUserUpvote == null ?
-      "button button-small mb1" : "bg-darken-4 button button-small mb1";
+      "button button-small mt1" : "bg-darken-4 button button-small mt1";
     upvoteButtonLoader = this.props.contribution.id == this.state.contributionIdUpvoting ?
       "fa fa-refresh fa-spin mr1" : "fa fa-refresh fa-spin mr1 hide";
 
+    justificationClass = this.state.isJustificationVisible ?
+       "contributionJustification mb1 h5" : "hide"
+    toggleJustificationText = this.state.isJustificationVisible ?
+      "Ocultar justificativa" : "Mostrar justificativa"
+
     return(
-      <div className="mb2 border-bottom">
-        <div className="userName">
-          {this.props.contribution.user.first_name} {this.props.contribution.user.last_name}
+      <div className="mb2 p2 rounded bg-darken-1">
+        <div className="userName flex flex-center mb1">
+          <img className="circle flex-none bg-gray" width="20" height="20" />
+          &nbsp;
+          <div className="flex-auto h5">
+            {this.props.contribution.user.first_name} {this.props.contribution.user.last_name}
+          </div>
         </div>
         <div className="contributionBody">{this.props.contribution.body}</div>
-        <div className="contributionJustification">{this.props.contribution.justification}</div>
+        <div>
+          <a
+            onClick={this.onToggleJustificationClick}
+            className="h6"
+            href="#">
+            {toggleJustificationText}
+          </a>
+        </div>
+        <div className={justificationClass}>
+          {this.props.contribution.justification}
+        </div>
         <a
           className={upvoteButtonClass}
           href="#"
@@ -59,6 +82,17 @@ var Contribution = React.createClass({
         </a>
       </div>
     );
+  },
+
+  // Callbacks
+  onToggleJustificationClick: function(e) {
+    if(this.state.isJustificationVisible) {
+      this.setState({isJustificationVisible: false});
+    } else {
+      this.setState({isJustificationVisible: true});
+    }
+
+    e.preventDefault();
   },
 
   // Fluxxor stuff
