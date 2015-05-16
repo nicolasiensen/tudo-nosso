@@ -10,13 +10,20 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+
+// External dependencies
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
 //= require jsSHA
+//= require jsdiff
+//= require momentjs
+//= require momentjs/locale/pt-br
 //= require fluxxor
 //= require react
 //= require react_ujs
+
+// Application files
 //= require components
 //= require document_flux
 //= require_tree .

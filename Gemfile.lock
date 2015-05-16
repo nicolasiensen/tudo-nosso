@@ -125,6 +125,8 @@ GEM
     rails-assets-fluxxor (1.5.3)
     rails-assets-fontawesome (4.3.0)
     rails-assets-jsSHA (1.6.0)
+    rails-assets-jsdiff (1.4.0)
+    rails-assets-momentjs (2.10.3)
     rails-deprecated_sanitizer (1.0.3)
       activesupport (>= 4.2.0.alpha)
     rails-dom-testing (1.0.6)
@@ -256,6 +258,8 @@ DEPENDENCIES
   rails-assets-fluxxor!
   rails-assets-fontawesome!
   rails-assets-jsSHA!
+  rails-assets-jsdiff!
+  rails-assets-momentjs!
   rails_12factor
   react-rails (~> 1.0)
   rspec-rails (~> 3.0)

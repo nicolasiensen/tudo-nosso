@@ -1,7 +1,6 @@
 ruby '2.2.0'
 source 'https://rubygems.org'
 
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.0'
 # Use postgresql as the database for Active Record
@@ -70,4 +69,6 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-fontawesome'
   gem 'rails-assets-jsSHA'
   gem 'rails-assets-fluxxor'
+  gem 'rails-assets-jsdiff'
+  gem 'rails-assets-momentjs'
 end
