@@ -7,3 +7,15 @@ body {
   -webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
+
+.no-text-decoration {
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.bg-darken-1-on-over {
+  &:hover {
+    background-color: $darken-1;
+  }
+}

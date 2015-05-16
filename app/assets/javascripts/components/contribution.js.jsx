@@ -2,8 +2,26 @@ var Contribution = React.createClass({
   getInitialState: function() {
     return {
       currentUserUpvote: null,
-      isJustificationVisible: false
+      isJustificationVisible: false,
+      isDiffVisible: false,
+      bodyDiff: this.getBodyDiff()
     }
+  },
+
+  getBodyDiff: function(){
+    var bodyDiff = "";
+    var diff = JsDiff.diffWordsWithSpace(this.props.paragraph.body, this.props.contribution.body);
+    diff.forEach(function(part){
+      if(part.added){
+        bodyDiff = bodyDiff.concat("<span class='green'>" + part.value + "</span>");
+      } else if(part.removed){
+        bodyDiff = bodyDiff.concat("<del class='red'>" + part.value + "</del>");
+      } else {
+        bodyDiff = bodyDiff.concat(part.value);
+      }
+    });
+
+    return bodyDiff;
   },
 
   toggleUpvote: function(e){
@@ -34,17 +52,25 @@ var Contribution = React.createClass({
       }.bind(this))[0];
     }
 
-    upvoteButtonText = currentUserUpvote == null ?
+    var upvoteButtonText = currentUserUpvote == null ?
       "Concordar" : "Você concorda";
-    upvoteButtonClass = currentUserUpvote == null ?
+    var upvoteButtonClass = currentUserUpvote == null ?
       "button button-small mt1" : "bg-darken-4 button button-small mt1";
-    upvoteButtonLoader = this.props.contribution.id == this.state.contributionIdUpvoting ?
+    var upvoteButtonLoader = this.props.contribution.id == this.state.contributionIdUpvoting ?
       "fa fa-refresh fa-spin mr1" : "fa fa-refresh fa-spin mr1 hide";
 
-    justificationClass = this.state.isJustificationVisible ?
+    var justificationClass = this.state.isJustificationVisible ?
        "contributionJustification mb1 h5" : "hide"
-    toggleJustificationText = this.state.isJustificationVisible ?
+    var toggleJustificationText = this.state.isJustificationVisible ?
       "Ocultar justificativa" : "Mostrar justificativa"
+
+    var bodyClass = this.state.isDiffVisible ? "hide" : "contributionBody";
+    var diffBodyClass = this.state.isDiffVisible ? "" : "hide";
+
+    var showBodyButtonClass = this.state.isDiffVisible ?
+      "p1 inline-block no-text-decoration bg-darken-1-on-over bold gray h6" : "p1 inline-block no-text-decoration bg-darken-1-on-over bold black h6 bg-darken-1"
+    var showDiffButtonClass = this.state.isDiffVisible ?
+      "p1 inline-block no-text-decoration bg-darken-1-on-over bold black h6 bg-darken-1" : "p1 inline-block no-text-decoration bg-darken-1-on-over bold gray h6"
 
     return(
       <div className="mb2 p2 rounded bg-darken-1">
@@ -52,10 +78,29 @@ var Contribution = React.createClass({
           <img className="circle flex-none bg-gray" width="20" height="20" />
           &nbsp;
           <div className="flex-auto h5">
-            {this.props.contribution.user.first_name} {this.props.contribution.user.last_name}
+            <span className="bold">
+              {this.props.contribution.user.first_name}
+              &nbsp;
+              {this.props.contribution.user.last_name}
+            </span> <span className="gray">há {moment(this.props.contribution.created_at).fromNow()}</span>
           </div>
         </div>
-        <div className="contributionBody">{this.props.contribution.body}</div>
+        <a
+          onClick={this.onShowBodyClick}
+          className={showBodyButtonClass}
+          href="#">
+          Contribuição
+        </a>
+        <a
+          onClick={this.onShowDiffClick}
+          className={showDiffButtonClass}
+          href="#">
+          Comparação
+        </a>
+        <div className="p1 bg-darken-1">
+          <div className={diffBodyClass} dangerouslySetInnerHTML={{__html: this.state.bodyDiff}}></div>
+          <div className={bodyClass}>{this.props.contribution.body}</div>
+        </div>
         <div>
           <a
             onClick={this.onToggleJustificationClick}
@@ -86,12 +131,17 @@ var Contribution = React.createClass({
 
   // Callbacks
   onToggleJustificationClick: function(e) {
-    if(this.state.isJustificationVisible) {
-      this.setState({isJustificationVisible: false});
-    } else {
-      this.setState({isJustificationVisible: true});
-    }
+    this.setState({isJustificationVisible: !this.state.isJustificationVisible});
+    e.preventDefault();
+  },
 
+  onShowBodyClick: function(e) {
+    this.setState({isDiffVisible: false});
+    e.preventDefault();
+  },
+
+  onShowDiffClick: function(e) {
+    this.setState({isDiffVisible: true});
     e.preventDefault();
   },
 

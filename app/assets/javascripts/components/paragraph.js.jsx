@@ -74,7 +74,7 @@ var Paragraph = React.createClass({
     }.bind(this));
 
     contributionList = paragraphContributions.map(function (c){
-      return <Contribution contribution={c} currentUser={this.props.currentUser} />;
+      return <Contribution contribution={c} paragraph={this.props.paragraph} currentUser={this.props.currentUser} />;
     }.bind(this));
 
     addContributionButtonClass = "mb1 button button-transparent blue button-small";
