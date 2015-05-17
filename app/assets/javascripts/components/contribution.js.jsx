@@ -2,8 +2,7 @@ var Contribution = React.createClass({
   getInitialState: function() {
     return {
       currentUserUpvote: null,
-      isJustificationVisible: false,
-      isDiffVisible: false,
+      selectedTab: "body",
       bodyDiff: this.getBodyDiff()
     }
   },
@@ -59,18 +58,32 @@ var Contribution = React.createClass({
     var upvoteButtonLoader = this.props.contribution.id == this.state.contributionIdUpvoting ?
       "fa fa-refresh fa-spin mr1" : "fa fa-refresh fa-spin mr1 hide";
 
-    var justificationClass = this.state.isJustificationVisible ?
-       "contributionJustification mb1 h5" : "hide"
-    var toggleJustificationText = this.state.isJustificationVisible ?
-      "Ocultar justificativa" : "Mostrar justificativa"
+    var bodyClass = diffClass = justificationClass = "hide";
+    var showBodyButtonClass = showDiffButtonClass = showJustificationButtonClass =
+      "p1 inline-block no-text-decoration bg-darken-1-on-over bold h6";
 
-    var bodyClass = this.state.isDiffVisible ? "hide" : "contributionBody";
-    var diffBodyClass = this.state.isDiffVisible ? "" : "hide";
-
-    var showBodyButtonClass = this.state.isDiffVisible ?
-      "p1 inline-block no-text-decoration bg-darken-1-on-over bold gray h6" : "p1 inline-block no-text-decoration bg-darken-1-on-over bold black h6 bg-darken-1"
-    var showDiffButtonClass = this.state.isDiffVisible ?
-      "p1 inline-block no-text-decoration bg-darken-1-on-over bold black h6 bg-darken-1" : "p1 inline-block no-text-decoration bg-darken-1-on-over bold gray h6"
+    switch(this.state.selectedTab) {
+      case "body":
+        bodyClass = "";
+        showBodyButtonClass += " black bg-darken-1";
+        showDiffButtonClass += " gray";
+        showJustificationButtonClass += " gray";
+        break;
+      case "diff":
+        diffClass = "";
+        showDiffButtonClass += " black bg-darken-1";
+        showBodyButtonClass += " gray";
+        showJustificationButtonClass += " gray";
+        break;
+      case "justification":
+        justificationClass = "";
+        showJustificationButtonClass += " black bg-darken-1";
+        showDiffButtonClass += " gray"
+        showBodyButtonClass += " gray"
+        break;
+      default:
+        console.log("I don't know what to do with " + this.state.selectedTab);
+    }
 
     return(
       <div className="mb2 p2 rounded bg-darken-1">
@@ -97,20 +110,16 @@ var Contribution = React.createClass({
           href="#">
           Comparação
         </a>
+        <a
+          onClick={this.onShowJustificationClick}
+          className={showJustificationButtonClass}
+          href="#">
+          Justificativa
+        </a>
         <div className="p1 bg-darken-1">
-          <div className={diffBodyClass} dangerouslySetInnerHTML={{__html: this.state.bodyDiff}}></div>
+          <div className={diffClass} dangerouslySetInnerHTML={{__html: this.state.bodyDiff}}></div>
           <div className={bodyClass}>{this.props.contribution.body}</div>
-        </div>
-        <div>
-          <a
-            onClick={this.onToggleJustificationClick}
-            className="h6"
-            href="#">
-            {toggleJustificationText}
-          </a>
-        </div>
-        <div className={justificationClass}>
-          {this.props.contribution.justification}
+          <div className={justificationClass}>{this.props.contribution.justification}</div>
         </div>
         <a
           className={upvoteButtonClass}
@@ -130,18 +139,18 @@ var Contribution = React.createClass({
   },
 
   // Callbacks
-  onToggleJustificationClick: function(e) {
-    this.setState({isJustificationVisible: !this.state.isJustificationVisible});
-    e.preventDefault();
-  },
-
   onShowBodyClick: function(e) {
-    this.setState({isDiffVisible: false});
+    this.setState({selectedTab: "body"});
     e.preventDefault();
   },
 
   onShowDiffClick: function(e) {
-    this.setState({isDiffVisible: true});
+    this.setState({selectedTab: "diff"});
+    e.preventDefault();
+  },
+
+  onShowJustificationClick: function(e) {
+    this.setState({selectedTab: "justification"});
     e.preventDefault();
   },
 
