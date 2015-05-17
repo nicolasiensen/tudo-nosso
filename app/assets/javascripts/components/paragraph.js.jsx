@@ -80,6 +80,10 @@ var Paragraph = React.createClass({
     addContributionButtonClass = "mb1 button button-transparent blue button-small";
     listContributionsButtonClass = addContributionButtonClass;
 
+    if(paragraphContributions.length == 0) {
+      listContributionsButtonClass += " hide";
+    }
+
     if(this.state.isFormOpen) {
       addContributionButtonClass += " is-active";
     } else if (this.state.isListOpen) {
@@ -111,7 +115,7 @@ var Paragraph = React.createClass({
             title="Adicionar contribuição"
             href="#"
             onClick={this.onToggleFormClick}>
-            <i className="fa fa-plus"></i>
+            <i className="fa fa-plus"></i> Contribuir
           </a>
           <a
             className={listContributionsButtonClass}
