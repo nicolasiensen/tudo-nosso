@@ -1,6 +1,3 @@
-var a;
-var payloadem;
-
 var documentFlux = {};
 
 documentFlux.constants = {

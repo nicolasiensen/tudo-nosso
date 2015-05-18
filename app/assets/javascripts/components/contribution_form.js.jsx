@@ -5,6 +5,7 @@ var ContributionForm = React.createClass({
       contributionJustification: "",
       isBodyValid: true,
       isJustificationValid: true,
+      isLoading: false,
       focusOn: null
     };
   },
@@ -16,6 +17,12 @@ var ContributionForm = React.createClass({
         contributionJustification: "",
         focusOn: "contributionBody"
       });
+    }
+
+    if(this.state.newContribution == null && nextState.newContribution != null){
+      this.setState({isLoading: nextState.newContribution.paragraph_hash == this.props.paragraphHash});
+    } else if(this.state.newContribution != null && nextState.newContribution == null){
+      this.setState({isLoading: false});
     }
   },
 
@@ -120,12 +127,12 @@ var ContributionForm = React.createClass({
             Para validar sua contribuição é preciso justificá-la
           </small>
         </div>
-        <button className="button right" disabled={this.state.loading}>
+        <button className="button right" disabled={this.state.isLoading}>
           <i
             className="fa fa-refresh fa-spin mr1"
             style={{
               opacity: ".5",
-              display: this.state.loading ? "inline" : "none"}}/>
+              display: this.state.isLoading ? "inline" : "none"}}/>
           Enviar
         </button>
       </form>;
