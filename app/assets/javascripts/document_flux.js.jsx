@@ -1,3 +1,6 @@
+var a;
+var payloadem;
+
 var documentFlux = {};
 
 documentFlux.constants = {
@@ -86,9 +89,11 @@ documentFlux.store = Fluxxor.createStore({
       return c.id == payload.contribution_id;
     })[0];
 
-    contribution.upvotes.splice(payload, 1);
-    this.contributionIdUpvoting = null;
+    contribution.upvotes = contribution.upvotes.filter(function(u){
+      return u.id != payload.id;
+    });
 
+    this.contributionIdUpvoting = null;
     this.emit("change");
   },
 
