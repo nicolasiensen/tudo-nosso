@@ -73,7 +73,7 @@ var Paragraph = React.createClass({
       filter(function(c){
         return c.paragraph_hash == this.state.paragraphHash;}.bind(this)).
       sort(function(p1, p2){
-        return p1.upvotes.length < p2.upvotes.length;});
+        return p2.upvotes.length - p1.upvotes.length;});
 
     contributionList = paragraphContributions.map(function (c){
       return <Contribution contribution={c} paragraph={this.props.paragraph} currentUser={this.props.currentUser} />;
