@@ -80,12 +80,21 @@ var Paragraph = React.createClass({
     }.bind(this))[0];
   },
 
+  getParagraphContributions: function(){
+    return this.state.contributions.
+      filter(function(c){return c.paragraph_hash == this.state.paragraphHash;}.bind(this)).
+      sort(function(p1, p2){return p2.upvotes.length - p1.upvotes.length;});
+  },
+
+  isParagraphNavVisible: function(){
+    return this.state.isMouseOver ||
+    this.props.formOpen ||
+    this.getParagraphContributions().length > 0 ||
+    this.getParagraphUpvotes().length > 0
+  },
+
   render: function() {
-    paragraphContributions = this.state.contributions.
-      filter(function(c){
-        return c.paragraph_hash == this.state.paragraphHash;}.bind(this)).
-      sort(function(p1, p2){
-        return p2.upvotes.length - p1.upvotes.length;});
+    var paragraphContributions = this.getParagraphContributions();
 
     contributionList = paragraphContributions.map(function (c){
       return <Contribution contribution={c} paragraph={this.props.paragraph} currentUser={this.props.currentUser} />;
@@ -138,7 +147,7 @@ var Paragraph = React.createClass({
         </p>
         <nav
           className="inline"
-          style={{visibility: (this.state.isMouseOver || this.props.formOpen || paragraphContributions.length > 0) ? 'visible' : 'hidden'}}>
+          style={{visibility: this.isParagraphNavVisible() ? 'visible' : 'hidden'}}>
           <a
             className={paragraphUpvoteButtonClass}
             title={paragraphUpvoteButtonTitle}
@@ -220,17 +229,19 @@ var Paragraph = React.createClass({
   },
 
   onUpvoteParagraphClick: function(e) {
+    var currentUserParagraphUpvote = this.getCurrentUserParagraphUpvote();
+
     if(this.props.currentUser == null) {
       window.location.href = "/users/sign_in";
-    } else if(this.getCurrentUserParagraphUpvote() == null) {
+    } else if(currentUserParagraphUpvote == null) {
       this.getFlux().actions.createParagraphUpvote(
         this.state.paragraphHash,
         this.props.documentId,
         this.props.currentUser.api_token
       );
-    } else if(this.getCurrentUserParagraphUpvote() != null) {
+    } else if(currentUserParagraphUpvote != null) {
       this.getFlux().actions.deleteParagraphUpvote(
-        this.getCurrentUserParagraphUpvote(),
+        currentUserParagraphUpvote,
         this.props.currentUser.api_token
       );
     }
