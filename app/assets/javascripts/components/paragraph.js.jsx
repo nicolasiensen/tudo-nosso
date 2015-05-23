@@ -68,6 +68,18 @@ var Paragraph = React.createClass({
     }
   },
 
+  getParagraphUpvotes: function(){
+    return this.state.paragraphUpvotes.filter(function(u){
+      return u.paragraph_hash == this.state.paragraphHash;
+    }.bind(this));
+  },
+
+  getCurrentUserParagraphUpvote: function(){
+    return this.getParagraphUpvotes().filter(function(u){
+      return u.user_id == this.props.currentUser.id;
+    }.bind(this))[0];
+  },
+
   render: function() {
     paragraphContributions = this.state.contributions.
       filter(function(c){
@@ -92,6 +104,20 @@ var Paragraph = React.createClass({
       listContributionsButtonClass += " is-active";
     }
 
+    var paragraphUpvoteButtonClass = "mb1 mr1 button button-small";
+    var paragraphUpvoteButtonText = "Concordar";
+    var paragraphUpvoteButtonTitle = "Concordar com o paragrafo";
+    if(this.getCurrentUserParagraphUpvote() != null){
+      paragraphUpvoteButtonClass += " bg-darken-4";
+      paragraphUpvoteButtonText = "Você concorda";
+      paragraphUpvoteButtonTitle = "Você concorda com o paragrafo";
+    }
+
+    var paragraphUpvoteLoaderClass = "hide";
+    if(this.state.paragraphHashUpvoting == this.state.paragraphHash) {
+      paragraphUpvoteLoaderClass = "fa fa-refresh fa-spin mr1";
+    }
+
     return (
       <div
         className="paragraph clearfix mb1"
@@ -105,6 +131,7 @@ var Paragraph = React.createClass({
           className="paragraphBody mb0"
           style={{
             transform: this.props.formOpen ? "scale(1.02)" : "scale(1)",
+            marginBottom: this.props.formOpen ? "1em" : ".5em",
             transition: ".25s"
           }}
           dangerouslySetInnerHTML={{__html: this.props.paragraph.body}}>
@@ -112,6 +139,17 @@ var Paragraph = React.createClass({
         <nav
           className="inline"
           style={{visibility: (this.state.isMouseOver || this.props.formOpen || paragraphContributions.length > 0) ? 'visible' : 'hidden'}}>
+          <a
+            className={paragraphUpvoteButtonClass}
+            title={paragraphUpvoteButtonTitle}
+            href="#"
+            onClick={this.onUpvoteParagraphClick}>
+            <i className={paragraphUpvoteLoaderClass} />
+            {paragraphUpvoteButtonText}
+            <i className="fa fa-thumbs-o-up ml2" />
+            &nbsp;
+            <span title="Pessoas que concordam">{this.getParagraphUpvotes().length}</span>
+          </a>
           <a
             className={addContributionButtonClass}
             title="Adicionar contribuição"
@@ -179,6 +217,24 @@ var Paragraph = React.createClass({
 
   onMouseOut: function() {
     this.setState({isMouseOver: false});
+  },
+
+  onUpvoteParagraphClick: function(e) {
+    if(this.props.currentUser == null) {
+      window.location.href = "/users/sign_in";
+    } else if(this.getCurrentUserParagraphUpvote() == null) {
+      this.getFlux().actions.createParagraphUpvote(
+        this.state.paragraphHash,
+        this.props.documentId,
+        this.props.currentUser.api_token
+      );
+    } else if(this.getCurrentUserParagraphUpvote() != null) {
+      this.getFlux().actions.deleteParagraphUpvote(
+        this.getCurrentUserParagraphUpvote(),
+        this.props.currentUser.api_token
+      );
+    }
+    e.preventDefault();
   },
 
   // Fluxxor stuff

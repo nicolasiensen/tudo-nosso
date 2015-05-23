@@ -23,6 +23,7 @@ var Document = React.createClass({
     }.bind(this));
 
     this.getFlux().actions.loadContributions(this.props.document.id);
+    this.getFlux().actions.loadParagraphUpvotes(this.props.document.id);
   },
 
   selectParagraph: function(index) {
