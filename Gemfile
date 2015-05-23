@@ -62,6 +62,7 @@ gem 'devise'
 gem 'slim-rails'
 gem 'react-rails', '~> 1.0'
 gem 'puma'
+gem 'bourbon'
 
 # Rails assets
 source 'https://rails-assets.org' do
