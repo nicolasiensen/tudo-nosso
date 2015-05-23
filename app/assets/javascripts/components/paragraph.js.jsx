@@ -114,7 +114,7 @@ var Paragraph = React.createClass({
     }
 
     var paragraphUpvoteButtonClass = "mb1 mr1 button button-small";
-    var paragraphUpvoteButtonText = "Concordar";
+    var paragraphUpvoteButtonText = "Concordar com paragrafo";
     var paragraphUpvoteButtonTitle = "Concordar com o paragrafo";
     if(this.getCurrentUserParagraphUpvote() != null){
       paragraphUpvoteButtonClass += " bg-darken-4";
