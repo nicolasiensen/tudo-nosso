@@ -24,3 +24,9 @@ Upvote.blueprint do
   user { User.make! }
   contribution { Contribution.make! }
 end
+
+ParagraphUpvote.blueprint do
+  user { User.make! }
+  document { Document.make! }
+  paragraph_hash { "123" }
+end

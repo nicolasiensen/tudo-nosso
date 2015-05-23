@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :contributions, only: [:create, :index]
       resources :upvotes, only: [:create, :destroy]
+      resources :paragraph_upvotes, only: [:create, :index, :destroy]
     end
   end
 
