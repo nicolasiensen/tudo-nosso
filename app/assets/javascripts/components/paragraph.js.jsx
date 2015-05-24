@@ -157,14 +157,14 @@ var Paragraph = React.createClass({
             title={paragraphUpvoteButtonTitle}
             href="#"
             onClick={this.onUpvoteParagraphClick}>
-            <div className="md-show">
+            <div className="md-show" title={paragraphUpvoteButtonText}>
               <i className={paragraphUpvoteLoaderClass} />
               <span className="mr1">{paragraphUpvoteButtonText}</span>
               <i className="fa fa-thumbs-o-up" />
               &nbsp;
               <span title="Pessoas que concordam">{this.getParagraphUpvotes().length}</span>
             </div>
-            <div className="md-hide">
+            <div className="md-hide" title={paragraphUpvoteButtonText}>
               <i className={paragraphUpvoteLoaderClass} />
               <i className="fa fa-thumbs-o-up" />
               &nbsp;

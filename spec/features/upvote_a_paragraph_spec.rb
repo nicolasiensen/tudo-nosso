@@ -35,7 +35,7 @@ RSpec.feature "UpvoteAParagraph", type: :feature, js: true do
 
       expect(current_path).to be_eql(document_path(@document))
       expect(page).to have_css("span[title='Pessoas que concordam']", text: 1)
-      expect(page).to have_css("span", text: "Você concorda com o parágrafo original")
+      expect(page).to have_css("div[title='Você concorda com o parágrafo original']")
     end
 
     scenario "when I already upvoted the paragraph" do
