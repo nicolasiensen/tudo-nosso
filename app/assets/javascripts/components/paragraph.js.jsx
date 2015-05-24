@@ -75,9 +75,13 @@ var Paragraph = React.createClass({
   },
 
   getCurrentUserParagraphUpvote: function(){
-    return this.getParagraphUpvotes().filter(function(u){
-      return u.user_id == this.props.currentUser.id;
-    }.bind(this))[0];
+    if(this.props.currentUser == null){
+      return null;
+    } else {
+      return this.getParagraphUpvotes().filter(function(u){
+        return u.user_id == this.props.currentUser.id;
+      }.bind(this))[0];
+    }
   },
 
   getParagraphContributions: function(){
