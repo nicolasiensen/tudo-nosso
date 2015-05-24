@@ -157,28 +157,50 @@ var Paragraph = React.createClass({
             title={paragraphUpvoteButtonTitle}
             href="#"
             onClick={this.onUpvoteParagraphClick}>
-            <i className={paragraphUpvoteLoaderClass} />
-            {paragraphUpvoteButtonText}
-            <i className="fa fa-thumbs-o-up ml2" />
-            &nbsp;
-            <span title="Pessoas que concordam">{this.getParagraphUpvotes().length}</span>
+            <div className="md-show">
+              <i className={paragraphUpvoteLoaderClass} />
+              <span className="mr1">{paragraphUpvoteButtonText}</span>
+              <i className="fa fa-thumbs-o-up" />
+              &nbsp;
+              <span title="Pessoas que concordam">{this.getParagraphUpvotes().length}</span>
+            </div>
+            <div className="md-hide">
+              <i className={paragraphUpvoteLoaderClass} />
+              <i className="fa fa-thumbs-o-up" />
+              &nbsp;
+              <span title="Pessoas que concordam">{this.getParagraphUpvotes().length}</span>
+            </div>
           </a>
           <a
             className={addContributionButtonClass}
             title="Adicionar contribuição"
             href="#"
             onClick={this.onToggleFormClick}>
-            <i className="fa fa-plus"></i> Contribuir
+            <div className="md-show">
+              <i className="fa fa-plus"></i>
+              &nbsp;
+              <span>Contribuir</span>
+            </div>
+            <div className="md-hide">
+              <i className="fa fa-plus"></i>
+            </div>
           </a>
           <a
             className={listContributionsButtonClass}
             title="Contribuições"
             href="#"
             onClick={this.onToggleListClick}>
-            Ver contribuições
-            <i className="fa fa-comment ml1" />
-            &nbsp;
-            <span>{paragraphContributions.length}</span>
+            <div className="md-show">
+              <span className="mr1">Ver contribuições</span>
+              <i className="fa fa-comment" />
+              &nbsp;
+              <span>{paragraphContributions.length}</span>
+            </div>
+            <div className="md-hide">
+              <i className="fa fa-comment" />
+              &nbsp;
+              <span>{paragraphContributions.length}</span>
+            </div>
           </a>
           <a
             className="mb1 right gray"
