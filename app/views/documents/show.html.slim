@@ -1,14 +1,13 @@
-.tn-documentCover
-  .bg-cover.bg-bottom
-  .bg-navy
-.container
-  .clearfix
-    .lg-col-9.mt4.mb4.p3.mx-auto.bg-white
-      #document-component
-      javascript:
-        $(document).ready(function() {
-          documentFlux.init({
-            document: #{raw @document.to_json},
-            currentUser: #{raw current_user.to_json}
-          });
-        });
+= content_for :header
+  .tn-documentCover
+    .bg-cover.bg-bottom
+    .bg-navy
+
+#document-component
+javascript:
+  $(document).ready(function() {
+    documentFlux.init({
+      document: #{raw @document.to_json},
+      currentUser: #{raw current_user.to_json}
+    });
+  });
