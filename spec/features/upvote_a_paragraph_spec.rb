@@ -12,7 +12,7 @@ RSpec.feature "UpvoteAParagraph", type: :feature, js: true do
   scenario "when I'm not logged in" do
     visit document_path(@document)
     page.find(".paragraph", text: @paragraph).hover
-    click_link "Concordar com o paragrafo"
+    click_link "Concordar com o parágrafo original"
     fill_in :user_email, with: @user.email
     fill_in :user_password, with: @password
     click_button "Log in"
@@ -31,11 +31,11 @@ RSpec.feature "UpvoteAParagraph", type: :feature, js: true do
     scenario "when I've never upvoted the paragraph" do
       visit document_path(@document)
       page.find(".paragraph", text: @paragraph).hover
-      click_link "Concordar com o paragrafo"
+      click_link "Concordar com o parágrafo original"
 
       expect(current_path).to be_eql(document_path(@document))
       expect(page).to have_css("span[title='Pessoas que concordam']", text: 1)
-      expect(page).to have_css("span", text: "Você concorda")
+      expect(page).to have_css("span", text: "Você concorda com o parágrafo original")
     end
 
     scenario "when I already upvoted the paragraph" do
@@ -43,11 +43,11 @@ RSpec.feature "UpvoteAParagraph", type: :feature, js: true do
 
       visit document_path(@document)
       page.find(".paragraph", text: @paragraph).hover
-      click_link "Você concorda com o paragrafo"
+      click_link "Você concorda com o parágrafo original"
 
       expect(current_path).to be_eql(document_path(@document))
       expect(page).to have_css("span[title='Pessoas que concordam']", text: 0)
-      expect(page).to have_css("a[title='Concordar com o paragrafo']")
+      expect(page).to have_css("a[title='Concordar com o parágrafo original']")
     end
   end
 end

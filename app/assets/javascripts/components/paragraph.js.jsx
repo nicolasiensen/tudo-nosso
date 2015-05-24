@@ -100,7 +100,7 @@ var Paragraph = React.createClass({
       return <Contribution contribution={c} paragraph={this.props.paragraph} currentUser={this.props.currentUser} />;
     }.bind(this));
 
-    addContributionButtonClass = "mb1 button button-transparent blue button-small";
+    addContributionButtonClass = "mb1 ml1 button button-transparent blue button-small";
     listContributionsButtonClass = addContributionButtonClass;
 
     if(paragraphContributions.length == 0) {
@@ -113,13 +113,13 @@ var Paragraph = React.createClass({
       listContributionsButtonClass += " is-active";
     }
 
-    var paragraphUpvoteButtonClass = "mb1 mr1 button button-small";
-    var paragraphUpvoteButtonText = "Concordar com paragrafo";
-    var paragraphUpvoteButtonTitle = "Concordar com o paragrafo";
+    var paragraphUpvoteButtonClass = "mb1 button button-small";
+    var paragraphUpvoteButtonText = "Concordar com o parágrafo original";
+    var paragraphUpvoteButtonTitle = "Concordar com o parágrafo original";
     if(this.getCurrentUserParagraphUpvote() != null){
       paragraphUpvoteButtonClass += " bg-darken-4";
-      paragraphUpvoteButtonText = "Você concorda";
-      paragraphUpvoteButtonTitle = "Você concorda com o paragrafo";
+      paragraphUpvoteButtonText = "Você concorda com o parágrafo original";
+      paragraphUpvoteButtonTitle = "Você concorda com o parágrafo original";
     }
 
     var paragraphUpvoteLoaderClass = "hide";
@@ -171,7 +171,8 @@ var Paragraph = React.createClass({
             title="Contribuições"
             href="#"
             onClick={this.onToggleListClick}>
-            <i className="fa fa-comment" />
+            Ver contribuições
+            <i className="fa fa-comment ml1" />
             &nbsp;
             <span>{paragraphContributions.length}</span>
           </a>
