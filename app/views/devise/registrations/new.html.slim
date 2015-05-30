@@ -35,5 +35,6 @@
       - if resource.errors[:password_confirmation].any?
         small.red= resource.errors[:password_confirmation].join(" ")
 
-    .mb1= f.submit "Criar conta", class: ["button"]
+    .mb0= f.submit "Criar conta", class: ["button"]
+    hr
     = render "devise/shared/links"
