@@ -2,6 +2,7 @@
   h2.mt0.mb3 Identifique-se
 
   = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+    .mb2.red= flash[:alert]
     .mb2
       = f.label :email
       = f.email_field :email, autofocus: true, class: "block full-width field-light"
