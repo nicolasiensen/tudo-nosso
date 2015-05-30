@@ -7,7 +7,15 @@ html
     = csrf_meta_tags
     meta content="width=device-width, initial-scale=1" name="viewport"
   body.bg-darken-1
+    nav.clearfix.bg-white
+      .container
+        .right
+          #current-user
+            - if current_user.present?
+              .py1.flex= image_tag "https://media.licdn.com/mpr/mpr/shrinknp_400_400/p/8/005/01c/034/2db8a14.jpg", height: 30, width: 30, class: [:circle], title: current_user.name
+            - else
+              = link_to "Entrar", new_user_session_path, class: [:button, :py2, :m0, :black, "button-transparent"]
+
     = yield :header
     .container
-      .clearfix
-        .lg-col-9.mt4.mb4.p3.mx-auto.bg-white= yield
+      .clearfix= yield
