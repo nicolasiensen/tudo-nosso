@@ -212,3 +212,4 @@ pt-BR:
         last_name: "Sobrenome"
         password: "Senha"
         password_confirmation: "Confirmação da senha"
+        remember_me: "Lembrar-me"

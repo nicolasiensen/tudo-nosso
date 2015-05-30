@@ -1,0 +1,20 @@
+.lg-col-4.md-col-5.mt4.mb4.p3.mx-auto.bg-white
+  h2.mt0.mb3 Identifique-se
+
+  = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+    .mb2
+      = f.label :email
+      = f.email_field :email, autofocus: true, class: "block full-width field-light"
+
+    .mb2
+      = f.label :password
+      = f.password_field :password, autocomplete: "off", class: "block full-width field-light"
+
+    - if devise_mapping.rememberable?
+      .mb2
+        = f.check_box :remember_me
+        = f.label :remember_me
+
+    .mb0= f.submit "Entrar", class: :button
+    hr
+    = render "devise/shared/links"

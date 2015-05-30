@@ -13,7 +13,7 @@ RSpec.feature "ContributeToAParagraph", type: :feature, js: true do
       visit new_user_session_path
       fill_in :user_email, with: @user.email
       fill_in :user_password, with: password
-      click_button "Log in"
+      click_button "Entrar"
       visit document_path(document)
       page.find(".paragraph", text: "Lorem ipsum").hover
       click_link("Adicionar contribuição")
@@ -45,7 +45,7 @@ RSpec.feature "ContributeToAParagraph", type: :feature, js: true do
     click_link("Registre-se ou faça login para colaborar com esse edital")
     fill_in :user_email, with: @user.email
     fill_in :user_password, with: password
-    click_button "Log in"
+    click_button "Entrar"
 
     expect(current_path).to be_eql(document_path(document))
   end

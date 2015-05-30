@@ -17,7 +17,7 @@ RSpec.feature "Upvote a contribution", type: :feature, js: true do
       visit new_user_session_path
       fill_in :user_email, with: @user.email
       fill_in :user_password, with: @password
-      click_button "Log in"
+      click_button "Entrar"
     end
 
     scenario "when I've never upvoted the contribution" do
@@ -54,7 +54,7 @@ RSpec.feature "Upvote a contribution", type: :feature, js: true do
     click_link("Concordar")
     fill_in :user_email, with: @user.email
     fill_in :user_password, with: @password
-    click_button "Log in"
+    click_button "Entrar"
 
     expect(current_path).to be_eql(document_path(@document))
   end
