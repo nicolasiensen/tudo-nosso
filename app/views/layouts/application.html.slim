@@ -26,5 +26,12 @@ html
               span= flash[:notice] || flash[:alert]
 
     = yield :header
+    
     .container
       .clearfix= yield
+
+    - if content_for? :small_box
+      .container
+        .clearfix
+          .lg-col-4.md-col-5.mt3.mb4.p3.mx-auto.bg-white
+            = content_for :small_box

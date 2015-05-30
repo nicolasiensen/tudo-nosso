@@ -1,8 +1,7 @@
-.lg-col-4.md-col-5.mt4.mb4.p3.mx-auto.bg-white
+= content_for :small_box do
   h2.mt0.mb3 Identifique-se
 
   = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
-    .mb2.red= flash[:alert]
     .mb2
       = f.label :email
       = f.email_field :email, autofocus: true, class: "block full-width field-light"
