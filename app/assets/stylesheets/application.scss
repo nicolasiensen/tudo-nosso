@@ -20,3 +20,8 @@ body {
     background-color: $darken-1;
   }
 }
+
+// TODO: follow https://github.com/basscss/base-forms/issues/1
+label {
+  cursor: pointer;
+}

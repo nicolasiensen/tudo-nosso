@@ -2,30 +2,38 @@
   h2.mt0.mb3 Cadastro
 
   = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
-    = devise_error_messages!
-
     .mb2
       = f.label :first_name
-      = f.text_field :first_name, autofocus: true, class: "block full-width field-light"
+      = f.text_field :first_name, autofocus: resource.errors[:first_name].any? || resource.errors.empty?, class: "block full-width field-light #{resource.errors[:first_name].any? ? "is-error" : ""}"
+      - if resource.errors[:first_name].any?
+        small.red= resource.errors[:first_name].join(" ")
 
     .mb2
       = f.label :last_name
-      = f.text_field :last_name, class: "block full-width field-light"
+      = f.text_field :last_name, autofocus: resource.errors[:last_name].any?, class: "block full-width field-light #{resource.errors[:last_name].any? ? "is-error" : ""}"
+      - if resource.errors[:last_name].any?
+        small.red= resource.errors[:last_name].join(" ")
 
     .mb2
       = f.label :email
-      = f.email_field :email, class: "block full-width field-light"
+      = f.email_field :email, autofocus: resource.errors[:email].any?, class: "block full-width field-light #{resource.errors[:email].any? ? "is-error" : ""}"
+      - if resource.errors[:email].any?
+        small.red= resource.errors[:email].join(" ")
 
     .mb2
       = f.label :password
       - if @validatable
         em
           |  (no mínimo #{@minimum_password_length} caracteres)
-      = f.password_field :password, autocomplete: "off", class: "block full-width field-light"
+      = f.password_field :password, autofocus: resource.errors[:password].any?, autocomplete: "off", class: "block full-width field-light #{resource.errors[:password].any? ? "is-error" : ""}"
+      - if resource.errors[:password].any?
+        small.red= resource.errors[:password].join(" ")
 
-    .mb2
+    .mb3
       = f.label :password_confirmation
-      = f.password_field :password_confirmation, autocomplete: "off", class: "block full-width field-light"
+      = f.password_field :password_confirmation, autofocus: resource.errors[:password_confirmation].any?, autocomplete: "off", class: "block full-width field-light #{resource.errors[:password_confirmation].any? ? "is-error" : ""}"
+      - if resource.errors[:password_confirmation].any?
+        small.red= resource.errors[:password_confirmation].join(" ")
 
     .mb1= f.submit "Criar conta", class: ["button"]
     = render "devise/shared/links"

@@ -15,6 +15,12 @@ RSpec.feature "SignUp", type: :feature do
   end
 
   scenario "when the form is invalid" do
+    visit new_user_registration_path
+    click_button "Criar conta"
 
+    expect(page).to have_css("#user_first_name.is-error")
+    expect(page).to have_css("#user_last_name.is-error")
+    expect(page).to have_css("#user_email.is-error")
+    expect(page).to have_css("#user_password.is-error")
   end
 end
