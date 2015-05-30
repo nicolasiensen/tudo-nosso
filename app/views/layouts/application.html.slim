@@ -16,6 +16,15 @@ html
             - else
               = link_to "Entrar", new_user_session_path, class: [:button, :py2, :m0, :black, "button-transparent"]
 
+    - if flash.present?
+      .container.mt2
+        .clearfix.center
+          .bold.px1.white.rounded.inline-block class="#{flash[:notice].present? ? "bg-green" : "bg-red"}"
+            .flex.flex-center
+              .inline.h1.mr1
+                .fa class="#{flash[:notice].present? ? "fa-check-circle" : "fa-exclamation-circle"}"
+              span= flash[:notice] || flash[:alert]
+
     = yield :header
     .container
       .clearfix= yield
