@@ -13,6 +13,11 @@ class User < ActiveRecord::Base
     [self.first_name, self.last_name].join(" ")
   end
 
+  def as_json(options)
+    options.merge!(methods: [:name])
+    super(options)
+  end
+
   protected
 
   def confirmation_required?
