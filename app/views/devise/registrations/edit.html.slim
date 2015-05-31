@@ -1,0 +1,47 @@
+= content_for :small_box do
+  h2.mt0.mb3 Editar minha conta
+
+  = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
+    .mb2
+      = f.label :first_name
+      = f.text_field :first_name, autofocus: resource.errors[:first_name].any? || resource.errors.empty?, class: "block full-width field-light #{resource.errors[:first_name].any? ? "is-error" : ""}"
+      - if resource.errors[:first_name].any?
+        small.red= resource.errors[:first_name].join(" ")
+
+    .mb2
+      = f.label :last_name
+      = f.text_field :last_name, autofocus: resource.errors[:last_name].any?, class: "block full-width field-light #{resource.errors[:last_name].any? ? "is-error" : ""}"
+      - if resource.errors[:last_name].any?
+        small.red= resource.errors[:last_name].join(" ")
+
+    .mb2
+      = f.label :email
+      = f.email_field :email, autofocus: resource.errors[:email].any?, class: "block full-width field-light #{resource.errors[:email].any? ? "is-error" : ""}"
+      - if resource.errors[:email].any?
+        small.red= resource.errors[:email].join(" ")
+
+    .mb2
+      = f.label :password
+      i.block
+        | (deixe o campo de senha em branco se você não deseja alterará-la)
+      = f.password_field :password, autocomplete: "off", autofocus: resource.errors[:password].any?, class: "block full-width field-light #{resource.errors[:password].any? ? "is-error" : ""}"
+      - if resource.errors[:password].any?
+        small.red= resource.errors[:password].join(" ")
+
+    .mb2
+      = f.label :password_confirmation
+      = f.password_field :password_confirmation, autocomplete: "off", autofocus: resource.errors[:password_confirmation].any?, class: "block full-width field-light #{resource.errors[:password_confirmation].any? ? "is-error" : ""}"
+      - if resource.errors[:password_confirmation].any?
+        small.red= resource.errors[:password_confirmation].join(" ")
+
+    .mb2
+      = f.label :current_password
+      = f.password_field :current_password, autocomplete: "off", autofocus: resource.errors[:current_password].any?, class: "block full-width field-light #{resource.errors[:current_password].any? ? "is-error" : ""}"
+      - if resource.errors[:current_password].any?
+        small.red= resource.errors[:current_password].join(" ")
+
+    .mb0= f.submit "Atualizar", class: :button
+    hr
+    = link_to "Cancelar minha conta", registration_path(resource_name), data: { confirm: "Você tem certeza?" }, method: :delete, class: :red
+    br
+    = link_to "Voltar", :back
