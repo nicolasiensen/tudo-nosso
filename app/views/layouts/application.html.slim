@@ -17,7 +17,7 @@ html
               = link_to "Entrar", new_user_session_path, class: [:button, :py2, :m0, :black, "button-transparent"]
 
     - if flash.present?
-      .container.mt2
+      .container.mt2.mb2
         .clearfix.center
           .bold.px1.white.rounded.inline-block class="#{flash[:notice].present? ? "bg-green" : "bg-red"}"
             .flex.flex-center
@@ -26,7 +26,7 @@ html
               span= flash[:notice] || flash[:alert]
 
     = yield :header
-    
+
     .container
       .clearfix= yield
 
