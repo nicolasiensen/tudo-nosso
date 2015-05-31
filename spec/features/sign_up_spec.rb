@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.feature "SignUp", type: :feature do
-  scenario "when the form is valid" do
+  scenario "when the form is valid", js: true do
     visit new_user_registration_path
     fill_in "user[first_name]", with: "Nícolas"
     fill_in "user[last_name]", with: "Iensen"
@@ -11,7 +11,7 @@ RSpec.feature "SignUp", type: :feature do
     click_button "Criar conta"
 
     expect(current_path).to be_eql(root_path)
-    expect(page).to have_css("#current-user img[title='Nícolas Iensen']")
+    expect(page).to have_css("img[title='Nícolas Iensen']")
   end
 
   scenario "when the form is invalid" do
