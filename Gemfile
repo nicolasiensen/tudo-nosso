@@ -54,6 +54,10 @@ group :test do
   gem "codeclimate-test-reporter", require: nil
 end
 
+group :dev do
+  gem 'mailcatcher'
+end
+
 group :production do
   gem 'rails_12factor'
 end
