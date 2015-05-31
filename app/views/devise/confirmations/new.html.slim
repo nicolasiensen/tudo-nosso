@@ -1,0 +1,13 @@
+= content_for :small_box do
+  h2.mt0.mb3 Confirmação de cadastro
+
+  = form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f|
+    .mb2
+      = f.label :email
+      = f.email_field :email, autofocus: true, class: "block full-width field-light #{resource.errors[:email].any? ? "is-error" : ""}"
+      - if resource.errors[:email].any?
+        small.red= resource.errors[:email].join(" ")
+
+    .mb0= f.submit "Reenviar instruções de confirmação", class: :button
+    hr
+    = render "devise/shared/links"
