@@ -54,10 +54,6 @@ group :test do
   gem "codeclimate-test-reporter", require: nil
 end
 
-group :dev do
-  gem 'mailcatcher'
-end
-
 group :production do
   gem 'rails_12factor'
 end
@@ -67,6 +63,7 @@ gem 'slim-rails'
 gem 'react-rails', '~> 1.0'
 gem 'puma'
 gem 'bourbon'
+gem 'mailcatcher', group: :development
 
 # Rails assets
 source 'https://rails-assets.org' do
