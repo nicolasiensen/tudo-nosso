@@ -64,6 +64,7 @@ gem 'react-rails', '~> 1.0'
 gem 'puma'
 gem 'bourbon'
 gem 'mailcatcher', group: :development
+gem 'carrierwave'
 
 # Rails assets
 source 'https://rails-assets.org' do

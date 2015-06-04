@@ -55,6 +55,11 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    carrierwave (0.10.0)
+      activemodel (>= 3.2.0)
+      activesupport (>= 3.2.0)
+      json (>= 1.7)
+      mime-types (>= 1.16)
     childprocess (0.5.5)
       ffi (~> 1.0, >= 1.0.11)
     codeclimate-test-reporter (0.4.7)
@@ -137,7 +142,7 @@ GEM
       railties (= 4.2.0)
       sprockets-rails
     rails-assets-basscss-sass (1.0.2)
-    rails-assets-fluxxor (1.5.3)
+    rails-assets-fluxxor (1.5.4)
     rails-assets-fontawesome (4.3.0)
     rails-assets-jsSHA (1.6.0)
     rails-assets-jsdiff (1.4.0)
@@ -272,6 +277,7 @@ DEPENDENCIES
   bourbon
   byebug
   capybara
+  carrierwave
   codeclimate-test-reporter
   coffee-rails (~> 4.1.0)
   database_cleaner
