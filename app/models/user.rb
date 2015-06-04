@@ -9,6 +9,8 @@ class User < ActiveRecord::Base
   validates :first_name, :last_name, presence: true
   validates :api_token, presence: true, uniqueness: true
 
+  mount_uploader :avatar, AvatarUploader
+
   def name
     [self.first_name, self.last_name].join(" ")
   end
