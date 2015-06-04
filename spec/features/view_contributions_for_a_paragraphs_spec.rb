@@ -8,7 +8,7 @@ RSpec.feature "ViewContributionsForAParagraphs", type: :feature, js: true  do
     visit document_path(document)
     page.find(".paragraph", text: "Lorem ipsum").hover
 
-    expect(page).to have_css("a[title='Contribuições'].hide")
+    expect(page).to_not have_css("a[title='Contribuições']")
   end
 
   scenario "when there is more than one contribution" do

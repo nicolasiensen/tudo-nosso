@@ -99,6 +99,7 @@ var Paragraph = React.createClass({
 
   render: function() {
     var paragraphContributions = this.getParagraphContributions();
+    var contributionListButton;
 
     contributionList = paragraphContributions.map(function (c){
       return <Contribution contribution={c} paragraph={this.props.paragraph} currentUser={this.props.currentUser} />;
@@ -107,14 +108,45 @@ var Paragraph = React.createClass({
     addContributionButtonClass = "mb1 ml1 button button-transparent blue button-small";
     listContributionsButtonClass = addContributionButtonClass;
 
-    if(paragraphContributions.length == 0) {
-      listContributionsButtonClass += " hide";
-    }
-
     if(this.state.isFormOpen) {
       addContributionButtonClass += " is-active";
     } else if (this.state.isListOpen) {
       listContributionsButtonClass += " is-active";
+    }
+
+    if(paragraphContributions.length > 0) {
+      contributionListButton = <a
+        className={listContributionsButtonClass}
+        title="Contribuições"
+        href="#"
+        onClick={this.onToggleListClick}>
+        <div className="md-show">
+          <span className="mr1">Ver contribuições</span>
+          <i className="fa fa-comment" />
+          &nbsp;
+          <span>{paragraphContributions.length}</span>
+        </div>
+        <div className="md-hide">
+          <i className="fa fa-comment" />
+          &nbsp;
+          <span>{paragraphContributions.length}</span>
+        </div>
+      </a>
+    } else {
+      contributionListButton = <span
+        className="mb1 ml1 gray bold inline-block">
+        <div className="md-show">
+          <span className="mr1">Contribuições</span>
+          <i className="fa fa-comment" />
+          &nbsp;
+          <span>{paragraphContributions.length}</span>
+        </div>
+        <div className="md-hide">
+          <i className="fa fa-comment" />
+          &nbsp;
+          <span>{paragraphContributions.length}</span>
+        </div>
+      </span>
     }
 
     var paragraphUpvoteButtonClass = "mb1 button button-small";
@@ -150,7 +182,7 @@ var Paragraph = React.createClass({
           dangerouslySetInnerHTML={{__html: this.props.paragraph.body}}>
         </p>
         <nav
-          className="inline"
+          className="flex flex-center"
           style={{visibility: this.isParagraphNavVisible() ? 'visible' : 'hidden'}}>
           <a
             className={paragraphUpvoteButtonClass}
@@ -185,31 +217,17 @@ var Paragraph = React.createClass({
               <i className="fa fa-plus"></i>
             </div>
           </a>
-          <a
-            className={listContributionsButtonClass}
-            title="Contribuições"
-            href="#"
-            onClick={this.onToggleListClick}>
-            <div className="md-show">
-              <span className="mr1">Ver contribuições</span>
-              <i className="fa fa-comment" />
-              &nbsp;
-              <span>{paragraphContributions.length}</span>
-            </div>
-            <div className="md-hide">
-              <i className="fa fa-comment" />
-              &nbsp;
-              <span>{paragraphContributions.length}</span>
-            </div>
-          </a>
-          <a
-            className="mb1 right gray"
-            title="Fechar"
-            href="#"
-            style={{visibility: this.props.formOpen ? 'visible' : 'hidden'}}
-            onClick={this.onCloseClick}>
-            <i className="fa fa-close"></i>
-          </a>
+          {contributionListButton}
+          <div className="flex-auto mb1">
+            <a
+              className="gray right"
+              title="Fechar"
+              href="#"
+              style={{visibility: this.props.formOpen ? 'visible' : 'hidden'}}
+              onClick={this.onCloseClick}>
+              <i className="fa fa-close"></i>
+            </a>
+          </div>
         </nav>
         <div
           className="contributionPanel"
