@@ -13,8 +13,8 @@ var Dropdown = React.createClass({
   render: function(){
     var dropdown;
     var dropdownOverlay;
+    dropdownButtonClass = "button button-transparent flex flex-center p1"
     var currentUser = this.props.currentUser;
-    console.log(currentUser);
 
     if(this.state.isOpened){
       dropdownOverlay =
@@ -36,12 +36,15 @@ var Dropdown = React.createClass({
             Sair
           </a>
         </div>;
+
+      dropdownButtonClass = dropdownButtonClass + " is-active";
     }
 
     return(
       <div className="relative inline-block">
-        <a href="#" className="button button-transparent flex flex-center p1" onClick={this.toggle}>
-          <img height="30" width="30" className="circle mr1" title={currentUser.name} />
+        <a href="#" className={dropdownButtonClass} onClick={this.toggle}>
+          <img src={currentUser.avatar.url} height="30" width="30" className="circle mr1"
+            title={currentUser.name} />
           <i className="fa fa-caret-down" />
         </a>
         {dropdownOverlay}
