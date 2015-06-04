@@ -12,3 +12,4 @@
 !/log/.keep
 /tmp
 database.yml
+public/uploads/
