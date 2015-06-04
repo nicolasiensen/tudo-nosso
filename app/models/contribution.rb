@@ -4,12 +4,16 @@ class Contribution < ActiveRecord::Base
   has_many :upvotes
   validates :body, :justification, :user_id, :document_id, :paragraph_hash, presence: true
 
-  def to_json options={}
-    super(include: {
-      user: {
-        except: [:api_token, :email]
-      },
-      upvotes: {}
-    })
+  def as_json(options)
+    options.merge!(
+      include: {
+        user: {
+          except: [:api_token, :email],
+          methods: [:name, :thumb]
+        },
+        upvotes: {}
+      }
+    )
+    super(options)
   end
 end

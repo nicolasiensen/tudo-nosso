@@ -13,13 +13,7 @@ class Api::V1::ContributionsController < ApiController
   end
 
   def index
-    render json: Contribution.where(document_id: params[:document_id]).
-      to_json(
-        include: {
-          user: {except: [:api_token, :email]},
-          upvotes: {}
-        }
-      )
+    render json: Contribution.where(document_id: params[:document_id])
   end
 
   def contribution_params

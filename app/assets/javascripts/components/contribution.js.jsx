@@ -62,6 +62,8 @@ var Contribution = React.createClass({
     var showBodyButtonClass = showDiffButtonClass = showJustificationButtonClass =
       "p1 inline-block no-text-decoration bg-darken-1-on-over bold h6";
 
+    var user = this.props.contribution.user;
+
     switch(this.state.selectedTab) {
       case "body":
         bodyClass = "";
@@ -89,14 +91,10 @@ var Contribution = React.createClass({
       <div className="mb2 p2 rounded bg-darken-1">
         <div className="clearfix">
           <div className="sm-col sm-col-12 md-col-6 userName flex flex-center">
-            <img className="circle flex-none bg-gray" width="20" height="20" />
-            &nbsp;
+            <img className="circle mr1" width="30" height="30" src={user.thumb} />
             <div className="flex-auto h5">
-              <span className="bold">
-                {this.props.contribution.user.first_name}
-                &nbsp;
-                {this.props.contribution.user.last_name}
-              </span> <span className="gray">há {moment(this.props.contribution.created_at).fromNow()}</span>
+              <span className="bold mr1">{user.name}</span>
+              <span className="gray">há {moment(this.props.contribution.created_at).fromNow()}</span>
             </div>
           </div>
           <div className="tn-Contribution-menuTab sm-col sm-col-12 md-col-6 mt1">
