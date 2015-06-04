@@ -24,15 +24,17 @@ var Dropdown = React.createClass({
           <a
             href="/users/edit"
             data-method='get'
-            className="button block button-transparent bg-white"
+            className="button block button-transparent bg-white regular h5"
             onClick={this.toggle}>
+            <i className="fa fa-pencil mr1"></i>
             Editar minha conta
           </a>
           <a
             href="/users/sign_out"
             data-method='delete'
-            className="button block button-transparent bg-white red"
+            className="button block button-transparent bg-white red regular h5"
             onClick={this.toggle}>
+            <i className="fa fa-sign-out mr1"></i>
             Sair
           </a>
         </div>;
