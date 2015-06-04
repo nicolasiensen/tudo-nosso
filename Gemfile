@@ -65,6 +65,7 @@ gem 'puma'
 gem 'bourbon'
 gem 'mailcatcher', group: :development
 gem 'carrierwave'
+gem 'cloudinary'
 
 # Rails assets
 source 'https://rails-assets.org' do
