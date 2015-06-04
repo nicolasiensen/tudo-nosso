@@ -45,7 +45,7 @@ var Dropdown = React.createClass({
     return(
       <div className="relative inline-block">
         <a href="#" className={dropdownButtonClass} onClick={this.toggle}>
-          <img src={currentUser.avatar.url} height="30" width="30" className="circle mr1"
+          <img src={currentUser.thumb} height="30" width="30" className="circle mr1"
             title={currentUser.name} />
           <i className="fa fa-caret-down" />
         </a>

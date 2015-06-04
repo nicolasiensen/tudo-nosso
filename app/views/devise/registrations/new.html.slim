@@ -21,6 +21,11 @@
         small.red= resource.errors[:email].join(" ")
 
     .mb2
+      = f.label :avatar
+      = f.hidden_field :avatar_cache
+      = f.file_field :avatar
+
+    .mb2
       = f.label :password
       - if @validatable
         em

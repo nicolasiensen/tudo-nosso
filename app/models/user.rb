@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
+  include CloudinaryHelper
+
   before_validation :generate_api_token
 
   validates :first_name, :last_name, presence: true
@@ -16,8 +18,22 @@ class User < ActiveRecord::Base
   end
 
   def as_json(options)
-    options.merge!(methods: [:name])
+    options.merge!(methods: [:name, :thumb])
     super(options)
+  end
+
+  def thumb
+    if self.avatar.present?
+      cloudinary_url(
+        self.avatar.file.filename,
+        width: 100,
+        height: 100,
+        crop: :thumb,
+        gravity: :face
+      )
+    else
+      AvatarUploader.new.default_url
+    end
   end
 
   protected
