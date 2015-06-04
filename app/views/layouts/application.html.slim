@@ -8,12 +8,15 @@ html
     meta content="width=device-width, initial-scale=1" name="viewport"
   body.bg-darken-1
     nav.clearfix.bg-white
-      .container
+      .container.flex.flex-center
+        .left.flex-auto.px2
+          = link_to root_path do
+            = image_tag "http://brecha.com.br/wp-content/themes/brecha-2014/library/images/logo-brecha.png", width: 70
         .right
           - if current_user.present?
             = react_component("Dropdown", currentUser: current_user)
           - else
-            = link_to "Entrar", new_user_session_path, class: [:button, :py2, :m0, :black, "button-transparent"]
+            = link_to "Entrar", new_user_session_path, class: [:button, :py2, :m0, :black, "button-transparent", :regular, :h5]
 
     - if flash.present?
       .container.mt2.mb2
