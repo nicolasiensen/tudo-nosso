@@ -66,6 +66,7 @@ gem 'bourbon'
 gem 'mailcatcher', group: :development
 gem 'carrierwave'
 gem 'cloudinary'
+gem 'sidekiq'
 
 # Rails assets
 source 'https://rails-assets.org' do

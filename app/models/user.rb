@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   include CloudinaryHelper
 
   before_validation :generate_api_token
+  after_create { self.delay.send_confirmation_instructions }
 
   validates :first_name, :last_name, presence: true
   validates :api_token, presence: true, uniqueness: true
