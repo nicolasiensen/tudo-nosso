@@ -9,7 +9,10 @@ User.blueprint do
 end
 
 Document.blueprint do
+  user
   body { "<p>Lorem ipsum</p>" }
+  closes_for_contribution_at { 10.days.from_now }
+  title { "Document #{sn}" }
 end
 
 Contribution.blueprint do

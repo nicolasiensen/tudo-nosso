@@ -3,12 +3,37 @@
     .bg-cover.bg-bottom
     .bg-navy
 
-.lg-col-9.mt4.mb4.p3.mx-auto.bg-white
-  #document-component
-  javascript:
-    $(document).ready(function() {
-      documentFlux.init({
-        document: #{raw @document.to_json},
-        currentUser: #{raw current_user.to_json}
+.lg-col-10.px2.mx-auto.white
+  h1.regular.mb3= @document.title
+  .md-flex.flex-justify
+    .flex.flex-center.mb1
+      = image_tag @document.user.thumb, width: 30, height: 30, class: "mr1 circle"
+      span.bold= @document.user.name
+    .flex.flex-center.mb1
+      span.h2
+        i.fa.fa-clock-o.yellow.mr1
+      - if @document.closed_for_contribution?
+        span Contribuições encerradas
+      - else
+        span.bold= distance_of_time_in_words_to_now @document.closes_for_contribution_at
+        | &nbsp;
+        span restantes
+    .flex.flex-center.mb1
+      span.h2
+        i.fa.fa-comment.yellow.mr1
+      = raw t('.contributions', count: @document.contributions.count)
+    .flex.flex-center.mb1
+      span.h2
+        i.fa.fa-thumbs-up.yellow.mr1
+      = raw t('.paragraph_upvotes', count: @document.paragraph_upvotes.count)
+
+.lg-col-10.mt2.mb4.mx-auto
+  .bg-white.p3
+    #document-component
+    javascript:
+      $(document).ready(function() {
+        documentFlux.init({
+          document: #{raw @document.to_json},
+          currentUser: #{raw current_user.to_json}
+        });
       });
-    });

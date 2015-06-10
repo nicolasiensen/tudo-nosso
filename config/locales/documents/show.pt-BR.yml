@@ -1,0 +1,11 @@
+pt-BR:
+  documents:
+    show:
+      paragraph_upvotes:
+        zero: "<span>Nenhum concordo</span>"
+        one: "<span><span class='bold'>1</span> concordo</span>"
+        other: "<span><span class='bold'>%{count}</span> concordos</span>"
+      contributions:
+        zero: "<span>Nenhuma contribuição</span>"
+        one: "<span><span class='bold'>1</span> contribuição</span>"
+        other: "<span><span class='bold'>%{count}</span> contribuições</span>"
