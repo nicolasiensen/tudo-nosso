@@ -1,0 +1,9 @@
+@media #{$breakpoint-md} {
+  .tb-documentCoverContent {
+    text-align: left;
+  }
+
+  .tb-documentCoverContent-user {
+    margin-bottom: 0;
+  }
+}

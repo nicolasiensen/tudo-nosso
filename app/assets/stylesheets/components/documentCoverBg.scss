@@ -1,21 +1,21 @@
-.tn-documentCover {
+.tn-documentCoverBg {
   position: relative;
 }
 
-.tn-documentCover .bg-cover,
-.tn-documentCover .bg-navy {
+.tn-documentCoverBg .bg-cover,
+.tn-documentCoverBg .bg-navy {
   height: 500px;
   position: absolute;
   width: 100%;
 }
 
-.tn-documentCover .bg-cover {
+.tn-documentCoverBg .bg-cover {
   z-index: -2;
   background-image: url("http://kultme.com.br/kt/wp-content/uploads/2015/02/teatro-2.jpg");
   @include filter(grayscale(100%));
 }
 
-.tn-documentCover .bg-navy {
+.tn-documentCoverBg .bg-navy {
   z-index: -1;
   opacity: .85;
 }

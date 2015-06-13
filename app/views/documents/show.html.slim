@@ -1,16 +1,18 @@
 = content_for :header
-  .tn-documentCover
+  .tn-documentCoverBg
     .bg-cover.bg-bottom
     .bg-navy
 
-.lg-col-10.px2.mx-auto.white
+.tb-documentCoverContent.lg-col-10.px2.mx-auto.white.center
   h1.regular.mb3= @document.title
-  .md-flex.flex-justify
-    .flex.flex-center.mb1
-      = image_tag @document.user.thumb, width: 30, height: 30, class: "mr1 circle"
-      span.bold= @document.user.name
-    .flex.flex-center.mb1
-      span.h2
+  .md-flex.flex-justify.mb2
+    .md-flex.flex-center.mb2.tb-documentCoverContent-user
+      = image_tag(@document.user.thumb, width: 35, height: 35, class: "mr1 circle")
+      .normal-line-height
+        .h5.block Autor da consulta
+        .bold.block= @document.user.name
+    .md-flex.flex-center
+      span.h2.md-show
         i.fa.fa-clock-o.yellow.mr1
       - if @document.closed_for_contribution?
         span Contribuições encerradas
@@ -18,12 +20,12 @@
         span.bold= distance_of_time_in_words_to_now @document.closes_for_contribution_at
         | &nbsp;
         span restantes
-    .flex.flex-center.mb1
-      span.h2
+    .md-flex.flex-center
+      span.h2.md-show
         i.fa.fa-comment.yellow.mr1
       = raw t('.contributions', count: @document.contributions.count)
-    .flex.flex-center.mb1
-      span.h2
+    .md-flex.flex-center
+      span.h2.md-show
         i.fa.fa-thumbs-up.yellow.mr1
       = raw t('.paragraph_upvotes', count: @document.paragraph_upvotes.count)
 

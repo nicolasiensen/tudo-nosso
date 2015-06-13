@@ -25,3 +25,8 @@ body {
 label {
   cursor: pointer;
 }
+
+// TODO: follow https://github.com/basscss/base-typography/issues/3
+.normal-line-height {
+  line-height: normal;
+}
