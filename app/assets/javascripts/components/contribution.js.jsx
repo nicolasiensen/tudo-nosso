@@ -60,28 +60,22 @@ var Contribution = React.createClass({
 
     var bodyClass = diffClass = justificationClass = "hide";
     var showBodyButtonClass = showDiffButtonClass = showJustificationButtonClass =
-      "p1 inline-block no-text-decoration bg-darken-1-on-over bold h6";
+      "button button-transparent h6 p1 black";
 
     var user = this.props.contribution.user;
 
     switch(this.state.selectedTab) {
       case "body":
-        bodyClass = "";
-        showBodyButtonClass += " black bg-darken-1";
-        showDiffButtonClass += " gray";
-        showJustificationButtonClass += " gray";
+        bodyClass = "show";
+        showBodyButtonClass += " is-active";
         break;
       case "diff":
-        diffClass = "";
-        showDiffButtonClass += " black bg-darken-1";
-        showBodyButtonClass += " gray";
-        showJustificationButtonClass += " gray";
+        diffClass = "show";
+        showDiffButtonClass += " is-active";
         break;
       case "justification":
-        justificationClass = "";
-        showJustificationButtonClass += " black bg-darken-1";
-        showDiffButtonClass += " gray"
-        showBodyButtonClass += " gray"
+        justificationClass = "show";
+        showJustificationButtonClass += " is-active";
         break;
       default:
         console.log("I don't know what to do with " + this.state.selectedTab);
