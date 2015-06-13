@@ -209,12 +209,12 @@ var Paragraph = React.createClass({
             href="#"
             onClick={this.onToggleFormClick}>
             <div className="md-show">
-              <i className="fa fa-plus"></i>
+              <i className="fa fa-pencil"></i>
               &nbsp;
               <span>Contribuir</span>
             </div>
             <div className="md-hide">
-              <i className="fa fa-plus"></i>
+              <i className="fa fa-pencil"></i>
             </div>
           </a>
           {contributionListButton}
