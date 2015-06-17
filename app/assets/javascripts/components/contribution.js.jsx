@@ -60,7 +60,7 @@ var Contribution = React.createClass({
 
     var bodyClass = diffClass = justificationClass = "hide";
     var showBodyButtonClass = showDiffButtonClass = showJustificationButtonClass =
-      "button button-transparent h6 p1 black";
+      "button button-transparent h6 p1 blue";
 
     var user = this.props.contribution.user;
 
