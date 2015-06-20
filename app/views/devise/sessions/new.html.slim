@@ -15,14 +15,13 @@
         = f.check_box :remember_me
         = f.label :remember_me
 
-    .mb0
-      = f.submit("Entrar", class: :button)
-      .italic.mt1.mb1 ou
+    .mb1= f.submit("Entrar", class: :button)
+    = render "devise/shared/links"
+
+    .bg-darken-1.border.rounded.center.p2.mt3
+      p Você também pode entrar com a sua conta do Facebook
       = link_to user_omniauth_authorize_path(:facebook), class: [:button, 'bg-facebook-blue'] do
         .flex.flex-center
           span.h2
             i.fa.fa-facebook-official.mr1
           span Entrar com o Facebook
-
-    hr
-    = render "devise/shared/links"
