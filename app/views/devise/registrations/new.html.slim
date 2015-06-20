@@ -1,13 +1,14 @@
 = content_for :small_box do
   h2.mt0.mb3 Nova conta
 
-  .bg-darken-1.border.rounded.p2.center.mb3
-    p Você pode usar a sua conta do Facebook para preencher o formulário de cadastro
-    = link_to user_omniauth_authorize_path(:facebook), class: [:button, 'bg-facebook-blue'] do
-      .flex.flex-center
-        span.h2
-          i.fa.fa-facebook-official.mr1
-        span Conectar com o Facebook
+  - if resource.facebook_uid.nil?
+    .bg-darken-1.border.rounded.p2.center.mb3
+      p Você pode usar a sua conta do Facebook para preencher o formulário de cadastro
+      = link_to user_omniauth_authorize_path(:facebook), class: [:button, 'bg-facebook-blue'] do
+        .flex.flex-center
+          span.h2
+            i.fa.fa-facebook-official.mr1
+          span Conectar com o Facebook
 
   = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
     .mb2
