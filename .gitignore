@@ -13,3 +13,4 @@
 /tmp
 database.yml
 public/uploads/
+config/initializers/01_envvars.rb
