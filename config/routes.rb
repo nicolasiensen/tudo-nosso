@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
   root 'documents#index'
 
-  devise_for :users
+  devise_for :users, controllers: {
+    omniauth_callbacks: "omniauth_callbacks",
+    registrations: "registrations"
+  }
 
   resources :documents, only: [:show, :index]
 
