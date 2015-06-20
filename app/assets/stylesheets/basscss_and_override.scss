@@ -55,3 +55,9 @@ $darken-1: rgba(0,0,0,.03) !default;
 // $breakpoint-lg: '(min-width: 64em)' !default;
 
 @import "basscss-sass";
+
+$facebook-blue: #3b5998;
+
+.bg-facebook-blue {
+  background-color: $facebook-blue;
+}
