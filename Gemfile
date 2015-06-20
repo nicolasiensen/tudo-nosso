@@ -67,6 +67,7 @@ gem 'mailcatcher', group: :development
 gem 'carrierwave'
 gem 'cloudinary'
 gem 'sidekiq'
+gem 'omniauth-facebook'
 
 # Rails assets
 source 'https://rails-assets.org' do
