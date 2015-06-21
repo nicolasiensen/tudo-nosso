@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
 
   include CloudinaryHelper
 
+  has_many :documents
+
   before_validation :generate_api_token
   after_create { self.delay.send_confirmation_instructions }
 
