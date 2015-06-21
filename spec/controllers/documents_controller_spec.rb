@@ -18,26 +18,43 @@ RSpec.describe DocumentsController, type: :controller do
   end
 
   describe "POST create" do
-    let(:user) { User.make! }
-    before { sign_in user }
+    context "when there is a logged in user" do
+      let(:user) { User.make! }
+      before { sign_in user }
 
-    it "should set the current user as the new document owner" do
-      post :create, document_params
-      expect(user.documents.where(title: "My Document")).to_not be_empty
-    end
+      it "should set the current user as the new document owner" do
+        post :create, valid_document_params
+        expect(user.documents.where(title: "My Document")).to_not be_empty
+      end
 
-    it "should redirect to the document page" do
-      post :create, document_params
-      expect(response).to redirect_to(document_path(Document.last))
+      it "should redirect to the document page" do
+        post :create, valid_document_params
+        expect(response).to redirect_to(document_path(Document.last))
+      end
+
+      it "should render the form when the form is invalid" do
+        post :create, invalid_document_params
+        expect(response).to render_template(:new)
+      end
     end
   end
 
-  let(:document_params) {
+  let(:valid_document_params) {
     {
       document: {
         title: "My Document",
         body: "Document body",
         closes_for_contribution_at: 1.month.from_now
+      }
+    }
+  }
+
+  let(:invalid_document_params) {
+    {
+      document: {
+        title: nil,
+        body: nil,
+        closes_for_contribution_at: nil
       }
     }
   }

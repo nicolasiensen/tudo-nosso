@@ -11,10 +11,13 @@ class DocumentsController < ApplicationController
   end
 
   def create
-    document = Document.new(document_params)
-    document.user = current_user
-    document.save
-    redirect_to document
+    @document = Document.new(document_params)
+    @document.user = current_user
+    if @document.save
+      redirect_to @document
+    else
+      render :new
+    end
   end
 
   def document_params

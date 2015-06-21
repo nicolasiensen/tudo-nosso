@@ -1,5 +1,5 @@
 class Document < ActiveRecord::Base
-  validates :body, presence: true
+  validates :body, :title, :closes_for_contribution_at, presence: true
   belongs_to :user
   has_many :contributions
   has_many :paragraph_upvotes

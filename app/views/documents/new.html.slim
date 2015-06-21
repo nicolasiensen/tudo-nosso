@@ -5,13 +5,19 @@
       .clearfix.mxn1
         .px1.mb3.sm-col.md-col-8.sm-col-12
           = f.label :title
-          = f.text_field :title, class: "field-light block full-width"
+          = f.text_field :title, class: "field-light block full-width #{@document.errors[:title].any? ? "is-error" : ""}"
+          - if @document.errors[:title].any?
+            small.red= @document.errors[:title].join(" ")
         .px1.mb3.sm-col.md-col-4.sm-col-12
           = f.label :closes_for_contribution_at, class: "mr1"
-          = f.datetime_field :closes_for_contribution_at, class: "field-light block full-width"
+          = f.datetime_field :closes_for_contribution_at, class: "field-light block full-width #{@document.errors[:closes_for_contribution_at].any? ? "is-error" : ""}"
+          - if @document.errors[:closes_for_contribution_at].any?
+            small.red= @document.errors[:closes_for_contribution_at].join(" ")
 
       .mb3
         = f.label :body
-        = f.text_area :body, class: "field-light block full-width", rows: "15"
+        = f.text_area :body, rows: "15", class: "field-light block full-width #{@document.errors[:body].any? ? "is-error" : ""}"
+        - if @document.errors[:body].any?
+          small.red= @document.errors[:body].join(" ")
 
       = f.submit "Criar documento", class: "button right"
