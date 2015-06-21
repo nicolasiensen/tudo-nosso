@@ -1,0 +1,17 @@
+.lg-col-10.mx-auto.mt4.mb4
+  .bg-white.p3.clearfix
+    h2.mt0.mb3 Novo documento
+    = form_for @document do |f|
+      .clearfix.mxn1
+        .px1.mb3.sm-col.md-col-8.sm-col-12
+          = f.label :title
+          = f.text_field :title, class: "field-light block full-width"
+        .px1.mb3.sm-col.md-col-4.sm-col-12
+          = f.label :closes_for_contribution_at, class: "mr1"
+          = f.datetime_field :closes_for_contribution_at, class: "field-light block full-width"
+
+      .mb3
+        = f.label :body
+        = f.text_area :body, class: "field-light block full-width", rows: "15"
+
+      = f.submit "Criar documento", class: "button right"

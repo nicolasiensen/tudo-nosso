@@ -6,7 +6,7 @@ Rails.application.routes.draw do
     registrations: "registrations"
   }
 
-  resources :documents, only: [:show, :index]
+  resources :documents, only: [:show, :index, :new, :create]
 
   namespace :api do
     namespace :v1 do
