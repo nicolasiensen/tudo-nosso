@@ -215,3 +215,7 @@ pt-BR:
         remember_me: "Lembrar-me"
         current_password: "Senha atual"
         avatar: "Foto de perfil"
+      document:
+        title: "Título"
+        body: "Texto"
+        closes_for_contribution_at: "Data limite para contribuições"
