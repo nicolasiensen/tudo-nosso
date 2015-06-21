@@ -1,4 +1,6 @@
 class DocumentsController < ApplicationController
+  authorize_resource
+  
   def show
     @document = Document.find(params[:id])
   end

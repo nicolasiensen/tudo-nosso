@@ -11,6 +11,7 @@ RSpec.describe DocumentsController, type: :controller do
   end
 
   describe "GET new" do
+    before { sign_in user }
     it "should declare a new document" do
       get :new
       expect(assigns(:document)).to be_a(Document)
@@ -19,7 +20,6 @@ RSpec.describe DocumentsController, type: :controller do
 
   describe "POST create" do
     context "when there is a logged in user" do
-      let(:user) { User.make! }
       before { sign_in user }
 
       it "should set the current user as the new document owner" do
@@ -38,6 +38,8 @@ RSpec.describe DocumentsController, type: :controller do
       end
     end
   end
+
+  let(:user) { User.make! }
 
   let(:valid_document_params) {
     {
