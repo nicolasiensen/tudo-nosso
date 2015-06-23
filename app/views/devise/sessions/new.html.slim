@@ -1,6 +1,21 @@
 = content_for :small_box do
   h2.mt0.mb3 Identifique-se
 
+  = link_to user_omniauth_authorize_path(:facebook), class: "button bg-facebook-blue full-width center" do
+    .flex.flex-center
+      .flex-auto
+      span.h2
+        i.fa.fa-facebook-official.mr1
+      span Entrar com o Facebook
+      .flex-auto
+
+  .flex.flex-center
+    .flex-auto
+      hr
+    span.italic.gray.px2 OU
+    .flex-auto
+      hr
+
   = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
     .mb2
       = f.label :email
@@ -16,12 +31,7 @@
         = f.label :remember_me
 
     .mb1= f.submit("Entrar", class: :button)
-    = render "devise/shared/links"
 
-    .bg-darken-1.border.rounded.center.p2.mt3
-      p Você também pode entrar com a sua conta do Facebook
-      = link_to user_omniauth_authorize_path(:facebook), class: [:button, 'bg-facebook-blue'] do
-        .flex.flex-center
-          span.h2
-            i.fa.fa-facebook-official.mr1
-          span Entrar com o Facebook
+    hr
+
+    = render "devise/shared/links"
