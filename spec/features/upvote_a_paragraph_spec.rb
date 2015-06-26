@@ -4,7 +4,7 @@ RSpec.feature "UpvoteAParagraph", type: :feature, js: true do
   before do
     @paragraph = "Lorem ipsum"
     @paragraph_hash = Digest::SHA2.hexdigest(@paragraph)
-    @document = Document.make! body: "<p>#{@paragraph}</p>"
+    @document = Document.make! body: @paragraph
     @password = "12345678"
     @user = User.make! password: @password
   end
