@@ -22,8 +22,21 @@
 //= require fluxxor
 //= require react
 //= require react_ujs
+//= require datetimepicker
 
 // Application files
 //= require components
 //= require document_flux
 //= require_tree .
+
+
+var ready;
+onJQueryReady = function() {
+  $('.datetimepicker').datetimepicker({
+    lang: 'pt-BR',
+    format:'d/m/Y H:i'
+  });
+};
+
+$(document).ready(onJQueryReady);
+$(document).on('page:load', onJQueryReady);

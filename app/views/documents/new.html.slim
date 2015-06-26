@@ -10,7 +10,7 @@
             small.red= @document.errors[:title].join(" ")
         .px1.mb3.sm-col.md-col-4.sm-col-12
           = f.label :closes_for_contribution_at, class: "mr1"
-          = f.datetime_field :closes_for_contribution_at, class: "field-light block full-width #{@document.errors[:closes_for_contribution_at].any? ? "is-error" : ""}"
+          = f.datetime_field :closes_for_contribution_at, class: "datetimepicker field-light block full-width #{@document.errors[:closes_for_contribution_at].any? ? "is-error" : ""}"
           - if @document.errors[:closes_for_contribution_at].any?
             small.red= @document.errors[:closes_for_contribution_at].join(" ")
 
