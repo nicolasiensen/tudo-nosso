@@ -9,7 +9,7 @@ var Document = React.createClass({
   componentDidMount: function() {
     paragraphs = [];
     i = 0;
-    this.props.document.body.replace(/<p>(.*?)<\/p>/g, function () {
+    this.props.document.body_html.replace(/<p>(.*?)<\/p>/g, function () {
       paragraphs.push({body: arguments[1], index: i});
       i+=1;
     });
