@@ -4,10 +4,6 @@ class Document < ActiveRecord::Base
   has_many :contributions
   has_many :paragraph_upvotes
 
-  auto_html_for :body do
-    simple_format
-  end
-
   def closed_for_contribution?
     Time.now >= self.closes_for_contribution_at
   end
