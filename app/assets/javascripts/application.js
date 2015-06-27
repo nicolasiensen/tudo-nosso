@@ -23,6 +23,7 @@
 //= require react
 //= require react_ujs
 //= require datetimepicker
+//= require autosize
 
 // Application files
 //= require components
@@ -34,8 +35,15 @@ var ready;
 onJQueryReady = function() {
   $('.datetimepicker').datetimepicker({
     lang: 'pt-BR',
-    format:'d/m/Y H:i'
+    format:'d/m/Y H:i',
+    onShow:function(ct){
+      this.setOptions({
+        maxDate: moment().add(1, 'month')._d
+      })
+    }
   });
+
+  autosize($('.autosize'));
 };
 
 $(document).ready(onJQueryReady);

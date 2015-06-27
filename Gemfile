@@ -79,4 +79,5 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-jsdiff'
   gem 'rails-assets-momentjs'
   gem 'rails-assets-datetimepicker'
+  gem 'rails-assets-autosize'
 end
