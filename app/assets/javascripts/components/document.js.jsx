@@ -9,9 +9,11 @@ var Document = React.createClass({
   componentDidMount: function() {
     paragraphs = [];
     i = 0;
-    this.props.document.body_html.replace(/<p>(.*?)<\/p>/g, function () {
-      paragraphs.push({body: arguments[1], index: i});
-      i+=1;
+    this.props.document.body.split('\n').forEach(function (paragraph) {
+      if(paragraph != '\r'){
+        paragraphs.push({body: paragraph, index: i});
+        i+=1;
+      }
     });
     this.setState({paragraphs: paragraphs});
 
