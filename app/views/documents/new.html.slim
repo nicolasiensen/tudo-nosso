@@ -10,8 +10,8 @@
             small.red= @document.errors[:title].join(" ")
         .px1.mb3.sm-col.md-col-4.sm-col-12
           = f.label :closes_for_contribution_at, class: "block mr1"
-          .flex.flex-center
-            label#document_closes_for_contribution_at_button.fa.fa-calendar.mr1
+          .flex.flex-center.field-light
+            label.fa.fa-calendar.px1#document_closes_for_contribution_at_button
             = f.datetime_field :closes_for_contribution_at, value: @document.closes_for_contribution_at.strftime("%d/%m/%Y %H:%M"), class: "datetimepicker flex-auto border black border-white #{@document.errors[:closes_for_contribution_at].any? ? "is-error" : ""}"
           - if @document.errors[:closes_for_contribution_at].any?
             small.red= @document.errors[:closes_for_contribution_at].join(" ")
