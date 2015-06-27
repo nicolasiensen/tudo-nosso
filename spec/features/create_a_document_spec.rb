@@ -20,7 +20,6 @@ RSpec.feature "CreateADocument", type: :feature do
       click_button "Criar documento"
 
       expect(page).to have_css("#document_title.is-error")
-      expect(page).to have_css("#document_closes_for_contribution_at.is-error")
       expect(page).to have_css("#document_body.is-error")
     end
   end

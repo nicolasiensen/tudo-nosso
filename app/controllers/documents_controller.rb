@@ -1,6 +1,6 @@
 class DocumentsController < ApplicationController
   authorize_resource
-  
+
   def show
     @document = Document.find(params[:id])
   end
@@ -9,7 +9,7 @@ class DocumentsController < ApplicationController
   end
 
   def new
-    @document = Document.new
+    @document = Document.new closes_for_contribution_at: Time.now + 5.days
   end
 
   def create

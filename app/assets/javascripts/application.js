@@ -38,9 +38,14 @@ onJQueryReady = function() {
     format:'d/m/Y H:i',
     onShow:function(ct){
       this.setOptions({
-        maxDate: moment().add(1, 'month')._d
+        maxDate: moment().add(1, 'month')._d,
+        minDate: moment()._d
       })
     }
+  });
+
+  $('#document_closes_for_contribution_at_button').click(function() {
+    $('#document_closes_for_contribution_at').datetimepicker('show');
   });
 
   autosize($('.autosize'));
