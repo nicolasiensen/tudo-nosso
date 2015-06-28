@@ -7,7 +7,7 @@ RSpec.feature "ViewDocumentPage", type: :feature do
 
     expect(page).to have_css(:h1, document.title)
     expect(page).to have_content(document.user.name)
-    expect(page).to have_content("10 dias restantes")
+    expect(page).to have_content("10 dias para finalizar")
     expect(page).to have_content("Nenhuma contribuição")
   end
 

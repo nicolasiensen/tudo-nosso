@@ -5,7 +5,7 @@ RSpec.feature "Upvote a contribution", type: :feature, js: true do
     @password = "12345678"
     @user = User.make! password: @password
     @paragraph = "Lorem ipsum"
-    @document = Document.make! body: @paragraph
+    @document = Document.make! body: "<p>#{@paragraph}</p>"
     @contribution = Contribution.make!(
       document: @document,
       paragraph_hash: Digest::SHA2.hexdigest(@paragraph)

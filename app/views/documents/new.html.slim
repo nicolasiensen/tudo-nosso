@@ -17,8 +17,7 @@
             small.red= @document.errors[:closes_for_contribution_at].join(" ")
 
       .mb3
-        = f.label :body
-        = f.text_area :body, rows: "10", class: "autosize field-light block full-width #{@document.errors[:body].any? ? "is-error" : ""}"
+        = f.text_area :body, class: "wysiwyg #{@document.errors[:body].any? ? "is-error" : ""}"
         - if @document.errors[:body].any?
           small.red= @document.errors[:body].join(" ")
 

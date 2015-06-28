@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.feature "ViewContributionsForAParagraphs", type: :feature, js: true  do
   let(:paragraph) { "Lorem ipsum" }
-  let(:document) { Document.make! body: paragraph }
+  let(:document) { Document.make! body: "<p>#{paragraph}</p>" }
 
   scenario "when there is no contribution" do
     visit document_path(document)
