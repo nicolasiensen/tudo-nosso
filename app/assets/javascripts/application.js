@@ -24,8 +24,6 @@
 //= require react_ujs
 //= require datetimepicker
 //= require autosize
-//= require froala_editor.min.js
-//= require langs/pt_br.js
 
 // Application files
 //= require components
@@ -51,15 +49,6 @@ onJQueryReady = function() {
   });
 
   autosize($('.autosize'));
-  $('.wysiwyg').editable({
-    inlineMode: false,
-    minHeight: '300px',
-    language: 'pt_br',
-    placeholder: 'Escreva ou copie seu documento aqui',
-    plainPaste: true,
-    buttons: ['bold', 'italic', 'sep', 'createLink', 'insertImage', 'sep', 'undo', 'redo'],
-    theme: 'custom'
-  });
 };
 
 $(document).ready(onJQueryReady);

@@ -69,7 +69,6 @@ gem 'cloudinary'
 gem 'sidekiq'
 gem 'omniauth-facebook'
 gem 'cancancan', '~> 1.10'
-gem 'wysiwyg-rails'
 
 # Rails assets
 source 'https://rails-assets.org' do
