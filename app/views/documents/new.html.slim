@@ -17,7 +17,7 @@
             small.red= @document.errors[:closes_for_contribution_at].join(" ")
 
       .mb3
-        = f.text_area :body, class: "wysiwyg #{@document.errors[:body].any? ? "is-error" : ""}"
+        = f.text_area :body, class: "redactor #{@document.errors[:body].any? ? "is-error" : ""}", placeholder: "Escreva ou cole aqui o texto da sua consulta"
         - if @document.errors[:body].any?
           small.red= @document.errors[:body].join(" ")
 

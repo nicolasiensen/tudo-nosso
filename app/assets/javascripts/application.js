@@ -24,6 +24,8 @@
 //= require react_ujs
 //= require datetimepicker
 //= require autosize
+//= require imperavi-redactor
+//= require redactor/pt_br
 
 // Application files
 //= require components
@@ -49,6 +51,12 @@ onJQueryReady = function() {
   });
 
   autosize($('.autosize'));
+  $('.redactor').redactor({
+    buttons: ['bold', 'italic', 'link'],
+    lang: 'pt_br',
+    minHeight: 300,
+    pastePlainText: true
+  });
 };
 
 $(document).ready(onJQueryReady);

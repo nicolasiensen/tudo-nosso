@@ -1,0 +1,16 @@
+.redactor-toolbar {
+  box-shadow: none;
+  border: 1px solid $silver;
+  border-top: 3px solid $silver;
+  border-bottom: 0;
+}
+
+.redactor-editor {
+  border-radius: 0 0 $border-radius $border-radius;
+}
+
+.redactor-toolbar li a:hover,
+.redactor-toolbar li a.redactor-act {
+  background-color: $blue;
+  color: white;
+}

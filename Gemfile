@@ -80,4 +80,5 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-momentjs'
   gem 'rails-assets-datetimepicker'
   gem 'rails-assets-autosize'
+  gem 'rails-assets-imperavi-redactor'
 end
