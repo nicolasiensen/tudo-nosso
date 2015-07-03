@@ -2,6 +2,9 @@ require 'rails_helper'
 
 RSpec.describe Document, type: :model do
   it { should validate_presence_of(:body) }
+  it { should validate_presence_of(:title) }
+  it { should validate_presence_of(:closes_for_contribution_at) }
+  it { should validate_presence_of(:category_id) }
 
   describe "#closed_for_contribution?" do
     it "should be true when now is greater than closes_for_contribution_at" do

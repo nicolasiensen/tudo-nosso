@@ -4,10 +4,12 @@ RSpec.feature "CreateADocument", type: :feature do
   context "when there is a logged in user" do
     let(:user) { User.make! }
     before { login_as user }
+    before {@category = Category.make!}
 
     scenario "when the form is valid" do
       visit new_document_path
       fill_in "document_title", with: "My Document"
+      select @category.name, from: "document_category_id"
       fill_in "document_body", with: "My body"
       fill_in "document_closes_for_contribution_at", with: 1.month.from_now.to_s
       click_button "Criar documento"

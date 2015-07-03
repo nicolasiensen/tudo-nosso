@@ -10,6 +10,7 @@ end
 
 Document.blueprint do
   user
+  category { Category.make! }
   body { "<p>Lorem ipsum</p>" }
   closes_for_contribution_at { 10.days.from_now }
   title { "Document #{sn}" }
@@ -32,4 +33,8 @@ ParagraphUpvote.blueprint do
   user { User.make! }
   document { Document.make! }
   paragraph_hash { "123" }
+end
+
+Category.blueprint do
+  name { "Category #{sn}" }
 end

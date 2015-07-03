@@ -10,6 +10,7 @@ class DocumentsController < ApplicationController
 
   def new
     @document = Document.new closes_for_contribution_at: Time.now + 5.days
+    @categories = Category.order(:id)
   end
 
   def create
@@ -18,11 +19,12 @@ class DocumentsController < ApplicationController
     if @document.save
       redirect_to @document
     else
+      @categories = Category.order(:id)
       render :new
     end
   end
 
   def document_params
-    params.require(:document).permit(:title, :body, :closes_for_contribution_at)
+    params.require(:document).permit(:title, :body, :closes_for_contribution_at, :category_id)
   end
 end

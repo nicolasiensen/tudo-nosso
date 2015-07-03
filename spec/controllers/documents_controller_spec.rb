@@ -16,6 +16,11 @@ RSpec.describe DocumentsController, type: :controller do
       get :new
       expect(assigns(:document)).to be_a(Document)
     end
+
+    it "should assigns a category array" do
+      get :new
+      expect(assigns(:categories)).to be_a(ActiveRecord::Relation)
+    end
   end
 
   describe "POST create" do
@@ -40,13 +45,15 @@ RSpec.describe DocumentsController, type: :controller do
   end
 
   let(:user) { User.make! }
+  let(:category) { Category.make! }
 
   let(:valid_document_params) {
     {
       document: {
         title: "My Document",
         body: "Document body",
-        closes_for_contribution_at: 1.month.from_now
+        closes_for_contribution_at: 1.month.from_now,
+        category_id: category.id
       }
     }
   }
