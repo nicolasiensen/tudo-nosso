@@ -1,31 +1,4 @@
 .lg-col-10.mx-auto.mt4.mb4
   .bg-white.p3.clearfix
     h2.mt0.mb3 Cole abaixo o texto do edital de Cultura que deseja colocar em consulta pública
-    = form_for @document do |f|
-      .clearfix.mxn1
-        .px1.mb3.sm-col.md-col-8.sm-col-12
-          = f.label :title
-          = f.text_field :title, class: "field-light block full-width #{@document.errors[:title].any? ? "is-error" : ""}"
-          - if @document.errors[:title].any?
-            small.red= @document.errors[:title].join(" ")
-        .px1.mb3.sm-col.md-col-4.sm-col-12
-          = f.label :closes_for_contribution_at, class: "block mr1"
-          .flex.flex-center.field-light
-            label.fa.fa-calendar.px1#document_closes_for_contribution_at_button
-            = f.datetime_field :closes_for_contribution_at, value: @document.closes_for_contribution_at.strftime("%d/%m/%Y %H:%M"), class: "datetimepicker flex-auto border black border-white #{@document.errors[:closes_for_contribution_at].any? ? "is-error" : ""}"
-          - if @document.errors[:closes_for_contribution_at].any?
-            small.red= @document.errors[:closes_for_contribution_at].join(" ")
-
-      .clearfix.mxn1
-        .px1.mb3.sm-col.md-col-6.sm-col.12
-          = f.label :category_id
-          = f.collection_select :category_id, @categories, :id, :name, { prompt: "Selecione uma categoria" }, { class: "field-light block full-width #{@document.errors[:category_id].any? ? "is-error" : ""}" }
-          - if @document.errors[:category_id].any?
-            small.red= @document.errors[:category_id].join(" ")
-
-      .mb3
-        = f.text_area :body, class: "redactor #{@document.errors[:body].any? ? "is-error" : ""}", placeholder: "Escreva ou cole aqui o texto da sua consulta"
-        - if @document.errors[:body].any?
-          small.red= @document.errors[:body].join(" ")
-
-      = f.submit "Criar documento", class: "button right"
+    = render partial: 'form'

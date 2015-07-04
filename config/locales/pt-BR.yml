@@ -206,6 +206,8 @@ pt-BR:
       short: "%d de %B, %H:%M"
     pm: ''
   activerecord:
+    models:
+      document: "documento"
     attributes:
       user:
         first_name: "Nome"
