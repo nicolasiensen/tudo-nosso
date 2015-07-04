@@ -15,6 +15,10 @@ class ApplicationController < ActionController::Base
     session[:previous_url] || root_path
   end
 
+  rescue_from CanCan::AccessDenied do |exception|
+    render nothing: true, status: :unauthorized
+  end
+
   protected
 
   def configure_permitted_parameters

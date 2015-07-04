@@ -1,5 +1,5 @@
 class DocumentsController < ApplicationController
-  authorize_resource
+  load_and_authorize_resource
 
   def show
     @document = Document.find(params[:id])
@@ -21,6 +21,21 @@ class DocumentsController < ApplicationController
     else
       @categories = Category.order(:id)
       render :new
+    end
+  end
+
+  def edit
+    @document = Document.find(params[:id])
+    @categories = Category.order(:id)
+  end
+
+  def update
+    @document = Document.find(params[:id])
+    if @document.update_attributes(document_params)
+      redirect_to @document
+    else
+      @categories = Category.order(:id)
+      render :edit
     end
   end
 

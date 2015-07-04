@@ -44,6 +44,64 @@ RSpec.describe DocumentsController, type: :controller do
     end
   end
 
+  describe "GET edit" do
+    context "when the user is the document owner" do
+      before do
+        @user = User.make!
+        sign_in @user
+        @document = Document.make! user: @user
+      end
+
+      it "should assign a document" do
+        get :edit, id: @document.id
+        expect(assigns(:document)).to be_eql(@document)
+      end
+
+      it "should render edit page" do
+        get :edit, id: @document.id
+        expect(response).to render_template(:edit)
+      end
+    end
+
+    context "when the user is not the document owner" do
+      before { @document = Document.make! }
+
+      it "should not allow access" do
+        get :edit, id: @document.id
+        expect(response.status).to be_eql(401)
+      end
+    end
+  end
+
+  describe "PUT update" do
+    context "when the user is the document owner" do
+      before do
+        @user = User.make!
+        sign_in @user
+        @document = Document.make! user: @user
+      end
+
+      it "should update document" do
+        put :update, id: @document.id, document: { title: "New title" }
+        expect(@document.reload.title).to be_eql("New title")
+      end
+
+      it "should redirect to the document page" do
+        put :update, id: @document.id, document: { title: "New title" }
+        expect(response).to redirect_to(document_path(@document))
+      end
+    end
+
+    context "when the user is not the document owner" do
+      before { @document = Document.make! }
+
+      it "should not allow access" do
+        put :update, valid_document_params.merge(id: @document.id)
+        expect(response.status).to be_eql(401)
+      end
+    end
+  end
+
   let(:user) { User.make! }
   let(:category) { Category.make! }
 
