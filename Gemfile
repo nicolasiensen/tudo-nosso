@@ -81,4 +81,5 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-datetimepicker'
   gem 'rails-assets-autosize'
   gem 'rails-assets-imperavi-redactor'
+  gem 'rails-assets-slick.js'
 end
