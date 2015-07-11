@@ -26,6 +26,7 @@
 //= require autosize
 //= require imperavi-redactor
 //= require redactor/pt_br
+//= require slick.js
 
 // Application files
 //= require components
@@ -56,6 +57,35 @@ onJQueryReady = function() {
     lang: 'pt_br',
     minHeight: 300,
     pastePlainText: true
+  });
+
+  $('.slick').slick();
+  $('.responsive-slick').slick({
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+          infinite: true,
+          dots: true
+        }
+      },
+      {
+        breakpoint: 800,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2
+        }
+      },
+      {
+        breakpoint: 680,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1
+        }
+      }
+    ]
   });
 };
 

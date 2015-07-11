@@ -1,0 +1,30 @@
+$slick-font-family: "FontAwesome";
+$slick-dot-color: $blue;
+$slick-dot-size: $h1;
+$slick-arrow-color: $blue;
+$slick-prev-character: '\f0d9';
+$slick-next-character: '\f0da';
+
+@import "slick.js/slick.scss";
+@import "slick.js/slick-theme.scss";
+
+.documentList {
+  .slick-track {
+    display: flex;
+    align-items: stretch;
+  }
+
+  .slick-initialized .slick-slide {
+    display: flex;
+    align-items: stretch;
+    height: auto;
+  }
+}
+
+.slick-prev:before, .slick-next:before {
+  font-size: 60px;
+}
+
+.slick-prev:hover, .slick-next:hover {
+  height: auto;
+}
