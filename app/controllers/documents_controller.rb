@@ -11,7 +11,7 @@ class DocumentsController < ApplicationController
 
   def new
     @document = Document.new closes_for_contribution_at: Time.now + 5.days
-    @categories = Category.order(:id)
+    @categories = Category.order(:name)
   end
 
   def create
