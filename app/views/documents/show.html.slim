@@ -4,14 +4,15 @@
     .bg-navy
 
 .tb-documentCoverContent.lg-col-10.px2.mx-auto.white.center
-  h1.regular.mb3
+  h1.regular
     = @document.title
+  .block
     - if can? :edit, @document
       | &nbsp;
       = link_to edit_document_path(@document), class: "button button-small h5" do
         i.fa.fa-pencil.mr1
         | Editar documento
-  .md-flex.flex-justify.mb2
+  .md-flex.flex-justify.mb2.mt3
     .md-flex.flex-center.mb2.tb-documentCoverContent-user
       = image_tag(@document.user.thumb, width: 35, height: 35, class: "mr1 circle")
       .normal-line-height
