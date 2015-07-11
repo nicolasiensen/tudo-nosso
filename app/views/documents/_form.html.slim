@@ -7,7 +7,7 @@
         small.red= @document.errors[:title].join(" ")
 
   .clearfix.mxn1
-    .px1.mb3.sm-col.md-col-4.sm-col.12
+    .px1.mb3.sm-col.md-col-8.sm-col.12
       = f.label :category_id
       = f.collection_select :category_id, @categories, :id, :name, { prompt: "Selecione uma categoria" }, { class: "field-light block full-width #{@document.errors[:category_id].any? ? "is-error" : ""}" }
       - if @document.errors[:category_id].any?
