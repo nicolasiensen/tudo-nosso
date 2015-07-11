@@ -23,9 +23,9 @@
 
 .clearfix.documentList
   .responsive-slick data-slick='{"slidesToShow": 3, "slidesToScroll": 3}'
-    - Document.all.each do |document|
+    - @documents.each do |document|
       .p1
-        = link_to document, class: "black bg-white block flex flex-column", style: "text-decoration: none;" do
+        = link_to document, class: "black bg-white block flex flex-column box-shadow", style: "text-decoration: none;" do
           h2.flex-auto.m0.p2.bg-blue.white= truncate(document.title, length: 100)
           .p2.mb2.flex.flex-center.tb-documentCoverContent-user
             = image_tag(document.user.thumb, width: 35, height: 35, class: "mr1 circle")
