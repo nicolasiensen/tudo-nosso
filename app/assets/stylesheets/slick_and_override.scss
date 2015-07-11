@@ -8,6 +8,10 @@ $slick-next-character: '\f0da';
 @import "slick.js/slick.scss";
 @import "slick.js/slick-theme.scss";
 
+@function slick-image-url($url) {
+  @return asset-url($url);
+}
+
 .documentList {
   .slick-track {
     display: flex;
