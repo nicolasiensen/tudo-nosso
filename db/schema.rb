@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150704122519) do
+ActiveRecord::Schema.define(version: 20150716014643) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(version: 20150704122519) do
     t.integer  "user_id"
     t.datetime "closes_for_contribution_at"
     t.integer  "category_id"
+    t.string   "territory"
   end
 
   create_table "paragraph_upvotes", force: :cascade do |t|
