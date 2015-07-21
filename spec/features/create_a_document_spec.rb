@@ -11,6 +11,8 @@ RSpec.feature "CreateADocument", type: :feature do
       fill_in "document_title", with: "My Document"
       select @category.name, from: "document_category_id"
       fill_in "document_body", with: "My body"
+      select "Estadual", from: "document_scope"
+      select "Rio de Janeiro", from: "document_state"
       fill_in "document_closes_for_contribution_at", with: 1.month.from_now.to_s
       click_button "Criar documento"
 

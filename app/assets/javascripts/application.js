@@ -87,6 +87,41 @@ onJQueryReady = function() {
       }
     ]
   });
+
+  // Google Maps Autocomplete
+  if(autocompleteElement = document.getElementById('city_autocomplete')) {
+    autocomplete = new google.maps.places.Autocomplete(
+      autocompleteElement, {
+        types: ['(cities)'],
+        componentRestrictions: { 'country': 'br' }
+      }
+    );
+
+    google.maps.event.addListener(autocomplete, 'place_changed', function(){
+      $("#document_city").val(autocomplete.getPlace().name);
+      $("#document_state").val(autocomplete.getPlace().address_components[2].long_name);
+    });
+  }
+
+  // Handle scope change on document form
+  function onDocumentScopeChange(){
+    switch ($("#document_scope").val()) {
+      case "Municipal":
+        $("#document_state").hide();
+        $("#city_autocomplete").show();
+        break;
+      case "Estadual":
+        $("#document_state").show();
+        $("#city_autocomplete").hide();
+        break;
+      default:
+        $("#document_state").hide();
+        $("#city_autocomplete").hide();
+    }
+  }
+
+  $("#document_scope").change(onDocumentScopeChange);
+  onDocumentScopeChange();
 };
 
 $(document).ready(onJQueryReady);

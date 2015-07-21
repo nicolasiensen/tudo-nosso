@@ -14,6 +14,9 @@ Document.blueprint do
   body { "<p>Lorem ipsum</p>" }
   closes_for_contribution_at { 10.days.from_now }
   title { "Document #{sn}" }
+  scope { "Municipal" }
+  city { "Rio de Janeiro" }
+  state { "Rio de Janeiro" }
 end
 
 Contribution.blueprint do

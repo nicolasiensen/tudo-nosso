@@ -110,6 +110,9 @@ RSpec.describe DocumentsController, type: :controller do
       document: {
         title: "My Document",
         body: "Document body",
+        scope: "Municipal",
+        city: "Rio de Janeiro",
+        state: "Rio de Janeiro",
         closes_for_contribution_at: 1.month.from_now,
         category_id: category.id
       }
