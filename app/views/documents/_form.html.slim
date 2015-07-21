@@ -23,7 +23,7 @@
 
     .px1.mb3.sm-col.md-col-5.sm-col-12
       = f.label :closes_for_contribution_at, class: "block"
-      small.block.gray.mb1 O prazo máximo para as contribuições é de um mês
+      small.block.gray.mb1 O prazo máximo para as contribuições é de 60 dias
       = f.datetime_field :closes_for_contribution_at, value: @document.closes_for_contribution_at.strftime("%d/%m/%Y %H:%M"), class: "datetimepicker field-light full-width #{@document.errors[:closes_for_contribution_at].any? ? "is-error" : ""}"
       - if @document.errors[:closes_for_contribution_at].any?
         small.red= @document.errors[:closes_for_contribution_at].join(" ")

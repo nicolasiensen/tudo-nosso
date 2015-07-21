@@ -41,7 +41,7 @@ onJQueryReady = function() {
     format:'d/m/Y H:i',
     inline: true,
     minDate:'-1970/01/01',
-    maxDate:'+1970/02/01'
+    maxDate:'+1970/01/60'
   });
 
   $('#document_closes_for_contribution_at_button').click(function() {
