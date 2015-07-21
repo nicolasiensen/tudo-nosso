@@ -39,12 +39,9 @@ onJQueryReady = function() {
   $('.datetimepicker').datetimepicker({
     lang: 'pt-BR',
     format:'d/m/Y H:i',
-    onShow:function(ct){
-      this.setOptions({
-        maxDate: moment().add(1, 'month')._d,
-        minDate: moment()._d
-      })
-    }
+    inline: true,
+    minDate:'-1970/01/01',
+    maxDate:'+1970/02/01'
   });
 
   $('#document_closes_for_contribution_at_button').click(function() {

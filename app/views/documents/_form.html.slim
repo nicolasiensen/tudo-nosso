@@ -1,29 +1,29 @@
 = form_for @document do |f|
   .clearfix.mxn1
-    .px1.mb3.sm-col.md-col-8.sm-col-12
-      = f.label :title
-      = f.text_field :title, class: "field-light block full-width #{@document.errors[:title].any? ? "is-error" : ""}"
-      - if @document.errors[:title].any?
-        small.red= @document.errors[:title].join(" ")
-    .px1.mb3.sm-col.md-col-4.sm-col-12
-      = f.label :category_id
-      = f.collection_select :category_id, @categories, :id, :name, { prompt: "Selecione uma categoria" }, { class: "field-light block full-width #{@document.errors[:category_id].any? ? "is-error" : ""}" }
-      - if @document.errors[:category_id].any?
-        small.red= @document.errors[:category_id].join(" ")
+    .px1.mb3.sm-col.md-col-7.sm-col-12
+      .block.mb3
+        = f.label :title
+        = f.text_field :title, class: "field-light block full-width #{@document.errors[:title].any? ? "is-error" : ""}"
+        - if @document.errors[:title].any?
+          small.red= @document.errors[:title].join(" ")
+      .block.mb3
+        = f.label :category_id
+        = f.collection_select :category_id, @categories, :id, :name, { prompt: "Selecione uma categoria" }, { class: "field-light block full-width #{@document.errors[:category_id].any? ? "is-error" : ""}" }
+        - if @document.errors[:category_id].any?
+          small.red= @document.errors[:category_id].join(" ")
+      .block
+        = f.label :scope
+        .flex
+          = f.select :scope, options_for_select([ "Municipal", "Estadual", "Federal"], @document.scope), {}, class: "field-light mr1"
+          .flex-auto
+            = text_field_tag nil, @document.city, class: "field-light full-width", id: "city_autocomplete", placeholder: "Digite o nome de uma cidade"
+            = f.hidden_field :city
+            = f.select :state, states_list, { prompt: "Selecione um estado" }, class: "field-light full-width"
+            small.red= @document.errors[:city].concat(@document.errors[:state]).uniq.join(" ")
 
-  .clearfix.mxn1
-    .px1.mb3.sm-col.md-col-8.sm-col-12
-      = f.label :scope
-      .flex
-        = f.select :scope, options_for_select([ "Municipal", "Estadual", "Federal"], @document.scope), {}, class: "field-light mr1"
-        .flex-auto
-          = text_field_tag nil, @document.city, class: "field-light full-width", id: "city_autocomplete", placeholder: "Digite o nome de uma cidade"
-          = f.hidden_field :city
-          = f.select :state, states_list, { prompt: "Selecione um estado" }, class: "field-light full-width"
-          small.red= @document.errors[:city].concat(@document.errors[:state]).uniq.join(" ")
-
-    .px1.mb3.sm-col.md-col-4.sm-col-12
-      = f.label :closes_for_contribution_at, class: "block mr1"
+    .px1.mb3.sm-col.md-col-5.sm-col-12
+      = f.label :closes_for_contribution_at, class: "block"
+      small.block.gray.mb1 O prazo máximo para as contribuições é de um mês
       = f.datetime_field :closes_for_contribution_at, value: @document.closes_for_contribution_at.strftime("%d/%m/%Y %H:%M"), class: "datetimepicker field-light full-width #{@document.errors[:closes_for_contribution_at].any? ? "is-error" : ""}"
       - if @document.errors[:closes_for_contribution_at].any?
         small.red= @document.errors[:closes_for_contribution_at].join(" ")

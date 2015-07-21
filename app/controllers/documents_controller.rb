@@ -10,7 +10,7 @@ class DocumentsController < ApplicationController
   end
 
   def new
-    @document = Document.new closes_for_contribution_at: Time.now + 5.days
+    @document = Document.new closes_for_contribution_at: Date.today + 7.days
     @categories = Category.order(:name)
   end
 
