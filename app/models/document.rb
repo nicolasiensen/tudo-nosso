@@ -18,4 +18,12 @@ class Document < ActiveRecord::Base
   def state_scope?
     self.scope == "Estadual"
   end
+
+  def scope_and_location
+    if self.scope == "Federal"
+      "Federal"
+    else
+      "#{self.scope} - #{self.city.present? ? self.city : self.state}"
+    end
+  end
 end

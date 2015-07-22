@@ -34,10 +34,13 @@
               .bold.block= document.user.name
           .p2
             .mb1
-              i.fa.fa-tag.mr1
+              i.fa.fa-tag.mr1.center style="width: 15px"
               = document.category.name
+            .mb1
+              i.fa.fa-map-marker.mr1.center style="width: 15px"
+              = document.scope_and_location
             .mb3
-              i.fa.fa-clock-o.mr1
+              i.fa.fa-clock-o.mr1.center style="width: 15px"
               - if document.closed_for_contribution?
                 span Contribuições encerradas
               - else
