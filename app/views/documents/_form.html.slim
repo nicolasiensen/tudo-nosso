@@ -1,3 +1,8 @@
+= content_for :header
+  .tn-documentCoverBg
+    .bg-cover.bg-bottom
+    .bg-navy
+
 = form_for @document do |f|
   .clearfix.mxn1
     .px1.mb3.sm-col.md-col-7.sm-col-12
@@ -29,8 +34,9 @@
         small.red= @document.errors[:closes_for_contribution_at].join(" ")
 
   .mb3
+    h3 Cole abaixo o texto do edital de Cultura que deseja colocar em consulta pública
     = f.text_area :body, class: "redactor #{@document.errors[:body].any? ? "is-error" : ""}", placeholder: "Escreva ou cole aqui o texto da sua consulta"
     - if @document.errors[:body].any?
       small.red= @document.errors[:body].join(" ")
 
-  = f.submit class: "button right"
+  = f.submit class: "button right", value: @document.new_record? ? "Criar sua consulta pública" : "Salvar consulta"

@@ -17,7 +17,7 @@ html
           - if can? :create, Document
             = link_to new_document_path, class: "button py2 blue button-transparent regular h5" do
               i.fa.fa-plus.mr1
-              span Criar um documento
+              span Adicionar edital para consulta pública
           - if current_user.present?
             .inline-block= react_component("Dropdown", currentUser: current_user)
           - else

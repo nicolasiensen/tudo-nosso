@@ -121,13 +121,13 @@ var Paragraph = React.createClass({
         href="#"
         onClick={this.onToggleListClick}>
         <div className="md-show">
-          <span className="mr1">Ver contribuições</span>
-          <i className="fa fa-comment" />
+          <span className="mr1">Ver versões</span>
+          <i className="fa fa-file-text-o" />
           &nbsp;
           <span>{paragraphContributions.length}</span>
         </div>
         <div className="md-hide">
-          <i className="fa fa-comment" />
+          <i className="fa fa-file-text-o" />
           &nbsp;
           <span>{paragraphContributions.length}</span>
         </div>
@@ -136,13 +136,13 @@ var Paragraph = React.createClass({
       contributionListButton = <span
         className="mb1 ml1 gray bold inline-block">
         <div className="md-show">
-          <span className="mr1">Contribuições</span>
-          <i className="fa fa-comment" />
+          <span className="mr1">Versões</span>
+          <i className="fa fa-file-text-o" />
           &nbsp;
           <span>{paragraphContributions.length}</span>
         </div>
         <div className="md-hide">
-          <i className="fa fa-comment" />
+          <i className="fa fa-file-text-o" />
           &nbsp;
           <span>{paragraphContributions.length}</span>
         </div>
@@ -211,7 +211,7 @@ var Paragraph = React.createClass({
             <div className="md-show">
               <i className="fa fa-pencil"></i>
               &nbsp;
-              <span>Contribuir</span>
+              <span>Reescrever</span>
             </div>
             <div className="md-hide">
               <i className="fa fa-pencil"></i>
