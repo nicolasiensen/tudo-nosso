@@ -6,7 +6,9 @@ class DocumentsController < ApplicationController
   end
 
   def index
-    @documents = Document.all
+    @documents = Document.
+      where("closes_for_contribution_at > ?", Time.now).
+      order(:closes_for_contribution_at)
   end
 
   def new
