@@ -39,4 +39,4 @@
     - if @document.errors[:body].any?
       small.red= @document.errors[:body].join(" ")
 
-  = f.submit class: "button right", value: @document.new_record? ? "Criar sua consulta pública" : "Salvar consulta"
+  = f.submit class: "button right", value: @document.new_record? ? "Criar consulta pública" : "Atualizar consulta pública"

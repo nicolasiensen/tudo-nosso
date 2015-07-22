@@ -14,14 +14,14 @@ RSpec.feature "CreateADocument", type: :feature do
       select "Estadual", from: "document_scope"
       select "Rio de Janeiro", from: "document_state"
       fill_in "document_closes_for_contribution_at", with: 1.month.from_now.to_s
-      click_button "Criar documento"
+      click_button "Criar consulta pública"
 
       expect(current_path).to be_eql(document_path(Document.last))
     end
 
     scenario "when the form is not valid" do
       visit new_document_path
-      click_button "Criar documento"
+      click_button "Criar consulta pública"
 
       expect(page).to have_css("#document_title.is-error")
       expect(page).to have_css("#document_body.is-error")
