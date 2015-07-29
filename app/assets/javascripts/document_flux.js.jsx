@@ -316,6 +316,7 @@ documentFlux.init = function(options) {
     <Document
       document={options.document}
       currentUser={options.currentUser}
+      selectedContributionId={options.selectedContributionId}
       flux={documentFlux.flux} />,
     document.getElementById('document-component'));
 }

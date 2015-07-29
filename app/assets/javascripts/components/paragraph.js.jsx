@@ -1,9 +1,6 @@
 var Paragraph = React.createClass({
   getInitialState: function() {
-    shaObj = new jsSHA(this.props.paragraph.body, "TEXT");
-
     return {
-      paragraphHash: shaObj.getHash("SHA-256", "HEX"),
       isMouseOver: false,
       isFormOpen: false,
       isListOpen: false
@@ -12,7 +9,7 @@ var Paragraph = React.createClass({
 
   componentWillUpdate: function(nextProps, nextState) {
     if(this.state.newContribution != null &&
-      this.state.newContribution.paragraph_hash == this.state.paragraphHash &&
+      this.state.newContribution.paragraph_hash == this.props.paragraph.hash &&
       nextState.newContribution == null) {
       this.showList();
     }
@@ -70,7 +67,7 @@ var Paragraph = React.createClass({
 
   getParagraphUpvotes: function(){
     return this.state.paragraphUpvotes.filter(function(u){
-      return u.paragraph_hash == this.state.paragraphHash;
+      return u.paragraph_hash == this.props.paragraph.hash;
     }.bind(this));
   },
 
@@ -86,7 +83,7 @@ var Paragraph = React.createClass({
 
   getParagraphContributions: function(){
     return this.state.contributions.
-      filter(function(c){return c.paragraph_hash == this.state.paragraphHash;}.bind(this)).
+      filter(function(c){return c.paragraph_hash == this.props.paragraph.hash;}.bind(this)).
       sort(function(p1, p2){return p2.upvotes.length - p1.upvotes.length;});
   },
 
@@ -102,7 +99,14 @@ var Paragraph = React.createClass({
     var contributionListButton;
 
     contributionList = paragraphContributions.map(function (c){
-      return <Contribution contribution={c} paragraph={this.props.paragraph} currentUser={this.props.currentUser} />;
+      return(
+        <Contribution
+          contribution={c}
+          paragraph={this.props.paragraph}
+          currentUser={this.props.currentUser}
+          selectedContributionId={this.props.selectedContributionId}
+        />
+      );
     }.bind(this));
 
     addContributionButtonClass = "mb1 ml1 button button-transparent blue button-small";
@@ -159,7 +163,7 @@ var Paragraph = React.createClass({
     }
 
     var paragraphUpvoteLoaderClass = "hide";
-    if(this.state.paragraphHashUpvoting == this.state.paragraphHash) {
+    if(this.props.paragraphHashUpvoting == this.props.paragraph.hash) {
       paragraphUpvoteLoaderClass = "fa fa-refresh fa-spin mr1";
     }
 
@@ -241,7 +245,7 @@ var Paragraph = React.createClass({
               paragraph={this.props.paragraph}
               isFormOpen={this.state.isFormOpen}
               documentId={this.props.documentId}
-              paragraphHash={this.state.paragraphHash}/>
+              paragraphHash={this.props.paragraph.hash}/>
           </div>
           </div>
       </div>
@@ -280,7 +284,7 @@ var Paragraph = React.createClass({
       window.location.href = "/users/sign_in";
     } else if(currentUserParagraphUpvote == null) {
       this.getFlux().actions.createParagraphUpvote(
-        this.state.paragraphHash,
+        this.props.paragraph.hash,
         this.props.documentId,
         this.props.currentUser.api_token
       );

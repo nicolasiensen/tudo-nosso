@@ -43,6 +43,14 @@ var Contribution = React.createClass({
     }
   },
 
+  componentDidMount: function() {
+    if(this.props.selectedContributionId == this.props.contribution.id){
+      var el = React.findDOMNode(this.refs.contribution);
+      var rect = el.getBoundingClientRect();
+      window.scroll(0, rect.top);
+    }
+  },
+
   render: function(){
     currentUserUpvote = null
     if(this.props.currentUser) {
@@ -82,7 +90,7 @@ var Contribution = React.createClass({
     }
 
     return(
-      <div className="mb2 p2 rounded bg-darken-1">
+      <div className="mb2 p2 rounded bg-darken-1" ref="contribution">
         <div className="clearfix">
           <div className="sm-col sm-col-12 md-col-6 userName flex flex-center">
             <img className="circle mr1" width="30" height="30" src={user.thumb} />

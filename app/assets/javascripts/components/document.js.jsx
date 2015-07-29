@@ -10,7 +10,12 @@ var Document = React.createClass({
     paragraphs = [];
     i = 0;
     this.props.document.body.replace(/<p>(.*?)<\/p>/g, function () {
-      paragraphs.push({body: arguments[1], index: i});
+      var shaObj = new jsSHA(arguments[1], "TEXT");
+      paragraphs.push({
+        body: arguments[1],
+        index: i,
+        hash: shaObj.getHash("SHA-256", "HEX")
+      });
       i+=1;
     });
     this.setState({paragraphs: paragraphs});
@@ -30,6 +35,22 @@ var Document = React.createClass({
     this.setState({selectedParagraphIndex: index});
   },
 
+  componentDidUpdate: function(prevProps, prevState) {
+    if(prevState.contributions.length == 0 &&
+      this.state.contributions.length > 0 &&
+      this.props.selectedContributionId){
+        var selectedContribution = this.state.contributions.filter(function(c){
+          return c.id == this.props.selectedContributionId;
+        }.bind(this))[0]
+
+        var selectedParagraph = this.state.paragraphs.filter(function(p){
+          return p.hash == selectedContribution.paragraph_hash;
+        })[0]
+
+        this.selectParagraph(selectedParagraph.index)
+    }
+  },
+
   render: function() {
     paragraphNodes = this.state.paragraphs.map(function (paragraph){
       return (
@@ -37,6 +58,7 @@ var Document = React.createClass({
           formOpen={this.state.selectedParagraphIndex == paragraph.index}
           selectParagraph={this.selectParagraph}
           selectedParagraphIndex={this.state.selectedParagraphIndex}
+          selectedContributionId={this.props.selectedContributionId}
           paragraph={paragraph}
           currentUser={this.props.currentUser}
           documentId={this.props.document.id}/>

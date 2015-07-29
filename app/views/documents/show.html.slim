@@ -44,6 +44,7 @@
       $(document).ready(function() {
         documentFlux.init({
           document: #{raw @document.to_json},
-          currentUser: #{raw current_user.to_json}
+          currentUser: #{raw current_user.to_json},
+          selectedContributionId: #{params[:contribution_id] || "null"}
         });
       });
