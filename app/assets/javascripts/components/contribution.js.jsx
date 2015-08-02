@@ -65,7 +65,7 @@ var Contribution = React.createClass({
     const contribution = this.props.contribution;
     const facebookAppId = this.props.facebookAppId;
     const shareUrl = window.location + "?contribution_id=" + contribution.id;
-    const url = "https://www.facebook.com/dialog/share?display=popup&href=" + shareUrl + "&app_id=" + facebookAppId + "&redirect_uri=" + shareUrl + "&display=popup";
+    const url = "https://www.facebook.com/sharer/sharer.php?u=" + shareUrl;
     window.open(url, "", "width=600, height=300");
   },
 
