@@ -57,7 +57,7 @@ var Contribution = React.createClass({
     const contribution = this.props.contribution;
     const shareUrl = window.location + "?contribution_id=" + contribution.id;
     const text = "Contribuição de " + user.name + " para a consulta " + document.title;
-    const url = "https://twitter.com/intent/tweet?text=" + text + "&url=" + shareUrl + "&via=brecha";
+    const url = "https://twitter.com/intent/tweet?text=" + text + "&url=" + shareUrl + "&via=doBrecha";
     window.open(url, "", "width=600, height=300");
   },
 
