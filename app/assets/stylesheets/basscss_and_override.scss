@@ -57,7 +57,12 @@ $darken-1: rgba(0,0,0,.03) !default;
 @import "basscss-sass";
 
 $facebook-blue: #3b5998;
+$twitter-blue: #55acee;
 
 .bg-facebook-blue {
   background-color: $facebook-blue;
+}
+
+.bg-twitter-blue {
+  background-color: $twitter-blue;
 }
