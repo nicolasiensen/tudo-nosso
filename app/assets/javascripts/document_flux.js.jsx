@@ -317,6 +317,7 @@ documentFlux.init = function(options) {
       document={options.document}
       currentUser={options.currentUser}
       selectedContributionId={options.selectedContributionId}
+      facebookAppId={options.facebookAppId}
       flux={documentFlux.flux} />,
     document.getElementById('document-component'));
 }

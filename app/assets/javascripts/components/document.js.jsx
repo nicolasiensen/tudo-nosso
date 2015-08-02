@@ -54,7 +54,6 @@ var Document = React.createClass({
   render: function() {
     paragraphNodes = this.state.paragraphs.map(function (paragraph){
       return (
-        // TODO: merge props documentId and document
         <Paragraph
           formOpen={this.state.selectedParagraphIndex == paragraph.index}
           selectParagraph={this.selectParagraph}
