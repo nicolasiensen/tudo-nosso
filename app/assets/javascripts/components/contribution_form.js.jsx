@@ -66,7 +66,7 @@ var ContributionForm = React.createClass({
       this.getFlux().actions.createContribution({
         body: this.state.contributionBody,
         justification: this.state.contributionJustification,
-        document_id: this.props.documentId,
+        document_id: this.props.document.id,
         paragraph_hash: this.props.paragraphHash
       }, this.props.currentUser.api_token);
     }

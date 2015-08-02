@@ -103,8 +103,10 @@ var Paragraph = React.createClass({
         <Contribution
           contribution={c}
           paragraph={this.props.paragraph}
+          document={this.props.document}
           currentUser={this.props.currentUser}
           selectedContributionId={this.props.selectedContributionId}
+          facebookAppId={this.props.facebookAppId}
         />
       );
     }.bind(this));
@@ -244,7 +246,7 @@ var Paragraph = React.createClass({
               currentUser={this.props.currentUser}
               paragraph={this.props.paragraph}
               isFormOpen={this.state.isFormOpen}
-              documentId={this.props.documentId}
+              document={this.props.document}
               paragraphHash={this.props.paragraph.hash}/>
           </div>
           </div>
@@ -285,7 +287,7 @@ var Paragraph = React.createClass({
     } else if(currentUserParagraphUpvote == null) {
       this.getFlux().actions.createParagraphUpvote(
         this.props.paragraph.hash,
-        this.props.documentId,
+        this.props.document.id,
         this.props.currentUser.api_token
       );
     } else if(currentUserParagraphUpvote != null) {

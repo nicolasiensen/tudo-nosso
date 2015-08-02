@@ -54,6 +54,7 @@ var Document = React.createClass({
   render: function() {
     paragraphNodes = this.state.paragraphs.map(function (paragraph){
       return (
+        // TODO: merge props documentId and document
         <Paragraph
           formOpen={this.state.selectedParagraphIndex == paragraph.index}
           selectParagraph={this.selectParagraph}
@@ -61,7 +62,9 @@ var Document = React.createClass({
           selectedContributionId={this.props.selectedContributionId}
           paragraph={paragraph}
           currentUser={this.props.currentUser}
-          documentId={this.props.document.id}/>
+          document={this.props.document}
+          facebookAppId={this.props.facebookAppId}
+        />
       );
     }.bind(this));
 

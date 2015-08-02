@@ -51,6 +51,24 @@ var Contribution = React.createClass({
     }
   },
 
+  handleShareOnTwitterClick: function() {
+    const user = this.props.contribution.user;
+    const document = this.props.document;
+    const contribution = this.props.contribution;
+    const shareUrl = window.location + "?contribution_id=" + contribution.id;
+    const text = "Contribuição de " + user.name + " para a consulta " + document.title;
+    const url = "https://twitter.com/intent/tweet?text=" + text + "&url=" + shareUrl + "&via=brecha";
+    window.open(url, "", "width=600, height=300");
+  },
+
+  handleShareOnFacebookClick: function() {
+    const contribution = this.props.contribution;
+    const facebookAppId = this.props.facebookAppId;
+    const shareUrl = window.location + "?contribution_id=" + contribution.id;
+    const url = "https://www.facebook.com/dialog/share?display=popup&href=" + shareUrl + "&app_id=" + facebookAppId;
+    window.open(url, "", "width=600, height=300");
+  },
+
   render: function(){
     currentUserUpvote = null
     if(this.props.currentUser) {
@@ -62,7 +80,7 @@ var Contribution = React.createClass({
     var upvoteButtonText = currentUserUpvote == null ?
       "Concordar" : "Você concorda";
     var upvoteButtonClass = currentUserUpvote == null ?
-      "button button-small mt1" : "bg-darken-4 button button-small mt1";
+      "button button-small mr1" : "bg-darken-4 button button-small mr1";
     var upvoteButtonLoader = this.props.contribution.id == this.state.contributionIdUpvoting ?
       "fa fa-refresh fa-spin mr1" : "fa fa-refresh fa-spin mr1 hide";
 
@@ -120,7 +138,7 @@ var Contribution = React.createClass({
             </a>
           </div>
         </div>
-        <div className="p1 bg-darken-1">
+        <div className="p1 bg-darken-1 mb1">
           <div className={diffClass} dangerouslySetInnerHTML={{__html: this.state.bodyDiff}}></div>
           <div className={bodyClass}>{this.props.contribution.body}</div>
           <div className={justificationClass}>{this.props.contribution.justification}</div>
@@ -138,6 +156,20 @@ var Contribution = React.createClass({
             <span title="Pessoas que concordaram">{this.props.contribution.upvotes.length}</span>
           </span>
         </a>
+        <div className="right">
+          <button
+            className="button button-small bg-facebook-blue mr1"
+            onClick={this.handleShareOnFacebookClick}
+            title="Compartilhar a contribuição no Facebook">
+            <i className="fa fa-facebook" />
+          </button>
+          <button
+            className="button button-small bg-twitter-blue"
+            onClick={this.handleShareOnTwitterClick}
+            title="Compartilhar a contribuição no Twitter">
+            <i className="fa fa-twitter" />
+          </button>
+        </div>
       </div>
     );
   },
