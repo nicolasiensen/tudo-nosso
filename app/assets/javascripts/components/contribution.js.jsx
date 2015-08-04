@@ -58,7 +58,7 @@ var Contribution = React.createClass({
     const shareUrl = window.location + "?contribution_id=" + contribution.id;
     const text = "Contribuição de " + user.name + " para a consulta " + document.title;
     const url = "https://twitter.com/intent/tweet?text=" + text + "&url=" + shareUrl + "&via=doBrecha";
-    window.open(url, "", "width=600, height=300");
+    this.openPopup(600, 300, url)
   },
 
   handleShareOnFacebookClick: function() {
@@ -66,7 +66,13 @@ var Contribution = React.createClass({
     const facebookAppId = this.props.facebookAppId;
     const shareUrl = window.location + "?contribution_id=" + contribution.id;
     const url = "https://www.facebook.com/sharer/sharer.php?u=" + shareUrl;
-    window.open(url, "", "width=600, height=300");
+    this.openPopup(600, 300, url)
+  },
+
+  openPopup: function(width, height, url) {
+    const left = screen.width/2 - width/2;
+    const top = screen.height/2 - height/2;
+    window.open(url, "", "width=" + width + ", height=" + height + ", left=" + left + ", top=" + top);
   },
 
   render: function(){
