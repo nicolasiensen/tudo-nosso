@@ -3,6 +3,7 @@ class DocumentsController < ApplicationController
 
   def show
     @document = Document.find(params[:id])
+    @contribution = Contribution.find_by id: params[:contribution_id]
   end
 
   def index
