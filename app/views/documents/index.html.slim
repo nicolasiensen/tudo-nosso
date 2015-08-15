@@ -27,29 +27,30 @@
       .p1
         = link_to document, class: "black bg-white block flex flex-column box-shadow full-width", style: "text-decoration: none;" do
           h2.flex-auto.m0.p2.bg-blue.white= truncate(document.title, length: 100)
-          .p2.mb2.flex.flex-center.tb-documentCoverContent-user
-            = image_tag(document.user.thumb, width: 35, height: 35, class: "mr1 circle")
-            .normal-line-height
-              .h5.block Autor da consulta
-              .bold.block= document.user.name
-          .p2
-            .mb1
-              i.fa.fa-tag.mr1.center style="width: 15px"
-              = document.category.name
-            .mb1
-              i.fa.fa-map-marker.mr1.center style="width: 15px"
-              = document.scope_and_location
-            .mb3
-              i.fa.fa-clock-o.mr1.center style="width: 15px"
-              - if document.closed_for_contribution?
-                span Contribuições encerradas
-              - else
-                span.bold= distance_of_time_in_words_to_now document.closes_for_contribution_at
-                | &nbsp;
-                span para finalizar
-            span.bg-silver.mr2.p1.rounded.inline-block
-              i.fa.fa-file-text-o.mr1
-              = document.contributions.count
-            span.bg-silver.mr2.p1.rounded.inline-block
-              i.fa.fa-thumbs-up.mr1
-              = document.paragraph_upvotes.count
+          .center
+            .p2.mb2.tb-documentCoverContent-user
+              = image_tag(document.user.thumb, width: 35, height: 35, class: "circle")
+              .normal-line-height
+                .h5.block Autor da consulta
+                .bold.block= document.user.name
+            .p2
+              .mb1
+                i.fa.fa-tag.mr1.center style="width: 15px"
+                = document.category.name
+              .mb1
+                i.fa.fa-map-marker.mr1.center style="width: 15px"
+                = document.scope_and_location
+              .mb3
+                i.fa.fa-clock-o.mr1.center style="width: 15px"
+                - if document.closed_for_contribution?
+                  span Contribuições encerradas
+                - else
+                  span.bold= distance_of_time_in_words_to_now document.closes_for_contribution_at
+                  | &nbsp;
+                  span para finalizar
+              span.bg-silver.mr2.p1.rounded.inline-block
+                i.fa.fa-file-text-o.mr1
+                = document.contributions.count
+              span.bg-silver.mr2.p1.rounded.inline-block
+                i.fa.fa-thumbs-up.mr1
+                = document.paragraph_upvotes.count
