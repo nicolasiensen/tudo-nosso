@@ -13,7 +13,7 @@ RSpec.feature "EditADocument", type: :feature do
 
     scenario "when the form is valid" do
       fill_in "document_title", with: "My Edited Document"
-      click_button "Atualizar consulta pública"
+      click_button "Atualizar consulta popular"
 
       expect(current_path).to be_eql(document_path(@document))
       expect(page).to have_css(:h1, "My Edited Document")
@@ -21,7 +21,7 @@ RSpec.feature "EditADocument", type: :feature do
 
     scenario "when the form is not valid" do
       fill_in "document_title", with: nil
-      click_button "Atualizar consulta pública"
+      click_button "Atualizar consulta popular"
 
       expect(page).to have_css("#document_title.is-error")
     end
