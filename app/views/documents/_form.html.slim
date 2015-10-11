@@ -34,9 +34,9 @@
         small.red= @document.errors[:closes_for_contribution_at].join(" ")
 
   .mb3
-    h3 Cole abaixo o texto do edital de Cultura que deseja colocar em consulta pública
+    h3 Cole abaixo o texto do edital de Cultura que deseja colocar em consulta popular
     = f.text_area :body, class: "redactor #{@document.errors[:body].any? ? "is-error" : ""}", placeholder: "Escreva ou cole aqui o texto da sua consulta"
     - if @document.errors[:body].any?
       small.red= @document.errors[:body].join(" ")
 
-  = f.submit class: "button right", value: @document.new_record? ? "Criar consulta pública" : "Atualizar consulta pública"
+  = f.submit class: "button right", value: @document.new_record? ? "Criar consulta popular" : "Atualizar consulta popular"

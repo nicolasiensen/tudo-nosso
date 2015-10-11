@@ -17,14 +17,14 @@ html
     #fb-root
     nav.clearfix.bg-black.border-bottom.border-blue
       .container.flex.flex-center
-        .left.flex-auto.px2
+        .left.flex-auto.px1
           = link_to 'Editálogo', root_path, class: 'button button-transparent white py2'
           = link_to 'Sobre', about_path, class: 'button button-transparent white py2'
         .right.flex.flex-center
           - if can? :create, Document
             = link_to new_document_path, class: "button py2 white button-transparent regular h5" do
               i.fa.fa-plus.mr1
-              span Adicionar edital para consulta pública
+              span Adicionar edital para consulta popular
           - if current_user.present?
             .inline-block= react_component("Dropdown", currentUser: current_user)
           - else
