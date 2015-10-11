@@ -14,7 +14,6 @@
 // External dependencies
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
 //= require jsSHA
 //= require jsdiff
 //= require momentjs
