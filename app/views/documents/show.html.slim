@@ -21,7 +21,7 @@
       = link_to edit_document_path(@document), class: "button button-small h5" do
         i.fa.fa-pencil.mr1
         | Editar consulta
-  .md-flex.flex-justify.mb2.mt3
+  .md-flex.flex-justify.mt3.bg-blue.p2.mxn2
     .md-flex.flex-center.mb2.tb-documentCoverContent-user
       = image_tag(@document.user.thumb, width: 35, height: 35, class: "mr1 circle")
       .normal-line-height
@@ -29,7 +29,7 @@
         .bold.block= @document.user.name
     .md-flex.flex-center
       span.h2.md-show
-        i.fa.fa-clock-o.yellow.mr1
+        i.fa.fa-clock-o.mr1
       - if @document.closed_for_contribution?
         span Contribuições encerradas
       - else
@@ -38,15 +38,14 @@
         span para finalizar
     .md-flex.flex-center
       span.h2.md-show
-        i.fa.fa-file-text-o.yellow.mr1
+        i.fa.fa-file-text-o.mr1
       = raw t('.contributions', count: @document.contributions.count)
     .md-flex.flex-center
       span.h2.md-show
-        i.fa.fa-thumbs-up.yellow.mr1
+        i.fa.fa-thumbs-up.mr1
       = raw t('.paragraph_upvotes', count: @document.paragraph_upvotes.count)
-  .md-hide.mb3
 
-.lg-col-10.mt2.mb4.mx-auto
+.lg-col-10.mb4.mx-auto
   .bg-white.p3.box-shadow
     #document-component
     javascript:

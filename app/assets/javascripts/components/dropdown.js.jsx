@@ -13,7 +13,7 @@ var Dropdown = React.createClass({
   render: function(){
     var dropdown;
     var dropdownOverlay;
-    dropdownButtonClass = "button button-transparent flex flex-center p1"
+    dropdownButtonClass = "button button-transparent white flex flex-center p1"
     var currentUser = this.props.currentUser;
 
     if(this.state.isOpened){
@@ -24,7 +24,7 @@ var Dropdown = React.createClass({
           <a
             href="/users/edit"
             data-method='get'
-            className="button block button-transparent bg-white regular h5"
+            className="button block button-transparent bg-black white regular h5"
             onClick={this.toggle}>
             <i className="fa fa-pencil mr1"></i>
             Editar minha conta
@@ -32,7 +32,7 @@ var Dropdown = React.createClass({
           <a
             href="/users/sign_out"
             data-method='delete'
-            className="button block button-transparent bg-white red regular h5"
+            className="button block button-transparent bg-black red regular h5"
             onClick={this.toggle}>
             <i className="fa fa-sign-out mr1"></i>
             Sair
