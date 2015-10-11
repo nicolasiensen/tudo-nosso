@@ -7,6 +7,10 @@ Rails.application.routes.draw do
   }
 
   resources :documents, only: [:show, :index, :new, :create, :edit, :update]
+  get '/about', to: 'pages#about', as: 'about'
+  get '/how-it-works', to: 'pages#how_it_works', as: 'how_it_works'
+  get '/policy', to: 'pages#policy', as: 'policy'
+  get '/team', to: 'pages#team', as: 'team'
 
   namespace :api do
     namespace :v1 do
