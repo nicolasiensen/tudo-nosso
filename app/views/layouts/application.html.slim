@@ -48,3 +48,27 @@ html
         .clearfix
           .lg-col-4.md-col-5.mt3.mb4.p3.mx-auto.bg-white
             = content_for :small_box
+
+    footer.mt4.border-top.bg-white
+      .container
+        .lg-col-12.py2.px1.flex
+          .flex-auto
+            .sm-show
+              = link_to 'Como funciona?', how_it_works_path, class: "black mr2"
+              = link_to 'Termos de uso', policy_path, class: "black mr2"
+              = link_to 'Equipe', team_path, class: "black mr2"
+              = link_to 'Contato', 'mailto:contato@brecha.com.br', class: "black"
+            .sm-hide
+              .block= link_to 'Como funciona?', how_it_works_path, class: "black mr2"
+              .block= link_to 'Termos de uso', policy_path, class: "black mr2"
+              .block= link_to 'Equipe', team_path, class: "black mr2"
+              .block= link_to 'Contato', 'mailto:contato@brecha.com.br', class: "black"
+          div
+            .block.mb1
+              .fb-follow data-href="https://www.facebook.com/doBrecha" data-layout="button_count"
+                .fb-xfbml-parse-ignore
+                  blockquote cite="https://www.facebook.com/doBrecha?fref=ts"
+                    a href="https://www.facebook.com/doBrecha?fref=ts" Brecha
+            .block
+              a.twitter-follow-button href="https://twitter.com/doBrecha" data-show-screen-name="false"
+                | Follow @doBrecha
