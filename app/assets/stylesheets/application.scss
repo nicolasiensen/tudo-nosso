@@ -39,3 +39,14 @@ label {
 .box-shadow {
   box-shadow: 2px 2px 3px rgba($black, .25)
 }
+
+nav.topbar {
+  border-width: 0 0 3px 0;
+  border-style: solid;
+  -webkit-border-image:
+    -webkit-linear-gradient(left, #38dc77, #ffb14e) 100% 1;
+  -o-border-image:
+    -o-linear-gradient(left, #38dc77, #ffb14e) 100% 1;
+  -moz-border-image:
+    -moz-linear-gradient(left, #38dc77, #ffb14e) 100% 1;
+}
