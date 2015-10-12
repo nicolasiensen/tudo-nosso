@@ -10,7 +10,6 @@
 = content_for :header
   .tn-documentCoverBg
     .bg-cover.bg-bottom
-    .bg-navy
 
 .tb-documentCoverContent.lg-col-10.px2.mx-auto.white.center
   h1.regular
@@ -21,7 +20,7 @@
       = link_to edit_document_path(@document), class: "button button-small h5" do
         i.fa.fa-pencil.mr1
         | Editar consulta
-  .md-flex.flex-justify.mt3.bg-blue.p2.mxn2
+  .md-flex.flex-justify.mt3.bg-blue.p2
     .md-flex.flex-center.mb2.tb-documentCoverContent-user
       = image_tag(@document.user.thumb, width: 35, height: 35, class: "mr1 circle")
       .normal-line-height
