@@ -31,7 +31,7 @@
       .p1
         = link_to document, class: "black bg-white block flex flex-column box-shadow full-width", style: "text-decoration: none;" do
           h2.flex-auto.m0.p2.bg-blue.white= truncate(document.title, length: 100)
-          .py3.px3.tb-documentCoverContent-user
+          .py3.px3.tb-documentCoverContent-user.museo
             .md-flex.flex-center.mb2.tb-documentCoverContent-user
               = image_tag(document.user.thumb, width: 35, height: 35, class: "mr1 circle")
               .normal-line-height

@@ -1,11 +1,23 @@
 @font-face {
   font-family: MontSerrat;
   font-weight: normal;
-  src: font-url('montserrat-regular-webfont.ttf');
+  src: asset-url('montserrat-regular-webfont.ttf');
 }
 
 @font-face {
   font-family: MontSerrat;
   font-weight: bold;
-  src: font-url('montserrat-bold-webfont.ttf');
+  src: asset-url('montserrat-bold-webfont.ttf');
+}
+
+@font-face {
+  font-family: Museo;
+  font-weight: normal;
+  src: asset-url('museo-regular-webfont.ttf');
+}
+
+@font-face {
+  font-family: Museo;
+  font-weight: bold;
+  src: asset-url('museo-bold-webfont.ttf');
 }
