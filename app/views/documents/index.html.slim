@@ -2,49 +2,68 @@
   .tn-documentCoverBg
     .bg-cover.bg-bottom
 
-.clearfix.mt4.mb4
+.clearfix.mb4.mt3.px1
   .slick data-slick='{"dots": true, "arrows": false, "autoplay": true, "autoplaySpeed": 6000}'
-    .white.center.mb3
-      .mb3
-        i.fa.fa-file-text style="font-size: 6rem;"
-      .block.h1.bold Melhore qualquer edital público de Cultura
-      .block.h2.yellow Crie sua consulta popular com um simples “copiar-colar”
-    .white.center.mb3
-      .mb3
-        i.fa.fa-pencil style="font-size: 6rem;"
-      .block.h1.bold Co-crie políticas culturais com sua comunidade
-      .block.h2.yellow Reescreva parágrafos e veja versões de outros engajados
-    .white.center.mb3
-      .mb3
-        i.fa.fa-thumbs-up style="font-size: 6rem;"
-      .block.h1.bold Vote nas alterações que achar relevante
-      .block.h2.yellow Quanto mais popular a alteração, mais visível ela se torna
-    .white.center.mb3
-      .mb3
-        i.fa.fa-thumbs-up style="font-size: 6rem;"
-      .block.h1.bold Envie o novo texto aos gestores públicos
-      .block.h2.yellow A pressão por editais representativos faz bem à cultura 
+    .white.mb1
+      .flex.flex-center
+        .mr4.md-show style='flex: 1'
+          = image_tag 'step-1.png', style: 'width: 100%'
+        .block style='flex: 2'
+          .block.mb2 style='font-size: 2.8rem; line-height: 1em'
+            | Melhore qualquer
+            br.md-show
+            |  edital público de Cultura
+          .block.h2.orange style='line-height: 1em'
+            | Crie sua consulta popular
+            br.md-show
+            |  com um simples “copiar-colar”
+    .white.mb1
+      .flex.flex-center
+        .mr4.md-show style='flex: 1'
+          = image_tag 'step-2.png', style: 'width: 100%'
+        .block style='flex: 2'
+          .block.mb2 style='font-size: 2.8rem; line-height: 1em'
+            | Co-crie políticas culturais
+            br.md-show
+            |  com sua comunidade
+          .block.h2.orange style='line-height: 1em'
+            | Reescreva parágrafos e
+            br.md-show
+            |  veja versões de outros engajados
+    .white.mb1
+      .flex.flex-center
+        .mr4.md-show style='flex: 1'
+          = image_tag 'step-3.png', style: 'width: 100%'
+        .block style='flex: 2'
+          .block.mb2 style='font-size: 2.8rem; line-height: 1em'
+            | Vote nas alterações
+            br.md-show
+            |  que achar relevante
+          .block.h2.orange style='line-height: 1em'
+            | Quanto mais popular a alteração,
+            br.md-show
+            |  mais visível ela se torna
 
-.clearfix.documentList
+.clearfix.documentList style='padding-top: 2em'
   .responsive-slick data-slick='{"slidesToShow": 3, "slidesToScroll": 3}'
     - @documents.each do |document|
       .p1
         = link_to document, class: "black bg-white block flex flex-column box-shadow full-width", style: "text-decoration: none;" do
           h2.flex-auto.m0.p2.bg-blue.white= truncate(document.title, length: 100)
-          .py3.px3.tb-documentCoverContent-user.museo
+          .py2.px3.tb-documentCoverContent-user.museo
             .md-flex.flex-center.mb2.tb-documentCoverContent-user
               = image_tag(document.user.thumb, width: 35, height: 35, class: "mr1 circle")
               .normal-line-height
                 .h5.block.gray Autor da consulta
                 .bold.block= document.user.name
-            hr.mt3.mb3
+            hr.mt2.mb2
             .mb1
               i.fa.fa-tag.mr1.center style="width: 15px"
               .inline.gray= document.category.name
             .mb1
               i.fa.fa-map-marker.mr1.center style="width: 15px"
               .inline.gray= document.scope_and_location
-            .mb3
+            div
               i.fa.fa-clock-o.mr1.center style="width: 15px"
               - if document.closed_for_contribution?
                 span.gray Contribuições encerradas
@@ -52,7 +71,7 @@
                 span.bold= distance_of_time_in_words_to_now document.closes_for_contribution_at
                 | &nbsp;
                 span.gray para finalizar
-            hr.mt3.mb3
+            hr.mt2.mb2
             .center
               span.bg-silver.mr2.p1.rounded.inline-block
                 i.fa.fa-file-text-o.mr1
