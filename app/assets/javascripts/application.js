@@ -122,6 +122,30 @@ onJQueryReady = function() {
   setTimeout(function(){
     $(".flash-message").slideUp()
   }, 5000);
+
+  function openPopup(width, height, url) {
+    var left = screen.width/2 - width/2;
+    var top = screen.height/2 - height/2;
+    window.open(url, "", "width=" + width + ", height=" + height + ", left=" + left + ", top=" + top);
+  }
+
+  function handleShareOnFacebookClick(e) {
+    e.stopPropagation();
+    var shareUrl = e.target.dataset.url;
+    var url = "https://www.facebook.com/sharer/sharer.php?u=" + shareUrl;
+    openPopup(600, 300, url)
+  }
+
+  function handleShareOnTwitterClick(e) {
+    e.stopPropagation();
+    var shareUrl = e.target.dataset.url;
+    var text = e.target.dataset.text;
+    var url = "https://twitter.com/intent/tweet?text=" + text + "&url=" + shareUrl + "&via=doBrecha";
+    openPopup(600, 300, url)
+  }
+
+  $('.facebook-share-btn').click(handleShareOnFacebookClick)
+  $('.twitter-share-btn').click(handleShareOnTwitterClick)
 };
 
 $(document).ready(onJQueryReady);

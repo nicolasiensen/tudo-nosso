@@ -17,9 +17,11 @@
   .block
     - if can? :edit, @document
       | &nbsp;
-      = link_to edit_document_path(@document), class: "button button-small h5" do
+      = link_to edit_document_path(@document), class: "button button-small h5 mr1" do
         i.fa.fa-pencil.mr1
         | Editar consulta
+    button class="fa fa-facebook button button-small bg-facebook-blue mr1 facebook-share-btn" title="Compartilhar no Facebook" data={url: document_url(@document)}
+    button class="fa fa-twitter button button-small bg-twitter-blue twitter-share-btn" title="Compartilhar no Twitter" data={text: @document.title, url: document_url(@document)}
   .md-flex.flex-justify.mt3.bg-blue.p2
     .md-flex.flex-center.mb2.tb-documentCoverContent-user
       = image_tag(@document.user.thumb, width: 35, height: 35, class: "mr1 circle")
