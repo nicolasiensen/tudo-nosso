@@ -1,15 +1,16 @@
 doctype html
 html
   head
-    title=yield :meta_title
+    title=(content_for?(:meta_title) ? yield(:meta_title) : "Editálogo")
     = stylesheet_link_tag    'application', media: 'all'
     = javascript_include_tag "https://maps.googleapis.com/maps/api/js?libraries=places&language=pt-BR"
     = javascript_include_tag 'application'
     = csrf_meta_tags
+    = favicon_link_tag 'favicon.png'
     meta content="width=device-width, initial-scale=1" name="viewport"
-    meta property="og:site_name" content="Tudo Nosso"
+    meta property="og:site_name" content="Editálogo"
     meta property="og:url" content=request.url
-    meta property="og:title" content=(content_for?(:meta_title) ? yield(:meta_title) : "Tudo Nosso")
+    meta property="og:title" content=(content_for?(:meta_title) ? yield(:meta_title) : "Editálogo")
     meta property="og:description" content=(content_for?(:meta_description) ? yield(:meta_description) : "Crie ou contribua na escrita de consultas públicas para a criação de editais de cultura")
     meta property="og:image" content=(content_for?(:meta_image) ? yield(:meta_image) : "http://brecha.com.br/wp-content/themes/brecha-2014/library/images/logo-brecha.png")
 
