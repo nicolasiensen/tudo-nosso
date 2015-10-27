@@ -26,6 +26,7 @@ RSpec.feature "UpvoteAParagraph", type: :feature, js: true do
       fill_in :user_email, with: @user.email
       fill_in :user_password, with: @password
       click_button "Entrar"
+      sleep 1
     end
 
     scenario "when I've never upvoted the paragraph" do
