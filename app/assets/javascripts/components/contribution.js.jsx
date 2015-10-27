@@ -56,7 +56,7 @@ var Contribution = React.createClass({
     const document = this.props.document;
     const contribution = this.props.contribution;
     const shareUrl = window.location + "?contribution_id=" + contribution.id;
-    const text = "Contribuição de " + user.name + " para a consulta " + document.title;
+    const text = "Clique e vote na reescrita de " + user.first_name + " na consulta popular do edital " + document.title;
     const url = "https://twitter.com/intent/tweet?text=" + text + "&url=" + shareUrl + "&via=doBrecha";
     this.openPopup(600, 300, url)
   },
