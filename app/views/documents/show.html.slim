@@ -1,11 +1,9 @@
 - if @contribution.nil?
   = content_for(:meta_title) { @document.title }
   = content_for(:meta_description) { "Consulta criada por #{@document.user.first_name}" }
-  = content_for(:meta_image) { @document.user.avatar.url }
 - else
   = content_for(:meta_title) { "Clique e vote na reescrita de #{@contribution.user.first_name} na consulta popular do edital #{@document.title}" }
   = content_for(:meta_description) { @contribution.body }
-  = content_for(:meta_image) { @contribution.user.avatar.url }
 
 = content_for :header
   .tn-documentCoverBg

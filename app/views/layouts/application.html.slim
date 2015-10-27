@@ -12,7 +12,7 @@ html
     meta property="og:url" content=request.url
     meta property="og:title" content=(content_for?(:meta_title) ? yield(:meta_title) : "Editálogo")
     meta property="og:description" content=(content_for?(:meta_description) ? yield(:meta_description) : "Crie ou contribua na escrita de consultas públicas para a criação de editais de cultura")
-    meta property="og:image" content=(content_for?(:meta_image) ? yield(:meta_image) : "http://brecha.com.br/wp-content/themes/brecha-2014/library/images/logo-brecha.png")
+    meta property="og:image" content=(content_for?(:meta_image) ? yield(:meta_image) : image_url('editalogo_facebook.jpg'))
 
   body.bg-darken-1
     #fb-root
