@@ -32,7 +32,7 @@ html
             = link_to "Entrar", new_user_session_path, class: [:button, :py2, :m0, :white, "button-transparent"]
 
     - if flash.present?
-      .container.mt2.mb2
+      .container.mt2.mb2.flash-message
         .clearfix.center
           .bold.px1.white.rounded.inline-block class="#{flash[:notice].present? ? "bg-green" : "bg-red"}"
             .flex.flex-center

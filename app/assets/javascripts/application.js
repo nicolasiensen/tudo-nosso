@@ -118,6 +118,10 @@ onJQueryReady = function() {
 
   $("#document_scope").change(onDocumentScopeChange);
   onDocumentScopeChange();
+
+  setTimeout(function(){
+    $(".flash-message").slideUp()
+  }, 5000);
 };
 
 $(document).ready(onJQueryReady);
