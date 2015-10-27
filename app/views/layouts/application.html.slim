@@ -17,9 +17,9 @@ html
   body.bg-darken-1
     #fb-root
     nav.topbar.clearfix.bg-black
-      .container.flex.flex-center
-        .left.flex-auto.px1
-          = link_to 'Editálogo', root_path, class: 'button button-transparent white py2'
+      .flex.flex-center
+        .left.flex-auto
+          = link_to image_tag('editalogo-light.png', style: 'margin-top: 4px'), root_path, class: 'button button-transparent white'
           = link_to 'Sobre', about_path, class: 'button button-transparent white py2'
         .right.flex.flex-center
           - if can? :create, Document
@@ -51,11 +51,11 @@ html
           .lg-col-4.md-col-5.mt3.mb4.p3.mx-auto.bg-white
             = content_for :small_box
 
-    footer.mt4.border-top.bg-white
-      .container
+    footer.mt4.border-top.bg-white.px2
         .lg-col-12.py3.px1.flex
           .flex-auto
             .sm-show
+              = image_tag 'editalogo-dark.png', class: 'mr3 left relative', style: 'top: -13px'
               = link_to 'Como funciona?', how_it_works_path, class: "gray mr2 h5"
               = link_to 'Termos de uso', policy_path, class: "gray mr2 h5"
               = link_to 'Equipe', team_path, class: "gray mr2 h5"
