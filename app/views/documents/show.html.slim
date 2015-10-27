@@ -15,6 +15,12 @@
   h1.regular
     = @document.title
   .block
+    span.mr2
+      i.fa.fa-tag
+      |  #{@document.category.name}
+    span.mr2
+      i.fa.fa-map-marker
+      |  #{@document.scope_and_location}
     - if can? :edit, @document
       | &nbsp;
       = link_to edit_document_path(@document), class: "button button-small h5 mr1" do
